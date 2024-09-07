@@ -1,6 +1,6 @@
 import HeaderAuth from "@/components/header-auth"
 import { ThemeSwitcher } from "@/components/theme-switcher"
-import { GeistSans } from "geist/font/sans"
+import { Public_Sans } from "next/font/google"
 import { ThemeProvider } from "next-themes"
 import Link from "next/link"
 import "./globals.css"
@@ -15,13 +15,19 @@ export const metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 }
 
+const publicSans = Public_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700"],
+})
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html lang="en" className={publicSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"

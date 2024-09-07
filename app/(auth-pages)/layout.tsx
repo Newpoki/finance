@@ -1,9 +1,21 @@
-export default async function Layout({
-  children,
-}: {
+import Logo from "@/app/logo.svg"
+import { AuthHero } from "./auth-hero"
+
+type LayoutProps = {
   children: React.ReactNode
-}) {
+}
+
+export default async function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex max-w-7xl flex-col items-start gap-12">{children}</div>
+    <div className="flex w-full flex-1 flex-col xl:p-5">
+      <header className="flex w-full justify-center rounded-b-lg bg-primary px-10 py-6 xl:hidden xl:flex-row">
+        <Logo className="text-white" />
+      </header>
+
+      <div className="flex flex-1 xl:grid xl:grid-cols-[40%_60%]">
+        <AuthHero className="hidden xl:flex" />
+        <div className="my-auto flex w-full justify-center p-4">{children}</div>
+      </div>
+    </div>
   )
 }

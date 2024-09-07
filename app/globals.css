@@ -14,7 +14,7 @@
     --secondary: 30 36% 96%;
     --secondary-foreground: 252 7% 13%;
     --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
+    --muted-foreground: 23 6% 57%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 7 58% 50%;
@@ -56,11 +56,34 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+@layer components {
+  .body1 {
+    @apply text-[14px] leading-[150%] tracking-normal;
+  }
+  .body2 {
+    @apply text-xs leading-[150%] tracking-normal;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1 {
+    @apply text-[32px] font-bold leading-[120%] tracking-normal;
+  }
+  h2 {
+    @apply text-xl font-bold leading-[120%] tracking-normal;
+  }
+  h3 {
+    @apply text-[16px] font-bold leading-[150%] tracking-normal;
+  }
+  p,
+  input {
+    @apply body1;
   }
 }

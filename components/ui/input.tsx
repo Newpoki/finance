@@ -1,22 +1,30 @@
-import * as React from "react"
-
 import { cn } from "@/lib/utils"
+import { forwardRef } from "react"
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  startAdornment?: React.ReactNode
+  endAdornment?: React.ReactNode
+}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, disabled, startAdornment, endAdornment, ...props }, ref) => {
     return (
-      <input
-        type={type}
+      <div
         className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-11 w-full items-center gap-3 rounded-md border border-input px-5 py-3 focus-within:border-primary hover:border-grey-500",
           className,
+          { "cursor-not-allowed opacity-50": disabled },
         )}
-        ref={ref}
-        {...props}
-      />
+      >
+        {startAdornment}
+        <input
+          {...props}
+          className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
+          disabled={disabled}
+          ref={ref}
+        />
+        {endAdornment}
+      </div>
     )
   },
 )

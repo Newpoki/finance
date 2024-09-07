@@ -17,6 +17,10 @@ const config = {
         "2xl": "1400px",
       },
     },
+    screens: {
+      md: "768px",
+      xl: "1440px",
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -59,11 +63,20 @@ const config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        grey: {
+          500: "hsl(0, 0%, 41%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontSize: {
+        sm: [
+          "12px",
+          { fontWeight: 400, letterSpacing: "0", lineHeight: "120%" },
+        ],
       },
       keyframes: {
         "accordion-down": {

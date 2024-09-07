@@ -2,7 +2,6 @@ import { forgotPasswordAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 

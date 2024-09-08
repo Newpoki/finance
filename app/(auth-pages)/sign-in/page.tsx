@@ -9,12 +9,18 @@ export default function Login() {
 
       <SigninForm />
 
-      <p className="flex justify-center gap-2">
-        <span className="text-grey-500">Need to create an account?</span>
-        <Link href="/sign-up" className="body1 font-bold underline">
-          Sign Up
+      <div className="flex flex-col items-center gap-1">
+        <p className="flex gap-2">
+          <span className="text-grey-500">Need to create an account?</span>
+          <Link href="/sign-up" className="body1 font-bold underline">
+            Sign Up
+          </Link>
+        </p>
+
+        <Link href="/forgot-password" className="body1 font-bold underline">
+          Forgot your password ?
         </Link>
-      </p>
+      </div>
     </Paper>
   )
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { FieldPath, useForm } from "react-hook-form"
@@ -84,6 +83,7 @@ export const SignupForm = () => {
       <form
         className="flex flex-col gap-4"
         onSubmit={form.handleSubmit(onSubmit)}
+        noValidate
       >
         <FormField
           control={form.control}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { FieldPath, useForm } from "react-hook-form"
@@ -74,7 +73,7 @@ export const SigninForm = () => {
         </Alert>
       )}
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <FormField
           control={form.control}
           disabled={isSubmitting}

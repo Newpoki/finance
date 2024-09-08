@@ -1,10 +1,5 @@
 import { z } from "zod"
 
-export type SignupActionState = {
-  root?: string
-  fields?: Record<string, string>
-}
-
 export const signupFormValuesSchema = z
   .object({
     email: z.string().email(),

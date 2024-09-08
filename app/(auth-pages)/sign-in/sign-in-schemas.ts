@@ -7,9 +7,7 @@ export type SigninActionState = {
 
 export const signinFormValuesSchema = z.object({
   email: z.string().email(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
+  password: z.string(),
 })
 
 export type SigninFormValues = z.infer<typeof signinFormValuesSchema>

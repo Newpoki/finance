@@ -9,12 +9,12 @@ type GenericServerResponse = {
   message?: string
 }
 
-type SuccessServerResponse<TResponse = object> = {
+type SuccessServerResponse<TData = null> = {
   type: "success"
-  data: TResponse
+  data: TData
 }
 
-export type ServerResponse<TResponse = void> =
+export type ServerResponse<TData = null> =
   | FieldErrorServerResponse
   | GenericServerResponse
-  | SuccessServerResponse<TResponse>
+  | SuccessServerResponse<TData>

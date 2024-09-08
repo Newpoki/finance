@@ -3,13 +3,10 @@
 import { createClient } from "@/utils/supabase/server"
 import { signinFormValuesSchema } from "./sign-in-schemas"
 import { redirect } from "next/navigation"
-import { ServerResponse } from "../server-response"
-import { AuthError } from "@supabase/supabase-js"
+import { ServerResponse } from "../../server-response"
 import { transformZodErrors } from "@/utils/transform-zod-errors"
 
-export const signInAction = async (
-  data: unknown,
-): Promise<ServerResponse<AuthError>> => {
+export const signInAction = async (data: unknown): Promise<ServerResponse> => {
   const parsed = signinFormValuesSchema.safeParse(data)
 
   if (!parsed.success) {

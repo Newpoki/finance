@@ -15,19 +15,21 @@ import { Button } from "@/components/ui/button"
 import EyeSlash from "@/icons/eye-slash.svg"
 import Eye from "@/icons/eye.svg"
 import { useCallback, useState, useTransition } from "react"
-import { signInAction } from "./sign-in-actions"
-import { SigninFormValues, signinFormValuesSchema } from "./sign-in-schemas"
+import { signUpAction } from "./sign-up-actions"
+import { SignupFormValues, signupFormValuesSchema } from "./sign-up-schemas"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "sonner"
 
-export const SigninForm = () => {
+export const SignupForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
-  const form = useForm<SigninFormValues>({
-    resolver: zodResolver(signinFormValuesSchema),
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupFormValuesSchema),
     defaultValues: {
       email: "",
       password: "",
+      passwordConfirmation: "",
     },
     reValidateMode: "onChange",
   })
@@ -41,12 +43,17 @@ export const SigninForm = () => {
   }, [])
 
   const onSubmit = useCallback(
-    async (data: SigninFormValues) => {
+    async (data: SignupFormValues) => {
       startTransition(async () => {
-        const response = await signInAction(data)
+        const response = await signUpAction(data)
 
-        // Server will redirect anyway
         if (response.type === "success") {
+          toast.success(
+            "Thanks for signin up! Please check your email for a verification link.",
+          )
+
+          form.reset()
+
           return
         }
 
@@ -56,7 +63,7 @@ export const SigninForm = () => {
         }
 
         response.fields.forEach((field) => {
-          form.setError(field.path as FieldPath<SigninFormValues>, {
+          form.setError(field.path as FieldPath<SignupFormValues>, {
             message: field.message,
           })
         })
@@ -69,18 +76,21 @@ export const SigninForm = () => {
     <Form {...form}>
       {rootErrorMessage != null && (
         <Alert variant="destructive">
-          <AlertTitle>An error occured while sign-in</AlertTitle>
+          <AlertTitle>An error occured while signin up</AlertTitle>
           <AlertDescription>{rootErrorMessage}</AlertDescription>
         </Alert>
       )}
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           disabled={isSubmitting}
           name="email"
           render={({ field, fieldState }) => (
-            <FormItem className="mb-4">
+            <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="you@example.com" required />
@@ -97,7 +107,7 @@ export const SigninForm = () => {
           name="password"
           disabled={isSubmitting}
           render={({ field, fieldState }) => (
-            <FormItem className="mb-8">
+            <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
@@ -129,8 +139,26 @@ export const SigninForm = () => {
           )}
         />
 
+        <FormField
+          control={form.control}
+          name="passwordConfirmation"
+          disabled={isSubmitting}
+          render={({ field, fieldState }) => (
+            <FormItem className="mb-4">
+              <FormLabel>Confirm password</FormLabel>
+              <FormControl>
+                <Input {...field} type="password" required />
+              </FormControl>
+
+              {fieldState.error?.message && (
+                <FormMessage message={{ error: fieldState.error.message }} />
+              )}
+            </FormItem>
+          )}
+        />
+
         <Button className="w-full" disabled={isSubmitting}>
-          Login
+          Signup
         </Button>
       </form>
     </Form>

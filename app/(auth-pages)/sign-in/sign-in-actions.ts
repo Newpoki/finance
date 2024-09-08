@@ -26,5 +26,5 @@ export const signInAction = async (data: unknown): Promise<ServerResponse> => {
     return { type: "generic", message: error.message }
   }
 
-  return redirect("/protected")
+  return redirect("/app")
 }

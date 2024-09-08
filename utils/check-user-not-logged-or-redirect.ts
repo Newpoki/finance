@@ -11,6 +11,6 @@ export const checkUserNotLoggedOrRedirect = async () => {
   } = await supabase.auth.getUser()
 
   if (user) {
-    return redirect("/protected")
+    return redirect("/app")
   }
 }

@@ -5,7 +5,7 @@ import { ForgotPasswordForm } from "./forgot-password-form"
 export default function ForgotPassword() {
   return (
     <Paper className="flex w-full max-w-[560px] flex-col gap-8 px-5 py-6">
-      <h1>Reset password</h1>
+      <h1>Forgot your password ?</h1>
 
       <ForgotPasswordForm />
 

@@ -1,8 +1,11 @@
 import { Paper } from "@/components/ui/paper"
 import Link from "next/link"
 import { SignupForm } from "./sign-up-form"
+import { checkUserNotLoggedOrRedirect } from "@/utils/check-user-not-logged-or-redirect"
 
-export default function Signup() {
+export default async function Signup() {
+  await checkUserNotLoggedOrRedirect()
+
   return (
     <Paper className="flex w-full max-w-[560px] flex-col gap-8 px-5 py-6">
       <h1>Sign up</h1>

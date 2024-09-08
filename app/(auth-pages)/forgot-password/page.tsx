@@ -1,8 +1,11 @@
 import Link from "next/link"
 import { Paper } from "@/components/ui/paper"
 import { ForgotPasswordForm } from "./forgot-password-form"
+import { checkUserNotLoggedOrRedirect } from "@/utils/check-user-not-logged-or-redirect"
 
-export default function ForgotPassword() {
+export default async function ForgotPassword() {
+  await checkUserNotLoggedOrRedirect()
+
   return (
     <Paper className="flex w-full max-w-[560px] flex-col gap-8 px-5 py-6">
       <h1>Forgot your password ?</h1>

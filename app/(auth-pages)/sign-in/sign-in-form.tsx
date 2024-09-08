@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import { FieldPath, useForm } from "react-hook-form"
 import {
   Form,
   FormControl,
@@ -15,51 +14,70 @@ import { FormMessage } from "@/components/form-message"
 import { Button } from "@/components/ui/button"
 import EyeSlash from "@/icons/eye-slash.svg"
 import Eye from "@/icons/eye.svg"
-import { useCallback, useState } from "react"
-import { signInAction } from "@/app/actions"
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-})
+import { useCallback, useState, useTransition } from "react"
+import { signInAction } from "./sign-in-actions"
+import { SigninFormValues, signinFormValuesSchema } from "./sign-in-schemas"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export const SigninForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<SigninFormValues>({
+    resolver: zodResolver(signinFormValuesSchema),
     defaultValues: {
       email: "",
       password: "",
     },
+    reValidateMode: "onChange",
   })
+
+  const [isSubmitting, startTransition] = useTransition()
+
+  const rootErrorMessage = form.formState.errors.root?.message
 
   const handleTogglePasswordVisibility = useCallback(() => {
     setIsPasswordVisible((current) => !current)
   }, [])
 
-  const handleSubmit = useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      if (!form.formState.isValid) {
-        event.preventDefault()
-        await form.trigger()
-        return
-      }
+  const onSubmit = useCallback(
+    async (data: SigninFormValues) => {
+      startTransition(async () => {
+        const response = await signInAction(data)
 
-      event.currentTarget?.requestSubmit()
+        // Server will redirect anyway
+        if (response.type === "success") {
+          return
+        }
+
+        if (response.type === "generic") {
+          form.setError("root", { message: response.message })
+          return
+        }
+
+        response.fields.forEach((field) => {
+          form.setError(field.path as FieldPath<SigninFormValues>, {
+            message: field.message,
+          })
+        })
+      })
     },
     [form],
   )
 
-  console.log(form.formState.isSubmitting)
-
   return (
     <Form {...form}>
-      <form action={signInAction} onSubmit={handleSubmit}>
+      {rootErrorMessage != null && (
+        <Alert variant="destructive">
+          <AlertTitle>An error occured while sign-in</AlertTitle>
+          <AlertDescription>{rootErrorMessage}</AlertDescription>
+        </Alert>
+      )}
+
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
+          disabled={isSubmitting}
           name="email"
           render={({ field, fieldState }) => (
             <FormItem className="mb-4">
@@ -77,6 +95,7 @@ export const SigninForm = () => {
         <FormField
           control={form.control}
           name="password"
+          disabled={isSubmitting}
           render={({ field, fieldState }) => (
             <FormItem className="mb-8">
               <FormLabel>Password</FormLabel>
@@ -87,6 +106,7 @@ export const SigninForm = () => {
                   endAdornment={
                     <Button
                       variant="ghost"
+                      disabled={isSubmitting}
                       className="-m-4"
                       type="button"
                       onClick={handleTogglePasswordVisibility}
@@ -108,7 +128,9 @@ export const SigninForm = () => {
           )}
         />
 
-        <Button className="w-full">Login</Button>
+        <Button className="w-full" disabled={isSubmitting}>
+          Login
+        </Button>
       </form>
     </Form>
   )

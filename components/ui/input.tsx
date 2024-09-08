@@ -13,7 +13,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         className={cn(
           "flex h-11 w-full items-center gap-3 rounded-md border border-input px-5 py-3 focus-within:border-primary hover:border-grey-500",
           className,
-          { "cursor-not-allowed opacity-50": disabled },
+          { "opacity-50 hover:border-input": disabled },
         )}
       >
         {startAdornment}

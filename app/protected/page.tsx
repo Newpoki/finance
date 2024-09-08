@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button"
 import { checkUserLoggedOrRedirect } from "@/utils/check-user-logged-or-redirect"
 import { InfoIcon } from "lucide-react"
+import { signOutAction } from "../(auth-pages)/sign-out/sign-out-actions"
 
 export default async function ProtectedPage() {
   const user = await checkUserLoggedOrRedirect()
@@ -18,6 +20,10 @@ export default async function ProtectedPage() {
         <pre className="max-h-32 overflow-auto rounded border p-3 font-mono text-xs">
           {JSON.stringify(user, null, 2)}
         </pre>
+
+        <form>
+          <Button formAction={signOutAction}>Sign out</Button>
+        </form>
       </div>
     </div>
   )

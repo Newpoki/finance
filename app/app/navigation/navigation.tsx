@@ -54,8 +54,8 @@ export const Navigation = () => {
           <NavigationLink
             icon={<ArrowsDownUp className="h-6 w-6" />}
             isExpanded={isExpanded}
-            isActive={pathname.startsWith("/transactions")}
-            href="/app"
+            isActive={pathname.startsWith("/app/transactions")}
+            href="/app/transactions"
           >
             Transactions
           </NavigationLink>
@@ -63,8 +63,8 @@ export const Navigation = () => {
           <NavigationLink
             icon={<ChartDonut className="h-6 w-6" />}
             isExpanded={isExpanded}
-            isActive={pathname.startsWith("/budgets")}
-            href="/budgets"
+            isActive={pathname.startsWith("/app/budgets")}
+            href="/app/budgets"
           >
             Budgets
           </NavigationLink>
@@ -72,8 +72,8 @@ export const Navigation = () => {
           <NavigationLink
             icon={<JarFill className="h-6 w-6" />}
             isExpanded={isExpanded}
-            isActive={pathname.startsWith("/pots")}
-            href="/pots"
+            isActive={pathname.startsWith("/app/pots")}
+            href="/app/pots"
           >
             Pots
           </NavigationLink>
@@ -81,8 +81,8 @@ export const Navigation = () => {
           <NavigationLink
             icon={<Receipt className="h-6 w-6" />}
             isExpanded={isExpanded}
-            isActive={pathname.startsWith("/recurring-bills")}
-            href="/recurring-bills"
+            isActive={pathname.startsWith("/app/recurring-bills")}
+            href="/app/recurring-bills"
           >
             Recurring bills
           </NavigationLink>

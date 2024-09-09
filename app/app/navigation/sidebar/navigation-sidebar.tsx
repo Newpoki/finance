@@ -30,17 +30,18 @@ export const NavigationSidebar = () => {
   return (
     <section
       className={cn(
-        "flex w-[300px] flex-col rounded-r-2xl bg-primary pb-6 pr-6 pt-10 transition-all",
+        "fixed bottom-0 flex w-full flex-col rounded-t-lg bg-primary px-4 pt-2 transition-all md:px-10 xl:relative xl:w-[300px] xl:rounded-r-2xl xl:pb-6 xl:pl-0 xl:pr-6 xl:pt-10",
         {
-          "w-[88px] pr-0": !isExpanded,
+          "pr-0 xl:w-[88px]": !isExpanded,
         },
       )}
     >
-      <div className="px-8">
+      <div className="hidden px-8 xl:block">
         <LogoComponent className="mb-16 text-white" />
       </div>
+
       <nav>
-        <ul>
+        <ul className="flex justify-around xl:flex-col xl:justify-start">
           <NavigationSidebarLink
             icon={<Home className="h-6 w-6" />}
             isExpanded={isExpanded}
@@ -88,7 +89,11 @@ export const NavigationSidebar = () => {
         </ul>
       </nav>
 
-      <button className="mt-auto" type="button" onClick={handleToggleSidebar}>
+      <button
+        className="mt-auto hidden xl:block"
+        type="button"
+        onClick={handleToggleSidebar}
+      >
         <NavigationSidebarItem
           icon={
             <ArrowFatLinesLeft

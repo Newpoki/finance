@@ -18,19 +18,20 @@ export const NavigationSidebarItem = ({
   return (
     <p
       className={cn(
-        "relative flex items-center rounded-r-xl px-8 py-4 text-grey-300 hover:text-grey-100",
+        "relative flex flex-col items-center rounded-t-lg px-[22px] py-2 text-grey-300 hover:text-grey-100 md:gap-1 xl:flex-row xl:justify-start xl:rounded-l-none xl:rounded-r-xl xl:px-8 xl:py-4",
         className,
         {
-          "border-l-4 border-green-500 bg-background text-foreground hover:text-foreground":
+          "border-b-4 border-green-500 bg-background text-foreground hover:text-foreground xl:border-b-0 xl:border-l-4":
             isActive,
-          "w-[90%]": !isExpanded,
+          "xl:w-[90%]": !isExpanded,
         },
       )}
     >
       <span className={cn({ "text-green-500": isActive })}>{icon}</span>
+
       {isExpanded && (
         // Using absolute so there is no weird UI glitch when expanding/collapsing sidebar
-        <span className="header3 absolute left-[72px] whitespace-nowrap">
+        <span className="xl:header3 md:body2 hidden md:inline-block md:font-bold xl:absolute xl:left-[72px] xl:whitespace-nowrap">
           {children}
         </span>
       )}

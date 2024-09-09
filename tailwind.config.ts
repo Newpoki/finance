@@ -64,7 +64,12 @@ const config = {
           "5": "hsl(var(--chart-5))",
         },
         grey: {
+          100: "hsl(0, 0%, 95%)",
+          300: "hsl(0, 0%, 70%)",
           500: "hsl(0, 0%, 41%)",
+        },
+        green: {
+          500: "hsl(177, 52%, 32%)",
         },
       },
       borderRadius: {

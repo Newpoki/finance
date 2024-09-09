@@ -64,6 +64,9 @@
   .body2 {
     @apply text-xs leading-[150%] tracking-normal;
   }
+  .header3 {
+    @apply text-[16px] font-bold leading-[150%] tracking-normal;
+  }
 }
 
 @layer base {
@@ -80,7 +83,7 @@
     @apply text-xl font-bold leading-[120%] tracking-normal;
   }
   h3 {
-    @apply text-[16px] font-bold leading-[150%] tracking-normal;
+    @apply header3;
   }
   p,
   input {

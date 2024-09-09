@@ -3,7 +3,7 @@ import { checkUserLoggedOrRedirect } from "@/utils/check-user-logged-or-redirect
 import { InfoIcon } from "lucide-react"
 import { signOutAction } from "../(auth-pages)/sign-out/sign-out-actions"
 
-export default async function appPage() {
+export default async function AppPage() {
   const user = await checkUserLoggedOrRedirect()
 
   return (

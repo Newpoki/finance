@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-export type NavigationSidebarItemProps = {
+export type NavigationItemProps = {
   className?: string
   children: React.ReactNode
   icon: React.ReactNode
@@ -8,13 +8,13 @@ export type NavigationSidebarItemProps = {
   isActive?: boolean
 }
 
-export const NavigationSidebarItem = ({
+export const NavigationItem = ({
   className,
   children,
   icon,
   isExpanded,
   isActive = false,
-}: NavigationSidebarItemProps) => {
+}: NavigationItemProps) => {
   return (
     <p
       className={cn(
@@ -30,8 +30,8 @@ export const NavigationSidebarItem = ({
       <span className={cn({ "text-green-500": isActive })}>{icon}</span>
 
       {isExpanded && (
-        // Using absolute so there is no weird UI glitch when expanding/collapsing sidebar
-        <span className="xl:header3 md:body2 hidden md:inline-block md:font-bold xl:absolute xl:left-[72px] xl:whitespace-nowrap">
+        // Using absolute so there is no weird UI glitch when expanding/collapsing desktop navigation
+        <span className="xl:header3 md:body2 hidden md:inline-block md:font-bold xl:absolute xl:left-[72px] xl:whitespace-nowrap xl:font-normal">
           {children}
         </span>
       )}

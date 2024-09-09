@@ -2,7 +2,7 @@
 
 import Logo from "@/app/logo.svg"
 import LogoMini from "@/app/logo-mini.svg"
-import { NavigationSidebarItem } from "./navigation-sidebar-item"
+import { NavigationItem } from "./navigation-item"
 import Home from "@/icons/home.svg"
 import ArrowsDownUp from "@/icons/arrows-down-up.svg"
 import ChartDonut from "@/icons/chart-donut.svg"
@@ -12,9 +12,9 @@ import ArrowFatLinesLeft from "@/icons/arrow-fat-lines-left.svg"
 import { useCallback, useMemo, useState } from "react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
-import { NavigationSidebarLink } from "./navigation-sidebar-link"
+import { NavigationLink } from "./navigation-link"
 
-export const NavigationSidebar = () => {
+export const Navigation = () => {
   const [isExpanded, setIsExpanded] = useState(true)
 
   const pathname = usePathname()
@@ -30,7 +30,7 @@ export const NavigationSidebar = () => {
   return (
     <section
       className={cn(
-        "fixed bottom-0 flex w-full flex-col rounded-t-lg bg-primary px-4 pt-2 transition-all md:px-10 xl:relative xl:w-[300px] xl:rounded-r-2xl xl:pb-6 xl:pl-0 xl:pr-6 xl:pt-10",
+        "fixed bottom-0 flex w-full flex-col rounded-t-lg bg-primary px-4 pt-2 transition-all md:px-10 xl:relative xl:w-[300px] xl:rounded-l-none xl:rounded-r-2xl xl:pb-6 xl:pl-0 xl:pr-6 xl:pt-10",
         {
           "pr-0 xl:w-[88px]": !isExpanded,
         },
@@ -42,50 +42,50 @@ export const NavigationSidebar = () => {
 
       <nav>
         <ul className="flex justify-around xl:flex-col xl:justify-start">
-          <NavigationSidebarLink
+          <NavigationLink
             icon={<Home className="h-6 w-6" />}
             isExpanded={isExpanded}
             isActive={pathname === "/app"}
             href="/app"
           >
             Overview
-          </NavigationSidebarLink>
+          </NavigationLink>
 
-          <NavigationSidebarLink
+          <NavigationLink
             icon={<ArrowsDownUp className="h-6 w-6" />}
             isExpanded={isExpanded}
             isActive={pathname.startsWith("/transactions")}
             href="/app"
           >
             Transactions
-          </NavigationSidebarLink>
+          </NavigationLink>
 
-          <NavigationSidebarLink
+          <NavigationLink
             icon={<ChartDonut className="h-6 w-6" />}
             isExpanded={isExpanded}
             isActive={pathname.startsWith("/budgets")}
             href="/budgets"
           >
             Budgets
-          </NavigationSidebarLink>
+          </NavigationLink>
 
-          <NavigationSidebarLink
+          <NavigationLink
             icon={<JarFill className="h-6 w-6" />}
             isExpanded={isExpanded}
             isActive={pathname.startsWith("/pots")}
             href="/pots"
           >
             Pots
-          </NavigationSidebarLink>
+          </NavigationLink>
 
-          <NavigationSidebarLink
+          <NavigationLink
             icon={<Receipt className="h-6 w-6" />}
             isExpanded={isExpanded}
             isActive={pathname.startsWith("/recurring-bills")}
             href="/recurring-bills"
           >
             Recurring bills
-          </NavigationSidebarLink>
+          </NavigationLink>
         </ul>
       </nav>
 
@@ -94,7 +94,7 @@ export const NavigationSidebar = () => {
         type="button"
         onClick={handleToggleSidebar}
       >
-        <NavigationSidebarItem
+        <NavigationItem
           icon={
             <ArrowFatLinesLeft
               className={cn("h-6 w-6 transition-transform", {
@@ -105,7 +105,7 @@ export const NavigationSidebar = () => {
           isExpanded={isExpanded}
         >
           Minimize Menu
-        </NavigationSidebarItem>
+        </NavigationItem>
       </button>
     </section>
   )

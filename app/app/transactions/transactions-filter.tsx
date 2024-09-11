@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input"
 import MagnifyingGlass from "@/icons/magnifying-glass.svg"
-import Sort from "@/icons/sort.svg"
 import Filter from "@/icons/filter.svg"
+import { TransactionsFiltersSort } from "./filters/transactions-filters-sort"
 
 export const TransactionsFilter = () => {
   return (
@@ -13,7 +13,7 @@ export const TransactionsFilter = () => {
       />
 
       <div className="flex items-center gap-4">
-        <Sort />
+        <TransactionsFiltersSort />
         <Filter />
       </div>
     </div>

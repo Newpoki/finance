@@ -14,24 +14,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import Sort from "@/icons/sort.svg"
+import Filter from "@/icons/filter.svg"
 import { Fragment } from "react"
 
 const options = [
-  "Latest",
-  "Oldest",
-  "A to Z",
-  "Z to A",
-  "Highest",
-  "Lowest",
+  "Entertainement",
+  "Bills",
+  "Groceries",
+  "Dining out",
+  "Transportations",
+  "Personal Care",
 ] as const
 
-export const TransactionsFiltersSort = () => {
+export const TransactionsFiltersCategory = () => {
   return (
     <div className="flex items-center gap-2 whitespace-nowrap">
       <DropdownMenu>
         <DropdownMenuTrigger className="flex md:hidden">
-          <Sort />
+          <Filter />
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" sideOffset={24}>
@@ -47,10 +47,10 @@ export const TransactionsFiltersSort = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <p className="hidden text-grey-500 md:flex">Sort by</p>
+      <p className="hidden text-grey-500 md:flex">Category</p>
 
       <Select>
-        <SelectTrigger className="hidden w-[115px] md:flex">
+        <SelectTrigger className="hidden w-[180px] md:flex">
           <SelectValue placeholder="Latest" />
         </SelectTrigger>
 

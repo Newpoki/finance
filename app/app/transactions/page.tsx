@@ -1,5 +1,5 @@
 import { Paper } from "@/components/ui/paper"
-import { TransactionsFilter } from "./transactions-filter"
+import { TransactionsFilters } from "./filters/transactions-filters"
 
 export default function TransactionsPage() {
   return (
@@ -7,7 +7,7 @@ export default function TransactionsPage() {
       <h1>Transactions</h1>
 
       <Paper className="flex flex-1 flex-col">
-        <TransactionsFilter />
+        <TransactionsFilters />
       </Paper>
     </div>
   )

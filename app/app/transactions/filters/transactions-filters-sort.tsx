@@ -1,8 +1,11 @@
+"use client"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -15,18 +18,56 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Sort from "@/icons/sort.svg"
-import { Fragment } from "react"
+import { Fragment, useCallback, useMemo } from "react"
+import { TRANSACTIONS_SORT_OPTIONS } from "../transactions-constants"
+import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
+import { usePathname, useRouter } from "next/navigation"
 
-const options = [
-  "Latest",
-  "Oldest",
-  "A to Z",
-  "Z to A",
-  "Highest",
-  "Lowest",
-] as const
+type TransactionsFiltersSortProps = {
+  parsedSearchParams: ParsedTransactionsSearchParams
+}
 
-export const TransactionsFiltersSort = () => {
+export const TransactionsFiltersSort = ({
+  parsedSearchParams,
+}: TransactionsFiltersSortProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const selectedOption = useMemo(() => {
+    return TRANSACTIONS_SORT_OPTIONS.find(
+      (option) =>
+        option.config.column === parsedSearchParams.column &&
+        option.config.direction === parsedSearchParams.direction,
+    )
+  }, [parsedSearchParams.column, parsedSearchParams.direction])
+
+  const handleChangeSort = useCallback(
+    (id: string) => {
+      const option = TRANSACTIONS_SORT_OPTIONS.find(
+        (option) => option.id === id,
+      )
+
+      if (option == null) {
+        throw new Error(`No option was found with the id ${id}`)
+      }
+
+      const updatedSearchParams = new URLSearchParams({
+        ...parsedSearchParams,
+        column: option.config.column,
+        direction: option.config.direction,
+      })
+
+      router.push(`${pathname}?${updatedSearchParams.toString()}`)
+    },
+    [parsedSearchParams, pathname, router],
+  )
+
+  if (selectedOption == null) {
+    throw new Error(
+      `No option found with ${parsedSearchParams.column} and ${parsedSearchParams.direction}`,
+    )
+  }
+
   return (
     <div className="flex items-center gap-2 whitespace-nowrap">
       <DropdownMenu>
@@ -38,26 +79,33 @@ export const TransactionsFiltersSort = () => {
           <DropdownMenuLabel>Sort by</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
-          {options.map((option) => (
-            <Fragment key={option}>
-              <DropdownMenuItem>{option}</DropdownMenuItem>
-              <DropdownMenuSeparator className="last:hidden" />
-            </Fragment>
-          ))}
+          <DropdownMenuRadioGroup
+            value={selectedOption.id}
+            onValueChange={handleChangeSort}
+          >
+            {TRANSACTIONS_SORT_OPTIONS.map((option) => (
+              <Fragment key={option.id}>
+                <DropdownMenuRadioItem value={option.id}>
+                  {option.label}
+                </DropdownMenuRadioItem>
+                <DropdownMenuSeparator className="last:hidden" />
+              </Fragment>
+            ))}
+          </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <p className="hidden text-grey-500 md:flex">Sort by</p>
 
-      <Select>
+      <Select onValueChange={handleChangeSort} value={selectedOption.id}>
         <SelectTrigger className="hidden w-[115px] md:flex">
-          <SelectValue placeholder="Latest" />
+          <SelectValue placeholder="Latest">{selectedOption.label}</SelectValue>
         </SelectTrigger>
 
         <SelectContent sideOffset={8}>
-          {options.map((option) => (
-            <Fragment key={option}>
-              <SelectItem value={option}>{option}</SelectItem>
+          {TRANSACTIONS_SORT_OPTIONS.map((option) => (
+            <Fragment key={option.id}>
+              <SelectItem value={option.id}>{option.label}</SelectItem>
               <SelectSeparator className="last:hidden" />
             </Fragment>
           ))}

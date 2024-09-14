@@ -1,5 +1,5 @@
 import { Database } from "@/database.types"
-import { fetchTransactions } from "./fetch-transactions"
+import { fetchTransactions } from "./list/fetch-transactions"
 
 export type Transaction = Database["public"]["Tables"]["transactions"]["Row"]
 

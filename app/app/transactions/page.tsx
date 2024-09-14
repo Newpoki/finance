@@ -15,7 +15,7 @@ export default async function TransactionsPage({
       <h1>Transactions</h1>
 
       <Paper className="flex flex-1 flex-col gap-6">
-        <TransactionsFilters />
+        <TransactionsFilters searchParams={searchParams} />
 
         <TransactionsList searchParams={searchParams} />
       </Paper>

@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server"
 import {
   TRANSACTIONS_SORT_DIRECTIONS,
   TRANSACTIONS_SORT_KEYS,
-} from "./transactions-constants"
+} from "../transactions-constants"
 import { z } from "zod"
 
 type FetchTransactionsParams = {

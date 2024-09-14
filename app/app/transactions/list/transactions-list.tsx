@@ -1,4 +1,4 @@
-import { fetchTransactions } from "../fetch-transactions"
+import { fetchTransactions } from "./fetch-transactions"
 import { TransactionsPageSearchParams } from "../transactions-types"
 import { TransactionsListItem } from "./transactions-list-item"
 import { Separator } from "@/components/ui/separator"

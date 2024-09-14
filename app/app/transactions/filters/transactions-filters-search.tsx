@@ -2,32 +2,25 @@
 
 import { Input } from "@/components/ui/input"
 import MagnifyingGlass from "@/icons/magnifying-glass.svg"
-import { useCallback, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import debounce from "lodash.debounce"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
-import { usePathname, useRouter } from "next/navigation"
 
 type TransactionsFiltersSearchProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
+  onFiltersChange: (newFilters: Partial<ParsedTransactionsSearchParams>) => void
 }
 
 export const TransactionsFiltersSearch = ({
   parsedSearchParams,
+  onFiltersChange,
 }: TransactionsFiltersSearchProps) => {
-  const pathname = usePathname()
-  const router = useRouter()
-
   const debouncedOnChange = useMemo(
     () =>
       debounce((value: string) => {
-        const updatedSearchParams = new URLSearchParams({
-          ...parsedSearchParams,
-          search: value,
-        })
-
-        router.push(`${pathname}?${updatedSearchParams.toString()}`)
+        onFiltersChange({ search: value })
       }, 350),
-    [parsedSearchParams, pathname, router],
+    [onFiltersChange],
   )
 
   const handleChange = useCallback(
@@ -36,6 +29,12 @@ export const TransactionsFiltersSearch = ({
     },
     [debouncedOnChange],
   )
+
+  useEffect(() => {
+    return () => {
+      debouncedOnChange.cancel()
+    }
+  }, [debouncedOnChange])
 
   return (
     <Input

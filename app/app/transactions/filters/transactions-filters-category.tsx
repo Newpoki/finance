@@ -20,19 +20,17 @@ import {
 import Filter from "@/icons/filter.svg"
 import { Fragment, useCallback, useMemo } from "react"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
-import { usePathname, useRouter } from "next/navigation"
 import { TRANSACTIONS_CATEGORY_OPTIONS } from "../transactions-constants"
 
 type TransactionsFiltersCategoryProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
+  onFiltersChange: (newFilters: Partial<ParsedTransactionsSearchParams>) => void
 }
 
 export const TransactionsFiltersCategory = ({
   parsedSearchParams,
+  onFiltersChange,
 }: TransactionsFiltersCategoryProps) => {
-  const router = useRouter()
-  const pathname = usePathname()
-
   const selectedOption = useMemo(() => {
     return TRANSACTIONS_CATEGORY_OPTIONS.find(
       (option) => option.value === parsedSearchParams.category,
@@ -49,14 +47,9 @@ export const TransactionsFiltersCategory = ({
         throw new Error(`No option was found with the value ${value}`)
       }
 
-      const updatedSearchParams = new URLSearchParams({
-        ...parsedSearchParams,
-        category: option.value,
-      })
-
-      router.push(`${pathname}?${updatedSearchParams.toString()}`)
+      onFiltersChange({ category: option.value })
     },
-    [parsedSearchParams, pathname, router],
+    [onFiltersChange],
   )
 
   if (selectedOption == null) {

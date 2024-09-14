@@ -21,18 +21,16 @@ import Sort from "@/icons/sort.svg"
 import { Fragment, useCallback, useMemo } from "react"
 import { TRANSACTIONS_SORT_OPTIONS } from "../transactions-constants"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
-import { usePathname, useRouter } from "next/navigation"
 
 type TransactionsFiltersSortProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
+  onFiltersChange: (newFilters: Partial<ParsedTransactionsSearchParams>) => void
 }
 
 export const TransactionsFiltersSort = ({
   parsedSearchParams,
+  onFiltersChange,
 }: TransactionsFiltersSortProps) => {
-  const router = useRouter()
-  const pathname = usePathname()
-
   const selectedOption = useMemo(() => {
     return TRANSACTIONS_SORT_OPTIONS.find(
       (option) =>
@@ -51,15 +49,12 @@ export const TransactionsFiltersSort = ({
         throw new Error(`No option was found with the id ${id}`)
       }
 
-      const updatedSearchParams = new URLSearchParams({
-        ...parsedSearchParams,
+      onFiltersChange({
         column: option.config.column,
         direction: option.config.direction,
       })
-
-      router.push(`${pathname}?${updatedSearchParams.toString()}`)
     },
-    [parsedSearchParams, pathname, router],
+    [onFiltersChange],
   )
 
   if (selectedOption == null) {

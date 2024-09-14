@@ -12,9 +12,9 @@ export const TransactionsList = async ({
 }: TransactionsListProps) => {
   const transactions = await fetchTransactions({ searchParams })
 
-  //   TODO: Use real skeleton
+  //   TODO: Use real error screen
   if (transactions == null) {
-    return <div>loader</div>
+    return <div>oh snap</div>
   }
 
   return (

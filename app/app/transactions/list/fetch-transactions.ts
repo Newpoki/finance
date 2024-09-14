@@ -16,7 +16,7 @@ export const fetchTransactions = async ({
 }: FetchTransactionsParams) => {
   const supabase = createClient()
 
-  const { column, direction, category } =
+  const { column, direction, category, search } =
     parseTransactionsSearchParams(searchParams)
 
   let query = supabase
@@ -27,6 +27,10 @@ export const fetchTransactions = async ({
   // if the category is something else
   if (category !== TRANSACTIONS_CATEGORY_KEYS.ALL) {
     query = query.eq("category", category)
+  }
+
+  if (search != null && search !== "") {
+    query = query.ilike("name", `%${search}%`)
   }
 
   const transactions = await query.order(column, {

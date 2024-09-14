@@ -37,6 +37,7 @@ const transactionsSearchParamsSchema = z.object({
   category: z
     .enum(allowedValues.category)
     .catch(TRANSACTIONS_CATEGORY_KEYS.ALL),
+  search: z.string().optional(),
 })
 
 export const parseTransactionsSearchParams = (

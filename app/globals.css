@@ -58,6 +58,16 @@
 }
 
 @layer components {
+  /* Should ONLY be used by the navigation component */
+  .navigation-bar {
+    @apply fixed bottom-0 z-50 flex w-full flex-col rounded-t-lg bg-primary px-4 pt-2 transition-all md:px-10 xl:left-0 xl:top-0 xl:w-[300px] xl:rounded-l-none xl:rounded-r-2xl xl:pb-6 xl:pl-0 xl:pr-6 xl:pt-10;
+  }
+
+  /* Should ONLY be used by the navigation component */
+  .navigation-bar-collapsed {
+    @apply xl:w-[88px] xl:pr-0;
+  }
+
   .body1 {
     @apply text-[14px] leading-[150%] tracking-normal;
   }

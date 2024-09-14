@@ -58,7 +58,11 @@ export const Navigation = () => {
       data-expanded={DEFAULT_IS_EXPANDED}
       ref={navigationRef}
     >
-      <div className="hidden px-8 xl:block">
+      <div
+        className={cn("hidden justify-center px-8 xl:flex", {
+          "justify-start": isExpanded,
+        })}
+      >
         <LogoComponent className="mb-16 text-white" />
       </div>
 

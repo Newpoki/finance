@@ -9,6 +9,18 @@ export const TRANSACTIONS_SORT_KEYS = {
   DATE: "date",
 } as const
 
+export const TRANSACTIONS_CATEGORY_KEYS = {
+  ALL: "all",
+  GENERAL: "general",
+  ENTERTAINMENT: "entertainment",
+  BILLS: "bills",
+  GROCERIES: "groceries",
+  DINING_OUT: "dining_out",
+  TRANSPORTATION: "transportation",
+  PERSONAL_CARE: "personal_care",
+  LIFESTYLE: "lifestyle",
+} as const
+
 export const TRANSACTIONS_SORT_OPTIONS = [
   {
     label: "Latest",
@@ -58,4 +70,19 @@ export const TRANSACTIONS_SORT_OPTIONS = [
       direction: TRANSACTIONS_SORT_DIRECTIONS.ASC,
     },
   },
+] as const
+
+export const TRANSACTIONS_CATEGORY_OPTIONS = [
+  { label: "All Transactions", value: TRANSACTIONS_CATEGORY_KEYS.ALL },
+  { label: "General", value: TRANSACTIONS_CATEGORY_KEYS.GENERAL },
+  { label: "Groceries", value: TRANSACTIONS_CATEGORY_KEYS.GROCERIES },
+  { label: "Bills", value: TRANSACTIONS_CATEGORY_KEYS.BILLS },
+  {
+    label: "Transportations",
+    value: TRANSACTIONS_CATEGORY_KEYS.TRANSPORTATION,
+  },
+  { label: "Entertainment", value: TRANSACTIONS_CATEGORY_KEYS.ENTERTAINMENT },
+  { label: "Dining out", value: TRANSACTIONS_CATEGORY_KEYS.DINING_OUT },
+  { label: "Personal Care", value: TRANSACTIONS_CATEGORY_KEYS.PERSONAL_CARE },
+  { label: "Lifestyle", value: TRANSACTIONS_CATEGORY_KEYS.LIFESTYLE },
 ] as const

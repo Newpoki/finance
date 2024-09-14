@@ -1,7 +1,10 @@
 "use server"
 
 import { createClient } from "@/utils/supabase/server"
-import { TRANSACTIONS_SORT_DIRECTIONS } from "../transactions-constants"
+import {
+  TRANSACTIONS_CATEGORY_KEYS,
+  TRANSACTIONS_SORT_DIRECTIONS,
+} from "../transactions-constants"
 import { parseTransactionsSearchParams } from "../parse-transactions-search-params"
 
 type FetchTransactionsParams = {
@@ -13,14 +16,22 @@ export const fetchTransactions = async ({
 }: FetchTransactionsParams) => {
   const supabase = createClient()
 
-  const { column, direction } = parseTransactionsSearchParams(searchParams)
+  const { column, direction, category } =
+    parseTransactionsSearchParams(searchParams)
 
-  const transactions = await supabase
+  let query = supabase
     .from("transactions")
     .select("id,created_at,amount_cents,category,name,date")
-    .order(column, {
-      ascending: direction === TRANSACTIONS_SORT_DIRECTIONS.ASC,
-    })
+
+  // As there is no ALL category in DB, we only filter by category
+  // if the category is something else
+  if (category !== TRANSACTIONS_CATEGORY_KEYS.ALL) {
+    query = query.eq("category", category)
+  }
+
+  const transactions = await query.order(column, {
+    ascending: direction === TRANSACTIONS_SORT_DIRECTIONS.ASC,
+  })
 
   return transactions.data
 }

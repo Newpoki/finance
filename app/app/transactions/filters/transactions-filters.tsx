@@ -25,7 +25,7 @@ export const TransactionsFilters = ({
 
       <div className="flex items-center gap-6">
         <TransactionsFiltersSort parsedSearchParams={parsedSearchParams} />
-        <TransactionsFiltersCategory />
+        <TransactionsFiltersCategory parsedSearchParams={parsedSearchParams} />
       </div>
     </div>
   )

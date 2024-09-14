@@ -1,6 +1,7 @@
 import { formatCents } from "@/utils/currency/format-cents"
 import { TransactionListItem } from "../transactions-types"
 import { formatDate } from "@/utils/date/format-date"
+import { cn } from "@/lib/utils"
 
 type TransactionsListItemProps = {
   transaction: TransactionListItem
@@ -21,7 +22,11 @@ export const TransactionsListItem = ({
       </div>
 
       <p className="flex flex-col gap-1 text-right">
-        <span className="body1 font-bold">
+        <span
+          className={cn("body1 font-bold", {
+            "text-green-500": transaction.amount_cents > 0,
+          })}
+        >
           {formatCents(transaction.amount_cents)}
         </span>
         <span className="body2 text-grey-500">

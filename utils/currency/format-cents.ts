@@ -11,5 +11,6 @@ export const formatCents = (
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currency,
+    signDisplay: "exceptZero",
   }).format(amount)
 }

@@ -2,7 +2,7 @@
 export const formatCents = (
   cents: number,
   locale = "fr-FR",
-  currency = "EUR",
+  currencyCode = "EUR",
 ) => {
   // Convert cents to the main currency unit
   const amount = cents / 100
@@ -10,7 +10,7 @@ export const formatCents = (
   // Format the amount as currency
   return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: currency,
+    currency: currencyCode,
     signDisplay: "exceptZero",
   }).format(amount)
 }

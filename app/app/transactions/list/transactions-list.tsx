@@ -28,7 +28,7 @@ export const TransactionsList = async ({
             <li key={transaction.id} className="group flex flex-col">
               <TransactionsListItem transaction={transaction} />
 
-              <Separator className="my-4 group-last:hidden" />
+              <Separator className="group-last:hidden" />
             </li>
           )
         })}

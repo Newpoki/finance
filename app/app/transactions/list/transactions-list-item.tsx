@@ -11,7 +11,7 @@ export const TransactionsListItem = ({
   transaction,
 }: TransactionsListItemProps) => {
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-4 py-4 transition-colors hover:bg-background md:px-4">
       <div className="flex items-center gap-3">
         <div className="h-8 w-8 rounded-full bg-destructive" />
 

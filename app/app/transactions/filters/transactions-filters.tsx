@@ -2,32 +2,28 @@
 
 import { TransactionsFiltersSort } from "./transactions-filters-sort"
 import { TransactionsFiltersCategory } from "./transactions-filters-category"
-import { TransactionsPageSearchParams } from "../transactions-types"
-import {
-  ParsedTransactionsSearchParams,
-  parseTransactionsSearchParams,
-} from "../parse-transactions-search-params"
+import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
 import { TransactionsFiltersSearch } from "./transactions-filters-search"
 import { usePathname, useRouter } from "next/navigation"
 import { useCallback } from "react"
 
 type TransactionsFiltersProps = {
-  searchParams: TransactionsPageSearchParams
+  parsedSearchParams: ParsedTransactionsSearchParams
 }
 
 export const TransactionsFilters = ({
-  searchParams,
+  parsedSearchParams,
 }: TransactionsFiltersProps) => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const parsedSearchParams = parseTransactionsSearchParams(searchParams)
-
   const handleFiltersChange = useCallback(
     (newFilters: Partial<ParsedTransactionsSearchParams>) => {
+      // @ts-expect-error error due to search being undefined and page being number
       const updatedSearchParams = new URLSearchParams({
         ...parsedSearchParams,
         ...newFilters,
+        page: 0,
       })
 
       // Don't want an empty search parameter in the url

@@ -6,8 +6,3 @@ export type Transaction = Database["public"]["Tables"]["transactions"]["Row"]
 export type TransactionListItem = NonNullable<
   Awaited<ReturnType<typeof fetchTransactions>>
 >[number]
-
-export type TransactionsPageSearchParams = {
-  column?: string
-  direction?: string
-}

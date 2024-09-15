@@ -1,17 +1,19 @@
 import { fetchTransactions } from "./fetch-transactions"
-import { TransactionsPageSearchParams } from "../transactions-types"
 import { TransactionsListItem } from "./transactions-list-item"
 import { Separator } from "@/components/ui/separator"
-import { TransactionsListPagination } from "./transactions-list-pagination"
+import { TransactionsListPagination } from "./pagination/transactions-list-pagination"
+import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
 
 type TransactionsListProps = {
-  searchParams: TransactionsPageSearchParams
+  parsedSearchParams: ParsedTransactionsSearchParams
 }
 
 export const TransactionsList = async ({
-  searchParams,
+  parsedSearchParams,
 }: TransactionsListProps) => {
-  const transactions = await fetchTransactions({ searchParams })
+  const { transactions, totalPages } = await fetchTransactions({
+    searchParams: parsedSearchParams,
+  })
 
   //   TODO: Use real error screen
   if (transactions == null) {
@@ -32,7 +34,12 @@ export const TransactionsList = async ({
         })}
       </ul>
 
-      <TransactionsListPagination />
+      {totalPages > 1 && (
+        <TransactionsListPagination
+          parsedSearchParams={parsedSearchParams}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   )
 }

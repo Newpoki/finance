@@ -4,7 +4,6 @@ import {
   TRANSACTIONS_SORT_DIRECTIONS,
   TRANSACTIONS_SORT_KEYS,
 } from "./transactions-constants"
-import { TransactionsPageSearchParams } from "./transactions-types"
 
 const allowedValues = {
   columns: [
@@ -38,11 +37,10 @@ const transactionsSearchParamsSchema = z.object({
     .enum(allowedValues.category)
     .catch(TRANSACTIONS_CATEGORY_KEYS.ALL),
   search: z.string().optional(),
+  page: z.coerce.number().catch(0),
 })
 
-export const parseTransactionsSearchParams = (
-  searchParams: TransactionsPageSearchParams,
-) => {
+export const parseTransactionsSearchParams = (searchParams: unknown) => {
   const result = transactionsSearchParamsSchema.parse(searchParams)
 
   return result

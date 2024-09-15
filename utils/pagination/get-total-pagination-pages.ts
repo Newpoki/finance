@@ -8,7 +8,10 @@ export const getTotalPaginationPages = async ({
   count,
   itemPerPage,
 }: GetTotalPaginationPagesParamas) => {
-  const totalPages = Math.floor(count / itemPerPage)
+  const totalPages = count / itemPerPage
+  const flooredTotalPages = Math.floor(count / itemPerPage)
 
-  return totalPages
+  return totalPages === flooredTotalPages
+    ? flooredTotalPages
+    : flooredTotalPages + 1
 }

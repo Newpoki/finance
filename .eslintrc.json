@@ -4,7 +4,8 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/switch-exhaustiveness-check": "error",
-    "@typescript-eslint/no-unnecessary-condition": "error"
+    "@typescript-eslint/no-unnecessary-condition": "error",
+    "react-hooks/exhaustive-deps": "error"
   },
   "overrides": [
     {

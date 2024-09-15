@@ -54,7 +54,7 @@ export const usePagination = ({
 
   if (totalPagesCount <= visibleItems) {
     // If we have space for all pages, add them all
-    addPageNumbers(1, totalPagesCount)
+    addPageNumbers(1, totalPagesCount - 1)
   } else {
     if (currentPage <= 3) {
       // Near the start

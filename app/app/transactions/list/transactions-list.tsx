@@ -22,7 +22,7 @@ export const TransactionsList = async ({
     return <div>oh snap</div>
   }
 
-  if (totalCount !== 0) {
+  if (totalCount === 0) {
     return <TransactionsListEmpty />
   }
 

@@ -22,17 +22,19 @@ export const fetchTransactions = async ({
 
   const { column, direction, category, search, page } = searchParams
 
-  const { count } = await supabase
+  const { count: totalCount } = await supabase
     .from("transactions")
     .select("*", { count: "exact" })
 
-  if (count == null) {
-    throw new Error("Requested rangeTo is greater than count")
+  if (totalCount == null) {
+    throw new Error(
+      "An error occured while trying to get the total transactions count",
+    )
   }
 
   let query = supabase
     .from("transactions")
-    .select("id,created_at,amount_cents,category,name,date")
+    .select("id,created_at,amount_cents,category,name,date", { count: "exact" })
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else
@@ -42,6 +44,17 @@ export const fetchTransactions = async ({
 
   if (search != null && search !== "") {
     query = query.ilike("name", `%${search}%`)
+  }
+
+  // Fetching a first time to get the count of the filtered elements
+  // To get the number of transactions that matches the filters
+  // ⚠️ there might be a better way for this, but I didn't find out anything relevant
+  const { count } = await query
+
+  if (count == null) {
+    throw new Error(
+      "An error occured while trying to get the filtered transactions count",
+    )
   }
 
   const { rangeFrom, rangeTo } = await getPaginationRange({
@@ -61,5 +74,5 @@ export const fetchTransactions = async ({
     itemPerPage: ITEM_PER_PAGE,
   })
 
-  return { transactions: transactions.data, totalPages, totalCount: count }
+  return { transactions: transactions.data, totalPages, totalCount }
 }

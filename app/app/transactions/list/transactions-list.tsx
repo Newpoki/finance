@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator"
 import { TransactionsListPagination } from "./pagination/transactions-list-pagination"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
 import { TransactionsListNoResults } from "./transactions-list-no-results"
+import { TransactionsListEmpty } from "./transactions-list-empty"
 
 type TransactionsListProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
@@ -12,13 +13,17 @@ type TransactionsListProps = {
 export const TransactionsList = async ({
   parsedSearchParams,
 }: TransactionsListProps) => {
-  const { transactions, totalPages } = await fetchTransactions({
+  const { transactions, totalPages, totalCount } = await fetchTransactions({
     searchParams: parsedSearchParams,
   })
 
   //   TODO: Use real error screen
   if (transactions == null) {
     return <div>oh snap</div>
+  }
+
+  if (totalCount !== 0) {
+    return <TransactionsListEmpty />
   }
 
   if (transactions.length === 0) {

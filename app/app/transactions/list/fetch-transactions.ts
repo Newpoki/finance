@@ -13,7 +13,7 @@ type FetchTransactionsParams = {
   searchParams: ParsedTransactionsSearchParams
 }
 
-const ITEM_PER_PAGE = 10 as const
+const ITEM_PER_PAGE = 1 as const
 
 export const fetchTransactions = async ({
   searchParams,
@@ -61,5 +61,5 @@ export const fetchTransactions = async ({
     itemPerPage: ITEM_PER_PAGE,
   })
 
-  return { transactions: transactions.data, totalPages }
+  return { transactions: transactions.data, totalPages, totalCount: count }
 }

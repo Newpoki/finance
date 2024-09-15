@@ -1,9 +1,4 @@
 import * as React from "react"
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons"
 import CarretLeft from "@/icons/carret-left.svg"
 
 import { cn } from "@/lib/utils"
@@ -72,7 +67,7 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("group h-10 gap-4 px-4", className)}
+    className={cn("group h-10 w-10 gap-4 px-3 md:w-auto", className)}
     {...props}
   >
     <CarretLeft className="text-grey-500 group-hover:text-inherit" />
@@ -88,7 +83,7 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("group h-10 gap-4 px-4", className)}
+    className={cn("group h-10 w-10 gap-4 px-3 md:w-auto", className)}
     {...props}
   >
     <span className="hidden md:flex">Next</span>
@@ -103,7 +98,6 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<"span">) => (
   <span
     aria-hidden
-    // className={cn("flex h-9 w-9 items-center justify-center", className)}
     className={cn(
       buttonVariants({ size: "icon", variant: "outlined" }),
       "font-normal hover:bg-white hover:text-inherit",
@@ -111,7 +105,7 @@ const PaginationEllipsis = ({
     )}
     {...props}
   >
-    <DotsHorizontalIcon className="h-4 w-4" />
+    <span>...</span>
     <span className="sr-only">More pages</span>
   </span>
 )

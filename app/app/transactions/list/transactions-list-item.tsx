@@ -10,8 +10,11 @@ type TransactionsListItemProps = {
 export const TransactionsListItem = ({
   transaction,
 }: TransactionsListItemProps) => {
+  // TODO: Handle display on xl screens
   return (
-    <div className="flex items-center justify-between gap-4 py-4 transition-colors hover:bg-background md:px-4">
+    // Removing some margin bottom on the last item, so that we can keep padding
+    // for a smooth hover effect while not adding extra space at the bottom of the page
+    <div className="flex items-center justify-between gap-4 py-4 transition-colors hover:bg-background group-last-of-type:-mb-4 md:px-4">
       <div className="flex items-center gap-3">
         <div className="h-8 w-8 rounded-full bg-destructive" />
 

@@ -15,9 +15,12 @@ const buttonVariants = cva(
         ghost: "bg-transparent text-grey-500 hover:text-primary",
         error:
           "bg-destructive text-destructive-foreground hover:text-white/80 hover:bg-destructive/80",
+        outlined:
+          "bg-white border-border border rounded-lg hover:bg-muted-foreground hover:text-white",
       },
       size: {
         default: "h-[54px] p-4 body1",
+        icon: "h-10 w-10 body1",
       },
     },
     defaultVariants: {

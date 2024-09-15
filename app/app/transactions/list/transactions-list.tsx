@@ -3,6 +3,7 @@ import { TransactionsListItem } from "./transactions-list-item"
 import { Separator } from "@/components/ui/separator"
 import { TransactionsListPagination } from "./pagination/transactions-list-pagination"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
+import { TransactionsListNoResults } from "./transactions-list-no-results"
 
 type TransactionsListProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
@@ -18,6 +19,10 @@ export const TransactionsList = async ({
   //   TODO: Use real error screen
   if (transactions == null) {
     return <div>oh snap</div>
+  }
+
+  if (transactions.length === 0) {
+    return <TransactionsListNoResults />
   }
 
   return (

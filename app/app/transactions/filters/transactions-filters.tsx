@@ -19,11 +19,10 @@ export const TransactionsFilters = ({
 
   const handleFiltersChange = useCallback(
     (newFilters: Partial<ParsedTransactionsSearchParams>) => {
-      // @ts-expect-error error due to search being undefined and page being number
       const updatedSearchParams = new URLSearchParams({
         ...parsedSearchParams,
         ...newFilters,
-        page: 0,
+        page: "0",
       })
 
       // Don't want an empty search parameter in the url

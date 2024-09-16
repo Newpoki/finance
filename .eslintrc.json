@@ -2,17 +2,12 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
   "rules": {
     "@typescript-eslint/switch-exhaustiveness-check": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "react-hooks/exhaustive-deps": "error"
-  },
-  "overrides": [
-    {
-      "files": [".*ts", "*.tsx"],
-      "parserOptions": {
-        "project": ["./tsconfig.json"]
-      }
-    }
-  ]
+  }
 }

@@ -30,6 +30,7 @@ export const TransactionsFilters = ({
         updatedSearchParams.delete("search")
       }
 
+      router.refresh()
       router.push(`${pathname}?${updatedSearchParams.toString()}`)
     },
     [parsedSearchParams, pathname, router],

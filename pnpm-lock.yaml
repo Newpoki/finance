@@ -53,6 +53,9 @@ importers:
       lodash.debounce:
         specifier: ^4.0.8
         version: 4.0.8
+      lodash.range:
+        specifier: ^3.2.0
+        version: 3.2.0
       lucide-react:
         specifier: ^0.436.0
         version: 0.436.0(react@18.2.0)
@@ -90,6 +93,9 @@ importers:
       '@types/lodash.debounce':
         specifier: ^4.0.9
         version: 4.0.9
+      '@types/lodash.range':
+        specifier: ^3.2.9
+        version: 3.2.9
       '@types/node':
         specifier: 20.10.6
         version: 20.10.6
@@ -1670,6 +1676,9 @@ packages:
   '@types/lodash.debounce@4.0.9':
     resolution: {integrity: sha512-Ma5JcgTREwpLRwMM+XwBR7DaWe96nC38uCBDFKZWbNKD+osjVzdpnUSwBcqCptrp16sSOLBAUb50Car5I0TCsQ==}
 
+  '@types/lodash.range@3.2.9':
+    resolution: {integrity: sha512-JNStPShiaR3ROKIAgtzChBhouPBCJxMI/Fj7Xa1cG51A2EMRyosvtL4fiGXOFiQddaxjZmNVYkZGsDRt8fFKPg==}
+
   '@types/lodash@4.17.7':
     resolution: {integrity: sha512-8wTvZawATi/lsmNu10/j2hk1KEP0IvjubqPE3cu1Xz7xfXXt5oCq3SNUz4fMIP4XGF9Ky+Ue2tBA3hcS7LSBlA==}
 
@@ -2869,6 +2878,9 @@ packages:
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+
+  lodash.range@3.2.0:
+    resolution: {integrity: sha512-Fgkb7SinmuzqgIhNhAElo0BL/R1rHCnhwSZf78omqSwvWqD0kD2ssOAutQonDKH/ldS8BxA72ORYI09qAY9CYg==}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -5511,6 +5523,10 @@ snapshots:
     dependencies:
       '@types/lodash': 4.17.7
 
+  '@types/lodash.range@3.2.9':
+    dependencies:
+      '@types/lodash': 4.17.7
+
   '@types/lodash@4.17.7': {}
 
   '@types/node@20.10.6':
@@ -7005,6 +7021,8 @@ snapshots:
   lodash.debounce@4.0.8: {}
 
   lodash.merge@4.6.2: {}
+
+  lodash.range@3.2.0: {}
 
   loose-envify@1.4.0:
     dependencies:

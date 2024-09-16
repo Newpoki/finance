@@ -1,4 +1,4 @@
-import NoResultsIllustration from "@/public/no-results-illustration.svg"
+import NoResultsIllustration from "@/public/illustrations/no-results-illustration.svg"
 
 export const TransactionsListNoResults = () => {
   return (

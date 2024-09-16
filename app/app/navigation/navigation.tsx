@@ -1,7 +1,7 @@
 "use client"
 
-import Logo from "@/app/logo.svg"
-import LogoMini from "@/app/logo-mini.svg"
+import Logo from "@/public/logo/logo.svg"
+import LogoMini from "@/public/logo/logo-mini.svg"
 import { NavigationItem } from "./navigation-item"
 import Home from "@/icons/home.svg"
 import ArrowsDownUp from "@/icons/arrows-down-up.svg"

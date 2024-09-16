@@ -93,6 +93,7 @@ export type Database = {
         | "lifestyle"
         | "personal_care"
         | "education"
+        | "bills"
     }
     CompositeTypes: {
       [_ in never]: never

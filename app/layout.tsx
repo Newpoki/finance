@@ -19,11 +19,11 @@ const publicSans = Public_Sans({
   weight: ["400", "700"],
 })
 
-export default function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={publicSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">

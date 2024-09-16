@@ -1,13 +1,21 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"],
+  "root": true,
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "parserOptions": {
-    "project": ["./tsconfig.json"]
+    "project": true
   },
   "rules": {
     "@typescript-eslint/switch-exhaustiveness-check": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
-    "react-hooks/exhaustive-deps": "error"
+    "react-hooks/exhaustive-deps": "error",
+    // This rules is not compatible yet with server actions
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }

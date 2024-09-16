@@ -35,7 +35,7 @@ export const ForgotPasswordForm = () => {
   const rootErrorMessage = form.formState.errors.root?.message
 
   const onSubmit = useCallback(
-    async (data: ForgotPasswordFormValues) => {
+    (data: ForgotPasswordFormValues) => {
       startTransition(async () => {
         const response = await forgotPasswordAction(data)
 

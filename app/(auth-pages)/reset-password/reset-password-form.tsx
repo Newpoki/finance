@@ -46,7 +46,7 @@ export const ResetPasswordForm = () => {
   }, [])
 
   const onSubmit = useCallback(
-    async (data: ResetPasswordFormValues) => {
+    (data: ResetPasswordFormValues) => {
       startTransition(async () => {
         const response = await resetPasswordAction(data)
 

@@ -5,7 +5,7 @@ type LayoutProps = {
   children: React.ReactNode
 }
 
-export default async function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex w-full flex-1 flex-col xl:p-5">
       <header className="flex w-full justify-center rounded-b-lg bg-primary px-10 py-6 xl:hidden xl:flex-row">

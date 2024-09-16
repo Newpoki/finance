@@ -9,7 +9,7 @@ type TransactionPageProps = {
   searchParams: unknown
 }
 
-export default async function TransactionsPage({
+export default function TransactionsPage({
   searchParams,
 }: TransactionPageProps) {
   const parsedSearchParams = parseTransactionsSearchParams(searchParams)

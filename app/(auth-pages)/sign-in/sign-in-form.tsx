@@ -40,7 +40,7 @@ export const SigninForm = () => {
   }, [])
 
   const onSubmit = useCallback(
-    async (data: SigninFormValues) => {
+    (data: SigninFormValues) => {
       startTransition(async () => {
         const response = await signInAction(data)
 

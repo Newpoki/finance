@@ -3,8 +3,7 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-type-checked"
+    "plugin:@typescript-eslint/strict-type-checked"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
@@ -23,6 +22,8 @@
         // Otherwise, there is errors in database.types.ts
         "varsIgnorePattern": "^_"
       }
-    ]
+    ],
+    // Otherwise file with "use server" can't have async
+    "@typescript-eslint/require-await": "off"
   }
 }

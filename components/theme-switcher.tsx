@@ -9,12 +9,19 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Laptop, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Button } from "./ui/button"
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
+
+  const handleChangeTheme = useCallback(
+    (value: string) => {
+      setTheme(value)
+    },
+    [setTheme],
+  )
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -53,10 +60,7 @@ const ThemeSwitcher = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-content" align="start">
-        <DropdownMenuRadioGroup
-          value={theme}
-          onValueChange={(e) => setTheme(e)}
-        >
+        <DropdownMenuRadioGroup value={theme} onValueChange={handleChangeTheme}>
           <DropdownMenuRadioItem className="flex gap-2" value="light">
             <Sun size={ICON_SIZE} className="text-muted-foreground" />{" "}
             <span>Light</span>

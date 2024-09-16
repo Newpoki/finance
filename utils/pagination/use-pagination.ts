@@ -66,8 +66,8 @@ export const usePagination = ({
       })
       pages.push({
         type: "NUMBER_PAGE",
-        value: totalPagesCount,
-        id: totalPagesCount,
+        value: totalPagesCount - 1,
+        id: totalPagesCount - 1,
         label: `${totalPagesCount}`,
       })
     } else if (currentPage >= totalPagesCount - 4) {
@@ -92,8 +92,8 @@ export const usePagination = ({
       pages.push({ type: "ELLIPSIS", direction: "next", id: "next-ellipsis" })
       pages.push({
         type: "NUMBER_PAGE",
-        value: totalPagesCount,
-        id: totalPagesCount,
+        value: totalPagesCount - 1,
+        id: totalPagesCount - 1,
         label: `${totalPagesCount}`,
       })
     }

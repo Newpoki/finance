@@ -52,7 +52,7 @@ const PaginationLink = ({
         variant: isActive ? "default" : "outlined",
         size,
       }),
-      "font-normal",
+      "cursor-pointer font-normal",
       className,
     )}
     {...props}
@@ -67,7 +67,10 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("group h-10 w-10 gap-4 px-3 md:w-auto", className)}
+    className={cn(
+      "group h-10 w-10 cursor-pointer gap-4 px-3 md:w-auto",
+      className,
+    )}
     {...props}
   >
     <CarretLeft className="text-grey-500 group-hover:text-inherit" />
@@ -83,7 +86,10 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("group h-10 w-10 gap-4 px-3 md:w-auto", className)}
+    className={cn(
+      "group h-10 w-10 cursor-pointer gap-4 px-3 md:w-auto",
+      className,
+    )}
     {...props}
   >
     <span className="hidden md:flex">Next</span>

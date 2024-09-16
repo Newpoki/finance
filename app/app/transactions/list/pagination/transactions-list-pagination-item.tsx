@@ -39,7 +39,7 @@ export const TransactionsListPaginationItem = ({
   switch (page.type) {
     case "PREVIOUS_PAGE": {
       return (
-        <PaginationItem onClick={handleClick}>
+        <PaginationItem className="md:absolute md:left-0" onClick={handleClick}>
           <PaginationPrevious />
         </PaginationItem>
       )
@@ -47,7 +47,7 @@ export const TransactionsListPaginationItem = ({
 
     case "NEXT_PAGE": {
       return (
-        <PaginationItem>
+        <PaginationItem className="md:absolute md:right-0">
           <PaginationNext onClick={handleClick} />
         </PaginationItem>
       )

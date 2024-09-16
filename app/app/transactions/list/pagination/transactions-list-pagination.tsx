@@ -40,7 +40,7 @@ export const TransactionsListPagination = ({
 
   return (
     <Pagination className="mt-auto">
-      <PaginationContent>
+      <PaginationContent className="relative w-full items-center justify-center">
         {pages.map((page) => (
           <TransactionsListPaginationItem
             key={page.id}

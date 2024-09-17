@@ -27,6 +27,10 @@ export const signUpAction = async (data: unknown): Promise<ServerResponse> => {
     password,
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
+      data: {
+        // Default to Europe/Paris, but might be better to set it according to the user browser
+        timezone: "Europe/Paris",
+      },
     },
   })
 

@@ -12,21 +12,27 @@ export type Database = {
       profile: {
         Row: {
           created_at: string
+          currency_code: Database["public"]["Enums"]["profile_allowed_currency_codes"]
           display_name: string | null
           email: string | null
           id: string
+          timezone: Database["public"]["Enums"]["profile_allowed_timezones"]
         }
         Insert: {
           created_at?: string
+          currency_code: Database["public"]["Enums"]["profile_allowed_currency_codes"]
           display_name?: string | null
           email?: string | null
           id?: string
+          timezone: Database["public"]["Enums"]["profile_allowed_timezones"]
         }
         Update: {
           created_at?: string
+          currency_code?: Database["public"]["Enums"]["profile_allowed_currency_codes"]
           display_name?: string | null
           email?: string | null
           id?: string
+          timezone?: Database["public"]["Enums"]["profile_allowed_timezones"]
         }
         Relationships: [
           {
@@ -84,6 +90,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      profile_allowed_currency_codes: "EUR" | "USD"
+      profile_allowed_timezones: "Europe/Paris"
       transaction_categories:
         | "general"
         | "dining_out"

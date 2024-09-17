@@ -15,7 +15,11 @@ export const TransactionsSuspenseFallback = () => {
 
       <ul className="flex flex-1 flex-col gap-2">
         {range(10).map((item) => {
-          return <Skeleton key={item} className="h-14" />
+          return (
+            <li key={item}>
+              <Skeleton className="h-14" />
+            </li>
+          )
         })}
       </ul>
     </>

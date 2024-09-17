@@ -34,7 +34,7 @@ export const fetchTransactions = async ({
 
   let query = supabase
     .from("transactions")
-    .select("id,created_at,amount_cents,category,name,date", { count: "exact" })
+    .select("id,amount_cents,category,name,date", { count: "exact" })
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else

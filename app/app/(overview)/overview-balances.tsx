@@ -1,6 +1,6 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 
-export const DashboardBalances = () => {
+export const OverviewBalances = () => {
   return (
     <section className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-6">
       <Card inverted>

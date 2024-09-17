@@ -1,5 +1,5 @@
 import { Paper } from "@/components/ui/paper"
-import { fetchOverviewTransactionsList } from "./fetch-overview-transactions-list"
+import { fetchOverviewTransactions } from "./fetch-overview-transactions"
 import { TransactionsListItem } from "../../transactions/list/transactions-list-item"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
@@ -7,7 +7,7 @@ import Link from "next/link"
 import CarretLeft from "@/icons/carret-left.svg"
 
 export const OverviewTransactionsList = async () => {
-  const data = await fetchOverviewTransactionsList()
+  const data = await fetchOverviewTransactions()
 
   return (
     <Paper className="flex flex-col gap-4">

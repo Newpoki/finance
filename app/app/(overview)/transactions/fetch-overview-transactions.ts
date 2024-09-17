@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server"
 
-export const fetchOverviewTransactionsList = async () => {
+export const fetchOverviewTransactions = async () => {
   const supabase = createClient()
 
   const { data } = await supabase

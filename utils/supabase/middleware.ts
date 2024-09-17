@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr"
 import { type NextRequest, NextResponse } from "next/server"
+import { z } from "zod"
 
 export const updateSession = async (request: NextRequest) => {
   // This `try/catch` block is only here for the interactive tutorial.
@@ -13,8 +14,8 @@ export const updateSession = async (request: NextRequest) => {
     })
 
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      z.string().parse(process.env.NEXT_PUBLIC_SUPABASE_URL),
+      z.string().parse(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
       {
         cookies: {
           getAll() {
@@ -28,6 +29,7 @@ export const updateSession = async (request: NextRequest) => {
               request,
             })
             cookiesToSet.forEach(({ name, value, options }) =>
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
               response.cookies.set(name, value, options),
             )
           },

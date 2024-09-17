@@ -7,7 +7,7 @@ export const fetchOverviewTransactionsList = async () => {
 
   const { data } = await supabase
     .from("transactions")
-    .select("id,name,category,amount_cents,date", { count: "exact" })
+    .select("id,name,category,amount_cents,date")
     .order("date", { ascending: false })
     .range(0, 4)
 

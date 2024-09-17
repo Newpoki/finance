@@ -118,7 +118,7 @@ export const SignupForm = () => {
                     <Button
                       variant="ghost"
                       disabled={isSubmitting}
-                      className="-m-4"
+                      className="-m-4 font-bold"
                       type="button"
                       onClick={handleTogglePasswordVisibility}
                     >

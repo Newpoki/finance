@@ -74,6 +74,12 @@
   .body2 {
     @apply text-xs leading-[150%] tracking-normal;
   }
+  .header1 {
+    @apply text-[32px] font-bold leading-[120%] tracking-normal;
+  }
+  .header2 {
+    @apply text-xl font-bold leading-[120%] tracking-normal;
+  }
   .header3 {
     @apply text-[16px] font-bold leading-[150%] tracking-normal;
   }
@@ -99,10 +105,10 @@
     @apply overflow-x-hidden bg-background text-foreground;
   }
   h1 {
-    @apply text-[32px] font-bold leading-[120%] tracking-normal;
+    @apply header1;
   }
   h2 {
-    @apply text-xl font-bold leading-[120%] tracking-normal;
+    @apply header2;
   }
   h3 {
     @apply header3;

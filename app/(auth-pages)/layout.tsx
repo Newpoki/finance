@@ -1,4 +1,4 @@
-import Logo from "@/app/logo.svg"
+import Logo from "@/public/logo/logo.svg"
 import { AuthHero } from "./auth-hero"
 
 type LayoutProps = {

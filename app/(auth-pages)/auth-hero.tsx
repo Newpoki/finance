@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import Logo from "@/app/logo.svg"
+import Logo from "@/public/logo/logo.svg"
 
 type AuthHeroProps = {
   className?: string
@@ -9,7 +9,7 @@ export const AuthHero = ({ className }: AuthHeroProps) => {
   return (
     <section
       className={cn(
-        'flex flex-col justify-between rounded-xl bg-[url("/auth-hero-illustration.jpg")] bg-cover bg-no-repeat p-10',
+        'flex flex-col justify-between rounded-xl bg-[url("/illustrations/auth-hero-illustration.jpg")] bg-cover bg-no-repeat p-10',
         className,
       )}
     >

@@ -17,11 +17,6 @@ export const TransactionsList = async ({
     searchParams: parsedSearchParams,
   })
 
-  //   TODO: Use real error screen
-  if (transactions == null) {
-    return <div>oh snap</div>
-  }
-
   if (totalCount === 0) {
     return <TransactionsListEmpty />
   }

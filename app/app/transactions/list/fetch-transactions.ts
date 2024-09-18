@@ -81,5 +81,9 @@ export const fetchTransactions = async ({
     itemPerPage: ITEM_PER_PAGE,
   })
 
+  if (transactions.data == null) {
+    throw new Error("An error occured while fetching transactions")
+  }
+
   return { transactions: transactions.data, totalPages, totalCount }
 }

@@ -35,7 +35,7 @@ export const TransactionsList = async ({
       <ul>
         {transactions.map((transaction) => {
           return (
-            <li key={transaction.id}>
+            <li key={transaction.id} className="group">
               <TransactionsListItem transaction={transaction} />
 
               <Separator className="group-last:hidden" />

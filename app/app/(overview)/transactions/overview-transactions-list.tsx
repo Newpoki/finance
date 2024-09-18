@@ -24,7 +24,7 @@ export const OverviewTransactionsList = async () => {
 
       <ul className="flex flex-col">
         {data?.map((transaction) => (
-          <li key={transaction.id}>
+          <li key={transaction.id} className="group">
             <TransactionsListItem isCompact transaction={transaction} />
 
             <Separator className="group-last:hidden" />

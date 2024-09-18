@@ -1,16 +1,34 @@
-// TODO Use locale and currency from user
-export const formatCents = (
-  cents: number,
-  locale = "fr-FR",
-  currencyCode = "EUR",
-) => {
-  // Convert cents to the main currency unit
+import { CurrencyCode } from "@/app/currency/currency-types"
+
+type FormatsCentsParamsAllowedOptions = Partial<
+  Omit<
+    Intl.NumberFormatOptions,
+    // We're forcing "currency" display here
+    | "style"
+    // Renaiming it "currencyCode"
+    | "currency"
+  >
+>
+
+type FormatCentsParams = FormatsCentsParamsAllowedOptions & {
+  cents: number
+  locale: string
+  currencyCode: CurrencyCode
+}
+
+export const formatCents = ({
+  cents,
+  locale,
+  currencyCode,
+  ...options
+}: FormatCentsParams) => {
+  // Converting back cents to real value
   const amount = cents / 100
 
-  // Format the amount as currency
   return new Intl.NumberFormat(locale, {
+    ...options,
     style: "currency",
+    signDisplay: options.signDisplay ?? "exceptZero",
     currency: currencyCode,
-    signDisplay: "exceptZero",
   }).format(amount)
 }

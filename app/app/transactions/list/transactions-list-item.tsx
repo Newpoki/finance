@@ -54,7 +54,11 @@ export const TransactionsListItem = ({
             "md:w-[90px] xl:w-[120px]": !isCompact,
           })}
         >
-          {formatCents(transaction.amount_cents)}
+          {formatCents({
+            cents: transaction.amount_cents,
+            locale: "fr-FR",
+            currencyCode: "EUR",
+          })}
         </span>
         <span className="body2 text-grey-500">
           {formatDate(transaction.date)}

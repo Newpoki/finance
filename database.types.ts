@@ -87,7 +87,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      aggregate_balance_and_monthly_incomes_expenses: {
+        Args: {
+          _user_id: string
+        }
+        Returns: {
+          current_balance: number
+          expenses: number
+          incomes: number
+        }[]
+      }
     }
     Enums: {
       profile_allowed_currency_codes: "EUR" | "USD"

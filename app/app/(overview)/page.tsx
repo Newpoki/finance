@@ -1,6 +1,6 @@
 import { signOutAction } from "@/app/(auth-pages)/sign-out/sign-out-actions"
 import { Button } from "@/components/ui/button"
-import { OverviewBalances } from "./overview-balances"
+import { OverviewBalances } from "./balances/overview-balances"
 import { OverviewTransactionsList } from "./transactions/overview-transactions-list"
 
 export default async function OverviewPage() {

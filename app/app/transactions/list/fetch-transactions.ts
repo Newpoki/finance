@@ -36,7 +36,9 @@ export const fetchTransactions = async ({
   // TODO: Filter by user id
   let query = supabase
     .from("transactions")
-    .select("id,amount_cents,category,name,date", { count: "exact" })
+    .select("id,amount_cents,category,name,date,currency_code", {
+      count: "exact",
+    })
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else

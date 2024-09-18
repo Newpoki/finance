@@ -7,7 +7,7 @@ export const fetchOverviewTransactions = async () => {
 
   const { data } = await supabase
     .from("transactions")
-    .select("id,name,category,amount_cents,date")
+    .select("id,name,category,amount_cents,date,currency_code")
     .order("date", { ascending: false })
     .range(0, 4)
 

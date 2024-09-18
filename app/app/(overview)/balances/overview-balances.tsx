@@ -1,9 +1,18 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { fetchOverviewBalances } from "./fetch-overview-balances"
 import { formatCents } from "@/currency/format-cents"
+import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
 
 export const OverviewBalances = async () => {
-  const balances = await fetchOverviewBalances()
+  const balancesPromises = fetchOverviewBalances()
+  const profilePromises = fetchCurrentUserProfile()
+
+  const [balances, profile] = await Promise.all([
+    balancesPromises,
+    profilePromises,
+  ])
+
+  console.log({ profile })
 
   //   TODO: Throw error in fetchOverviewBalances instead and use error.tsx
   if (balances == null) {
@@ -12,22 +21,22 @@ export const OverviewBalances = async () => {
 
   const currentBalance = formatCents({
     cents: balances.current_balance,
-    locale: "fr-FR",
-    currencyCode: "EUR",
+    locale: profile.locale,
+    currencyCode: profile.currency_code,
     signDisplay: "never",
   })
 
   const currentMonthIncome = formatCents({
     cents: balances.incomes,
-    locale: "fr-FR",
-    currencyCode: "EUR",
+    locale: profile.locale,
+    currencyCode: profile.currency_code,
     signDisplay: "never",
   })
 
   const currentMonthExpense = formatCents({
     cents: balances.expenses,
-    locale: "fr-FR",
-    currencyCode: "EUR",
+    locale: profile.locale,
+    currencyCode: profile.currency_code,
   })
 
   return (

@@ -2,16 +2,19 @@ import { formatCents } from "@/currency/format-cents"
 import { TransactionListItem } from "../transactions-types"
 import { formatDate } from "@/date/format-date"
 import { cn } from "@/lib/utils"
+import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
 
 type TransactionsListItemProps = {
   isCompact?: boolean
   transaction: TransactionListItem
 }
 
-export const TransactionsListItem = ({
+export const TransactionsListItem = async ({
   isCompact = false,
   transaction,
 }: TransactionsListItemProps) => {
+  const profile = await fetchCurrentUserProfile()
+
   return (
     // Removing some margin bottom on the last item, so that we can keep padding
     // for a smooth hover effect while not adding extra space at the bottom of the page
@@ -56,12 +59,12 @@ export const TransactionsListItem = ({
         >
           {formatCents({
             cents: transaction.amount_cents,
-            locale: "fr-FR",
-            currencyCode: "EUR",
+            locale: profile.locale,
+            currencyCode: transaction.currency_code,
           })}
         </span>
         <span className="body2 text-grey-500">
-          {formatDate(transaction.date)}
+          {formatDate(transaction.date, { locale: profile.locale })}
         </span>
       </p>
     </div>

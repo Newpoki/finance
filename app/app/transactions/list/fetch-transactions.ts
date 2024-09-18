@@ -8,6 +8,7 @@ import {
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
 import { getPaginationRange } from "@/utils/pagination/get-pagination-range"
 import { getTotalPaginationPages } from "@/utils/pagination/get-total-pagination-pages"
+import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
 
 type FetchTransactionsParams = {
   searchParams: ParsedTransactionsSearchParams
@@ -22,10 +23,12 @@ export const fetchTransactions = async ({
 
   const { column, direction, category, search, page } = searchParams
 
-  // TODO: Filter by user id
+  const currentUserProfile = await fetchCurrentUserProfile()
+
   const { count: totalCount } = await supabase
     .from("transactions")
     .select("*", { count: "exact" })
+    .filter("user_id", "eq", currentUserProfile.id)
 
   if (totalCount == null) {
     throw new Error(
@@ -33,12 +36,12 @@ export const fetchTransactions = async ({
     )
   }
 
-  // TODO: Filter by user id
   let query = supabase
     .from("transactions")
     .select("id,amount_cents,category,name,date,currency_code", {
       count: "exact",
     })
+    .filter("user_id", "eq", currentUserProfile.id)
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else

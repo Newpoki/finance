@@ -16,6 +16,12 @@ export const TransactionsListItem = async ({
 }: TransactionsListItemProps) => {
   const profile = await fetchCurrentUserProfile()
 
+  const displayedDate = formatDate({
+    date: transaction.date,
+    locale: profile.locale,
+    timeZone: profile.timezone,
+  })
+
   return (
     // Removing some margin bottom on the last item, so that we can keep padding
     // for a smooth hover effect while not adding extra space at the bottom of the page
@@ -64,9 +70,7 @@ export const TransactionsListItem = async ({
             currencyCode: transaction.currency_code,
           })}
         </span>
-        <span className="body2 text-grey-500">
-          {formatDate(transaction.date, { locale: profile.locale })}
-        </span>
+        <span className="body2 text-grey-500">{displayedDate}</span>
       </p>
     </div>
   )

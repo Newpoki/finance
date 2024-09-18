@@ -32,6 +32,8 @@ export const OverviewBalances = async () => {
     currencyCode: profile.currency_code,
   })
 
+  // TODO: Explain that income and expenses concernes current month
+
   return (
     <section className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-6">
       <Card inverted>

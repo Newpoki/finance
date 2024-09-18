@@ -10,7 +10,6 @@ export default async function OverviewPage() {
 
       <OverviewBalances />
 
-      {/* TODO: Create proper loader */}
       <div className="flex flex-1 flex-col gap-4 md:gap-6">
         <OverviewTransactionsList />
 

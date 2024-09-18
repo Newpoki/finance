@@ -1,6 +1,6 @@
 import { formatCents } from "@/currency/format-cents"
 import { TransactionListItem } from "../transactions-types"
-import { formatDate } from "@/utils/date/format-date"
+import { formatDate } from "@/date/format-date"
 import { cn } from "@/lib/utils"
 
 type TransactionsListItemProps = {

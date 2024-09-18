@@ -1,3 +1,5 @@
+import { TransactionCategory } from "./transactions-types"
+
 export const TRANSACTIONS_SORT_DIRECTIONS = {
   DESC: "DESC",
   ASC: "ASC",
@@ -86,3 +88,18 @@ export const TRANSACTIONS_CATEGORY_OPTIONS = [
   { label: "Personal Care", value: TRANSACTIONS_CATEGORY_KEYS.PERSONAL_CARE },
   { label: "Lifestyle", value: TRANSACTIONS_CATEGORY_KEYS.LIFESTYLE },
 ] as const
+
+export const TRANSACTION_CATEGORY_LABEL_MAPPING: Record<
+  TransactionCategory,
+  string
+> = {
+  bills: "Bills",
+  dining_out: "Dining out",
+  education: "Education",
+  entertainment: "Entertainement",
+  general: "General",
+  groceries: "Groceries",
+  lifestyle: "Lifestyle",
+  personal_care: "Personal Care",
+  transportation: "Transportation",
+}

@@ -6,3 +6,6 @@ export type Transaction = Database["public"]["Tables"]["transactions"]["Row"]
 export type TransactionListItem = NonNullable<
   Awaited<ReturnType<typeof fetchTransactions>>["transactions"]
 >[number]
+
+export type TransactionCategory =
+  Database["public"]["Enums"]["transaction_categories"]

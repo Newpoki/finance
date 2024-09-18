@@ -1,4 +1,4 @@
-import { CurrencyCode } from "@/app/currency/currency-types"
+import { CurrencyCode } from "./currency-types"
 
 type FormatsCentsParamsAllowedOptions = Partial<
   Omit<

@@ -1,4 +1,4 @@
-import { formatCents } from "@/utils/currency/format-cents"
+import { formatCents } from "@/currency/format-cents"
 import { TransactionListItem } from "../transactions-types"
 import { formatDate } from "@/utils/date/format-date"
 import { cn } from "@/lib/utils"

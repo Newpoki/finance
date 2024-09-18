@@ -22,6 +22,7 @@ export const fetchTransactions = async ({
 
   const { column, direction, category, search, page } = searchParams
 
+  // TODO: Filter by user id
   const { count: totalCount } = await supabase
     .from("transactions")
     .select("*", { count: "exact" })
@@ -32,6 +33,7 @@ export const fetchTransactions = async ({
     )
   }
 
+  // TODO: Filter by user id
   let query = supabase
     .from("transactions")
     .select("id,amount_cents,category,name,date", { count: "exact" })

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { fetchOverviewBalances } from "./fetch-overview-balances"
-import { formatCents } from "@/utils/currency/format-cents"
+import { formatCents } from "@/currency/format-cents"
 
 export const OverviewBalances = async () => {
   const balances = await fetchOverviewBalances()

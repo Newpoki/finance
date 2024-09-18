@@ -12,27 +12,30 @@ export type Database = {
       profile: {
         Row: {
           created_at: string
-          currency_code: Database["public"]["Enums"]["profile_allowed_currency_codes"]
+          currency_code: Database["public"]["Enums"]["currency_codes"]
           display_name: string | null
           email: string | null
           id: string
-          timezone: Database["public"]["Enums"]["profile_allowed_timezones"]
+          locale: Database["public"]["Enums"]["locales"]
+          timezone: Database["public"]["Enums"]["timezones"]
         }
         Insert: {
           created_at?: string
-          currency_code: Database["public"]["Enums"]["profile_allowed_currency_codes"]
+          currency_code: Database["public"]["Enums"]["currency_codes"]
           display_name?: string | null
           email?: string | null
           id?: string
-          timezone: Database["public"]["Enums"]["profile_allowed_timezones"]
+          locale: Database["public"]["Enums"]["locales"]
+          timezone: Database["public"]["Enums"]["timezones"]
         }
         Update: {
           created_at?: string
-          currency_code?: Database["public"]["Enums"]["profile_allowed_currency_codes"]
+          currency_code?: Database["public"]["Enums"]["currency_codes"]
           display_name?: string | null
           email?: string | null
           id?: string
-          timezone?: Database["public"]["Enums"]["profile_allowed_timezones"]
+          locale?: Database["public"]["Enums"]["locales"]
+          timezone?: Database["public"]["Enums"]["timezones"]
         }
         Relationships: [
           {
@@ -49,28 +52,31 @@ export type Database = {
           amount_cents: number
           category: Database["public"]["Enums"]["transaction_categories"]
           created_at: string
+          currency_code: Database["public"]["Enums"]["currency_codes"]
           date: string
           id: string
           name: string
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           amount_cents: number
           category: Database["public"]["Enums"]["transaction_categories"]
           created_at?: string
+          currency_code: Database["public"]["Enums"]["currency_codes"]
           date: string
           id?: string
           name: string
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           amount_cents?: number
           category?: Database["public"]["Enums"]["transaction_categories"]
           created_at?: string
+          currency_code?: Database["public"]["Enums"]["currency_codes"]
           date?: string
           id?: string
           name?: string
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -99,8 +105,9 @@ export type Database = {
       }
     }
     Enums: {
-      profile_allowed_currency_codes: "EUR" | "USD"
-      profile_allowed_timezones: "Europe/Paris"
+      currency_codes: "EUR" | "USD"
+      locales: "fr-FR" | "en-US"
+      timezones: "Europe/Paris"
       transaction_categories:
         | "general"
         | "dining_out"

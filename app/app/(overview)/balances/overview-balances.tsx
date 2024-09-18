@@ -12,13 +12,6 @@ export const OverviewBalances = async () => {
     profilePromises,
   ])
 
-  console.log({ profile })
-
-  //   TODO: Throw error in fetchOverviewBalances instead and use error.tsx
-  if (balances == null) {
-    return null
-  }
-
   const currentBalance = formatCents({
     cents: balances.current_balance,
     locale: profile.locale,

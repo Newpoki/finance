@@ -19,5 +19,9 @@ export const fetchOverviewBalances = async () => {
     })
     .single()
 
+  if (data == null) {
+    throw new Error("Can't fetch user balance")
+  }
+
   return data
 }

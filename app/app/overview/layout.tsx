@@ -1,16 +1,16 @@
 type OverviewLayoutProps = {
   children: React.ReactNode
-  modal: React.ReactNode
+  dialog: React.ReactNode
 }
 
 export default function OverviewLayout({
   children,
-  modal,
+  dialog,
 }: OverviewLayoutProps) {
   return (
     <>
       {children}
-      {modal}
+      {dialog}
     </>
   )
 }

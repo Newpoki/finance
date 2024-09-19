@@ -1,6 +1,6 @@
 /**
  * Required by next to handle @ routes
  */
-export default function Default() {
+export default function OverviewDialogDefault() {
   return null
 }

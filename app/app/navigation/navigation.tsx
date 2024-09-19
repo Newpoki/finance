@@ -69,8 +69,8 @@ export const Navigation = () => {
             <NavigationLink
               icon={<Home className="h-6 w-6" />}
               isExpanded={isExpanded}
-              isActive={pathname === "/app"}
-              href="/app"
+              isActive={pathname.startsWith("/app/overview")}
+              href="/app/overview"
             >
               Overview
             </NavigationLink>

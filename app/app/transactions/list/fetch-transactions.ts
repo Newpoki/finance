@@ -2,8 +2,8 @@
 
 import { createClient } from "@/utils/supabase/server"
 import {
-  TRANSACTIONS_CATEGORY_KEYS,
-  TRANSACTIONS_SORT_DIRECTIONS,
+  TRANSACTIONS_FILTERS_CATEGORIES_KEYS,
+  TRANSACTIONS_FILTERS_SORT_DIRECTIONS,
 } from "../transactions-constants"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
 import { getPaginationRange } from "@/utils/pagination/get-pagination-range"
@@ -45,7 +45,7 @@ export const fetchTransactions = async ({
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else
-  if (category !== TRANSACTIONS_CATEGORY_KEYS.ALL) {
+  if (category !== TRANSACTIONS_FILTERS_CATEGORIES_KEYS.ALL) {
     query = query.eq("category", category)
   }
 
@@ -72,7 +72,7 @@ export const fetchTransactions = async ({
 
   const transactions = await query
     .order(column, {
-      ascending: direction === TRANSACTIONS_SORT_DIRECTIONS.ASC,
+      ascending: direction === TRANSACTIONS_FILTERS_SORT_DIRECTIONS.ASC,
     })
     .range(rangeFrom, rangeTo)
 

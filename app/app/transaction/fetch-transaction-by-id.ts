@@ -1,7 +1,6 @@
 "use server"
 
 import { createClient } from "@/utils/supabase/server"
-import { Transaction } from "./transaction-types"
 
 export const fetchTransactionById = async (transactionId: string) => {
   const supabase = createClient()

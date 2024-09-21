@@ -20,7 +20,7 @@ import {
 import Filter from "@/icons/filter.svg"
 import { Fragment, useCallback, useMemo } from "react"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
-import { TRANSACTIONS_CATEGORY_OPTIONS } from "../transactions-constants"
+import { TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS } from "../transactions-constants"
 
 type TransactionsFiltersCategoryProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
@@ -32,14 +32,14 @@ export const TransactionsFiltersCategory = ({
   onFiltersChange,
 }: TransactionsFiltersCategoryProps) => {
   const selectedOption = useMemo(() => {
-    return TRANSACTIONS_CATEGORY_OPTIONS.find(
+    return TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.find(
       (option) => option.value === parsedSearchParams.category,
     )
   }, [parsedSearchParams.category])
 
   const handleChangeCategory = useCallback(
     (value: string) => {
-      const option = TRANSACTIONS_CATEGORY_OPTIONS.find(
+      const option = TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.find(
         (option) => option.value === value,
       )
 
@@ -71,7 +71,7 @@ export const TransactionsFiltersCategory = ({
             value={selectedOption.value}
             onValueChange={handleChangeCategory}
           >
-            {TRANSACTIONS_CATEGORY_OPTIONS.map((option) => (
+            {TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.map((option) => (
               <Fragment key={option.value}>
                 <DropdownMenuRadioItem value={option.value}>
                   {option.label}
@@ -91,7 +91,7 @@ export const TransactionsFiltersCategory = ({
         </SelectTrigger>
 
         <SelectContent sideOffset={8}>
-          {TRANSACTIONS_CATEGORY_OPTIONS.map((option) => (
+          {TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.map((option) => (
             <Fragment key={option.value}>
               <SelectItem value={option.value}>{option.label}</SelectItem>
               <SelectSeparator className="last:hidden" />

@@ -132,143 +132,147 @@ export const TransactionForm = ({
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
-        className="flex flex-col gap-4"
+        className="flex flex-1 flex-col gap-4"
       >
-        <FormField
-          control={form.control}
-          name="date"
-          disabled={isSubmitting}
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel className="w-fit">Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outlined"
-                      className={cn("h-11 w-[280px] text-left font-normal")}
-                      disabled={field.disabled}
-                    >
-                      {formatDate({ date: field.value, locale: "fr-FR" })}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                  />
-                </PopoverContent>
-              </Popover>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
-          name="amount"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>Amount</FormLabel>
-              <FormControl>
-                <NumericFormat
-                  customInput={Input}
-                  suffix={` ${displayedCurrencySymbol}`}
-                  placeholder={`20${displayedDecimalSeparator}42 ${displayedCurrencySymbol}`}
-                  name={field.name}
-                  thousandSeparator={displayedGroupSeparator}
-                  decimalSeparator={displayedDecimalSeparator}
-                  required
-                  defaultValue={field.value}
-                  onValueChange={(values) => {
-                    field.onChange(values.floatValue)
-                  }}
-                  allowLeadingZeros={false}
-                  disabled={field.disabled}
-                />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
-          name="name"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Carrefour" required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
-          name="category"
-          render={({ field, fieldState }) => {
-            const selectedOption = TRANSACTION_CATEGORIES_OPTIONS.find(
-              (option) => option.value === field.value,
-            )
-
-            if (selectedOption == null) {
-              throw new Error("Selected transaction option not found")
-            }
-
-            return (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1fr]">
+          <FormField
+            control={form.control}
+            disabled={isSubmitting}
+            name="name"
+            render={({ field, fieldState }) => (
               <FormItem>
-                <FormLabel>Budget Category</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="hidden w-full md:flex">
-                      <SelectValue placeholder="Select a transaction category">
-                        {selectedOption.label}
-                      </SelectValue>
-                    </SelectTrigger>
-
-                    <SelectContent sideOffset={8}>
-                      {TRANSACTION_CATEGORIES_OPTIONS.map((option) => (
-                        <Fragment key={option.value}>
-                          <SelectItem value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                          <SelectSeparator className="last:hidden" />
-                        </Fragment>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Input {...field} placeholder="Carrefour" required />
                 </FormControl>
                 {fieldState.error?.message && (
                   <FormMessage message={{ error: fieldState.error.message }} />
                 )}
               </FormItem>
-            )
-          }}
-        />
+            )}
+          />
 
-        <div className="flex flex-col gap-2">
-          {transaction != null && (
-            <Button variant="error" type="button">
-              Delete transaction
-            </Button>
-          )}
+          <FormField
+            control={form.control}
+            disabled={isSubmitting}
+            name="amount"
+            render={({ field, fieldState }) => (
+              <FormItem>
+                <FormLabel>Amount</FormLabel>
+                <FormControl>
+                  <NumericFormat
+                    customInput={Input}
+                    suffix={` ${displayedCurrencySymbol}`}
+                    placeholder={`20${displayedDecimalSeparator}42 ${displayedCurrencySymbol}`}
+                    name={field.name}
+                    thousandSeparator={displayedGroupSeparator}
+                    decimalSeparator={displayedDecimalSeparator}
+                    required
+                    defaultValue={field.value}
+                    onValueChange={(values) => {
+                      field.onChange(values.floatValue)
+                    }}
+                    allowLeadingZeros={false}
+                    disabled={field.disabled}
+                  />
+                </FormControl>
+                {fieldState.error?.message && (
+                  <FormMessage message={{ error: fieldState.error.message }} />
+                )}
+              </FormItem>
+            )}
+          />
+        </div>
 
-          <Button>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1fr]">
+          <FormField
+            control={form.control}
+            name="date"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="w-fit">Date</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outlined"
+                        className={cn("h-11 w-full text-left font-normal")}
+                        disabled={field.disabled}
+                      >
+                        {formatDate({ date: field.value, locale: "fr-FR" })}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            disabled={isSubmitting}
+            name="category"
+            render={({ field, fieldState }) => {
+              const selectedOption = TRANSACTION_CATEGORIES_OPTIONS.find(
+                (option) => option.value === field.value,
+              )
+
+              if (selectedOption == null) {
+                throw new Error("Selected transaction option not found")
+              }
+
+              return (
+                <FormItem>
+                  <FormLabel>Budget Category</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a transaction category">
+                          {selectedOption.label}
+                        </SelectValue>
+                      </SelectTrigger>
+
+                      <SelectContent sideOffset={8}>
+                        {TRANSACTION_CATEGORIES_OPTIONS.map((option) => (
+                          <Fragment key={option.value}>
+                            <SelectItem value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                            <SelectSeparator className="last:hidden" />
+                          </Fragment>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  {fieldState.error?.message && (
+                    <FormMessage
+                      message={{ error: fieldState.error.message }}
+                    />
+                  )}
+                </FormItem>
+              )
+            }}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+          <Button variant="error" className="w-full">
+            Delete Transaction
+          </Button>
+
+          <Button className="w-full">
             {transaction == null ? "Add transaction" : "Edit transaction"}
           </Button>
         </div>

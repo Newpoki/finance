@@ -268,9 +268,11 @@ export const TransactionForm = ({
         </div>
 
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          <Button variant="error" className="w-full">
-            Delete Transaction
-          </Button>
+          {transaction != null && (
+            <Button variant="error" className="w-full">
+              Delete Transaction
+            </Button>
+          )}
 
           <Button className="w-full">
             {transaction == null ? "Add transaction" : "Edit transaction"}

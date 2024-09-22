@@ -44,6 +44,8 @@ import { getCurrencySymbol } from "@/currency/get-currency-symbol"
 import { NumericFormat } from "react-number-format"
 import { upsertTransactionAction } from "./transaction-actions"
 import { toast } from "sonner"
+import { getGroupSeparator } from "@/currency/get-group-separator"
+import { getDecimalSeparator } from "@/currency/get-decimal-separator"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -70,12 +72,24 @@ export const TransactionForm = ({
 
   const [isSubmitting, startTransition] = useTransition()
 
-  const displayedCurrencySymbol = useMemo(() => {
-    return getCurrencySymbol(
-      profile.locale,
-      transaction?.currency_code ?? profile.currency_code,
-    )
-  }, [profile.currency_code, profile.locale, transaction?.currency_code])
+  const displayedCurrencySymbol = useMemo(
+    () =>
+      getCurrencySymbol(
+        profile.locale,
+        transaction?.currency_code ?? profile.currency_code,
+      ),
+    [profile.currency_code, profile.locale, transaction?.currency_code],
+  )
+
+  const displayedGroupSeparator = useMemo(
+    () => getGroupSeparator(profile.locale),
+    [profile.locale],
+  )
+
+  const displayedDecimalSeparator = useMemo(
+    () => getDecimalSeparator(profile.locale),
+    [profile.locale],
+  )
 
   const onSubmit = useCallback(
     (formValues: TransactionFormValues) => {
@@ -161,9 +175,10 @@ export const TransactionForm = ({
                 <NumericFormat
                   customInput={Input}
                   suffix={` ${displayedCurrencySymbol}`}
-                  placeholder={`20.42 ${displayedCurrencySymbol}`}
+                  placeholder={`20${displayedDecimalSeparator}42 ${displayedCurrencySymbol}`}
                   name={field.name}
-                  thousandSeparator
+                  thousandSeparator={displayedGroupSeparator}
+                  decimalSeparator={displayedDecimalSeparator}
                   required
                   defaultValue={field.value}
                   onValueChange={(values) => {

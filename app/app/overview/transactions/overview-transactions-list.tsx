@@ -25,7 +25,7 @@ export const OverviewTransactionsList = async () => {
       <ul className="flex flex-col">
         {data?.map((transaction) => (
           <li key={transaction.id} className="group">
-            <Link href={`/app/overview/transactions/${transaction.id}/edit`}>
+            <Link href={`/app/transactions/${transaction.id}`}>
               <TransactionsListItem isCompact transaction={transaction} />
 
               <Separator className="group-last:hidden" />

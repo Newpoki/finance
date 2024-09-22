@@ -25,7 +25,12 @@ export const transactionFormValuesSchema = z.object({
     TRANSACTION_CATEGORIES.EDUCATION,
   ]),
   date: z.date(),
-  amount: z.number().nullable(),
+  amount: z
+    .number()
+    .nullable()
+    .refine((value) => {
+      return !!value
+    }, "Value is required"),
 })
 
 export type TransactionFormValues = z.infer<typeof transactionFormValuesSchema>

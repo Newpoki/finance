@@ -6,11 +6,17 @@ import { createClient } from "@/utils/supabase/server"
 import { ServerResponse } from "@/app/server-response"
 import { fetchCurrentUserProfile } from "../profile/fetch-current-user-profile"
 import { revalidatePath } from "next/cache"
+import { z } from "zod"
+
+// The UI allow null to be a value, but we only want to allow not null numbers
+const upsertTransactionValuesSchema = transactionFormValuesSchema.extend({
+  amount: z.number(),
+})
 
 export const upsertTransactionAction = async (
   data: unknown,
 ): Promise<ServerResponse<{ transaction: Transaction }>> => {
-  const parsed = transactionFormValuesSchema.safeParse(data)
+  const parsed = upsertTransactionValuesSchema.safeParse(data)
 
   if (!parsed.success) {
     return {
@@ -26,8 +32,7 @@ export const upsertTransactionAction = async (
   const { error, data: transaction } = await supabase
     .from("transactions")
     .upsert({
-      // TODO Check if can avoid cast
-      amount_cents: parsed.data.amount as number,
+      amount_cents: parsed.data.amount,
       category: parsed.data.category,
       currency_code: profile.currency_code,
       date: parsed.data.date.toISOString(),

@@ -96,8 +96,10 @@ export const TransactionForm = ({
       startTransition(async () => {
         const response = await upsertTransactionAction({
           ...formValues,
-          // TODO: Add check in schema for value not being null
-          amount: Math.trunc(formValues.amount ?? 0) * 100,
+          amount:
+            formValues.amount != null
+              ? Math.trunc(formValues.amount) * 100
+              : null,
         })
 
         if (response.type === "success") {
@@ -184,6 +186,7 @@ export const TransactionForm = ({
                   onValueChange={(values) => {
                     field.onChange(values.floatValue)
                   }}
+                  allowLeadingZeros={false}
                   disabled={field.disabled}
                 />
               </FormControl>

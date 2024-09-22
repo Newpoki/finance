@@ -9,6 +9,7 @@ export default async function TransactionsAddNewPage() {
     <div className="flex w-full flex-1 flex-col gap-8">
       <h1>Add Transaction</h1>
 
+      {/* TODO: Add error page */}
       <Paper className="flex flex-1 flex-col gap-6">
         <TransactionForm profile={currentUserProfile} />
       </Paper>

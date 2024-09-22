@@ -46,6 +46,7 @@ import { upsertTransactionAction } from "./transaction-actions"
 import { toast } from "sonner"
 import { getGroupSeparator } from "@/currency/get-group-separator"
 import { getDecimalSeparator } from "@/currency/get-decimal-separator"
+import { TransactionDeleteAlertDialog } from "./transaction-delete-alert-dialog"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -269,9 +270,7 @@ export const TransactionForm = ({
 
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {transaction != null && (
-            <Button variant="error" className="w-full">
-              Delete Transaction
-            </Button>
+            <TransactionDeleteAlertDialog transactionId={transaction.id} />
           )}
 
           <Button className="w-full">

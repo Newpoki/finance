@@ -23,7 +23,6 @@ export default async function TransactionPage({
     fetchTransactionPromise,
   ])
 
-  //   TODO: Add erorr page for edit transaction
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
       <div className="flex items-center justify-between gap-4">

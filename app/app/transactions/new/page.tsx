@@ -11,7 +11,7 @@ export default async function TransactionsAddNewPage() {
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
       <div className="flex items-center justify-between gap-4">
-        <h1>Add Transaction</h1>
+        <h1>Add New Transaction</h1>
 
         <Link href="/app/transactions">
           <Button className="flex md:hidden" size="icon" variant="ghost">
@@ -25,7 +25,6 @@ export default async function TransactionsAddNewPage() {
         </Link>
       </div>
 
-      {/* TODO: Add error page */}
       <Paper className="flex flex-1 flex-col gap-6">
         <TransactionForm profile={currentUserProfile} />
       </Paper>

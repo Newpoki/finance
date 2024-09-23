@@ -47,6 +47,7 @@ import { toast } from "sonner"
 import { getGroupSeparator } from "@/currency/get-group-separator"
 import { getDecimalSeparator } from "@/currency/get-decimal-separator"
 import { TransactionDeleteAlertDialog } from "./transaction-delete-alert-dialog"
+import { useRouter } from "next/navigation"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -57,6 +58,8 @@ export const TransactionForm = ({
   transaction,
   profile,
 }: TransactionFormProps) => {
+  const router = useRouter()
+
   const form = useForm<TransactionFormValues>({
     resolver: zodResolver(transactionFormValuesSchema),
     defaultValues: {
@@ -109,6 +112,7 @@ export const TransactionForm = ({
               ? "Transaction has been edited"
               : "Transaction has been created",
           )
+          router.back()
 
           return
         }
@@ -125,7 +129,7 @@ export const TransactionForm = ({
         })
       })
     },
-    [form, transaction],
+    [form, router, transaction],
   )
 
   return (

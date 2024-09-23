@@ -11,5 +11,11 @@ export const fetchOverviewTransactions = async () => {
     .order("date", { ascending: false })
     .range(0, 4)
 
+  if (data == null) {
+    throw new Error(
+      "An error occured while fetching transactions, should'nt be null",
+    )
+  }
+
   return data
 }

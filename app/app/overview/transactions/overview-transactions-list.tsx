@@ -1,38 +1,31 @@
-import { Paper } from "@/components/ui/paper"
-import { fetchOverviewTransactions } from "./fetch-overview-transactions"
+import Link from "next/link"
 import { TransactionsListItem } from "../../transactions/list/transactions-list-item"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import CarretLeft from "@/icons/carret-left.svg"
+import { OverviewTransactionsListEmpty } from "./overview-transactions-list-empty"
+import { OverviewTransactions } from "./overview-transactions-types"
 
-export const OverviewTransactionsList = async () => {
-  const data = await fetchOverviewTransactions()
+type OverviewTransactionsListProps = {
+  transactions: OverviewTransactions
+}
+
+export const OverviewTransactionsList = ({
+  transactions,
+}: OverviewTransactionsListProps) => {
+  if (transactions.length === 0) {
+    return <OverviewTransactionsListEmpty />
+  }
 
   return (
-    <Paper className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-2">
-        <h2>Transactions</h2>
+    <ul className="flex flex-col">
+      {transactions.map((transaction) => (
+        <li key={transaction.id} className="group">
+          <Link href={`/app/transactions/${transaction.id}`}>
+            <TransactionsListItem isCompact transaction={transaction} />
 
-        <Button variant="ghost" className="-mr-4 -mt-4" asChild>
-          <Link href="/app/transactions" className="flex items-center gap-3">
-            <span>View All</span>
-            <CarretLeft className="rotate-180" />
+            <Separator className="group-last:hidden" />
           </Link>
-        </Button>
-      </div>
-
-      <ul className="flex flex-col">
-        {data?.map((transaction) => (
-          <li key={transaction.id} className="group">
-            <Link href={`/app/transactions/${transaction.id}`}>
-              <TransactionsListItem isCompact transaction={transaction} />
-
-              <Separator className="group-last:hidden" />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Paper>
+        </li>
+      ))}
+    </ul>
   )
 }

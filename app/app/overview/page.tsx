@@ -1,7 +1,7 @@
 import { signOutAction } from "@/app/(auth-pages)/sign-out/sign-out-actions"
 import { Button } from "@/components/ui/button"
 import { OverviewBalances } from "./balances/overview-balances"
-import { OverviewTransactionsList } from "./transactions/overview-transactions-list"
+import { OverviewTransactions } from "./transactions/overview-transactions"
 
 export default async function OverviewPage() {
   return (
@@ -11,7 +11,7 @@ export default async function OverviewPage() {
       <OverviewBalances />
 
       <div className="flex flex-1 flex-col gap-4 md:gap-6">
-        <OverviewTransactionsList />
+        <OverviewTransactions />
 
         <form>
           <Button formAction={signOutAction}>Sign out</Button>

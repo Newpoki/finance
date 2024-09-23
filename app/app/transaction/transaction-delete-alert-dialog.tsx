@@ -30,7 +30,7 @@ export const TransactionDeleteAlertDialog = ({
     startTransition(async () => {
       const response = await deleteTransaction({ id: transactionId })
 
-      // Not redirecting anything as we're redirecting from server side
+      // Not returning anything as we're redirecting from server side
       if (response == null) {
         toast.success("Transaction has beeen deleted")
 

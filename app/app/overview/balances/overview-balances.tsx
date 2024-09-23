@@ -2,6 +2,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { fetchOverviewBalances } from "./fetch-overview-balances"
 import { formatCents } from "@/currency/format-cents"
 import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
+import { OverviewBalancesTooltip } from "./overview-balances-tooltip"
 
 export const OverviewBalances = async () => {
   const balancesPromises = fetchOverviewBalances()
@@ -32,20 +33,26 @@ export const OverviewBalances = async () => {
     currencyCode: profile.currency_code,
   })
 
-  // TODO: Explain that income and expenses concernes current month
-
   return (
     <section className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-6">
       <Card inverted>
         <CardTitle>Current balance</CardTitle>
         <CardContent>{currentBalance}</CardContent>
       </Card>
+
       <Card>
-        <CardTitle>Income</CardTitle>
+        <CardTitle className="flex w-full items-center justify-between gap-2">
+          <span>Income</span>
+          <OverviewBalancesTooltip title="Income of the current month" />
+        </CardTitle>
         <CardContent>{currentMonthIncome}</CardContent>
       </Card>
+
       <Card>
-        <CardTitle>Expenses</CardTitle>
+        <CardTitle className="flex w-full items-center justify-between gap-2">
+          <span>Expenses</span>
+          <OverviewBalancesTooltip title="Expenses of the current month" />
+        </CardTitle>
         <CardContent className="text-destructive">
           {currentMonthExpense}
         </CardContent>

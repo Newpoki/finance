@@ -48,6 +48,7 @@ import { getGroupSeparator } from "@/currency/get-group-separator"
 import { getDecimalSeparator } from "@/currency/get-decimal-separator"
 import { TransactionDeleteAlertDialog } from "./transaction-delete-alert-dialog"
 import { useRouter } from "next/navigation"
+import { formatToCents } from "@/currency/format-to-cents"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -101,9 +102,7 @@ export const TransactionForm = ({
         const response = await upsertTransactionAction({
           ...formValues,
           amount:
-            formValues.amount != null
-              ? Math.trunc(formValues.amount) * 100
-              : null,
+            formValues.amount != null ? formatToCents(formValues.amount) : null,
         })
 
         if (response.type === "success") {

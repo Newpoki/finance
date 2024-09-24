@@ -31,6 +31,9 @@ export const signUpAction = async (data: unknown): Promise<ServerResponse> => {
       data: {
         // Default to Europe/Paris, but might be better to set it according to the user browser
         timezone: "Europe/Paris",
+        // TODO: Find a way to determine locale and currencyCode from user request
+        locale: "en-US",
+        currency_code: "EUR",
       },
     },
   })

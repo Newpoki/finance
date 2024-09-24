@@ -29,8 +29,6 @@ export const updateAccountProfile = async (
     email: parsed.data.email,
   }
 
-  //   TODO: Check why the date is one day in past when saving birthdate
-
   const { error } = await supabase
     .from("profile")
     .update(payload)

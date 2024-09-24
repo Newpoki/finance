@@ -147,7 +147,6 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                       className={cn("h-11 w-full text-left font-normal")}
                       disabled={field.disabled}
                     >
-                      {/* TODO: FOR EACH FORMAT DATE INSTANCE Use real profile locale instead of fr-FR */}
                       {field.value != null
                         ? formatDate({
                             date: field.value,
@@ -170,6 +169,8 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
             </FormItem>
           )}
         />
+
+        {/* TODO: add Language, currency fields and timezone field */}
 
         <Button className="w-full" disabled={isSubmitting}>
           Save

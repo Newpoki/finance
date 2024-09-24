@@ -14,19 +14,6 @@ import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 import { NavigationLink } from "./navigation-link"
 
-const toggleExpandedDataAttribute = (
-  ref: React.RefObject<HTMLElement>,
-  isExpanded: boolean,
-) => {
-  const navigationElement = ref.current
-
-  if (navigationElement == null) {
-    return
-  }
-
-  navigationElement.setAttribute("data-expanded", `${isExpanded}`)
-}
-
 const DEFAULT_IS_EXPANDED = true
 
 export const Navigation = () => {
@@ -40,11 +27,7 @@ export const Navigation = () => {
   }, [isExpanded])
 
   const handleToggleSidebar = useCallback(() => {
-    setIsExpanded((current) => {
-      toggleExpandedDataAttribute(navigationRef, !current)
-
-      return !current
-    })
+    setIsExpanded((current) => !current)
   }, [])
 
   return (

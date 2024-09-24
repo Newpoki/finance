@@ -1,15 +1,15 @@
 "use server"
 
 import { ServerResponse } from "@/app/server-response"
-import { profileAccountDetailsFormValuesSchema } from "./profile-account-details-types"
+import { accountProfileFormValuesSchema } from "./account-profile-types"
 import { transformZodErrors } from "@/utils/transform-zod-errors"
 import { createClient } from "@/utils/supabase/server"
-import { fetchCurrentUserProfile } from "../fetch-current-user-profile"
+import { fetchCurrentUserProfile } from "./fetch-current-user-profile"
 
-export const updateProfileAccountDetails = async (
+export const updateAccountProfile = async (
   data: unknown,
 ): Promise<ServerResponse> => {
-  const parsed = profileAccountDetailsFormValuesSchema.safeParse(data)
+  const parsed = accountProfileFormValuesSchema.safeParse(data)
 
   if (!parsed.success) {
     return {

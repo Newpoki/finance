@@ -1,4 +1,4 @@
-import { Locale } from "@/app/app/profile/profile-types"
+import { Locale } from "@/app/app/account/profile/account-profile-types"
 
 export const getGroupSeparator = (locale: Locale) => {
   // Could use any number as long as it trigger group separator

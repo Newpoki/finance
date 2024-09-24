@@ -12,11 +12,11 @@ import { Input } from "@/components/ui/input"
 import { useCallback, useTransition } from "react"
 import { FieldPath, useForm } from "react-hook-form"
 import {
-  ProfileAccountDetailsFormValues,
-  profileAccountDetailsFormValuesSchema,
-} from "./profile-account-details-types"
+  AccountProfileFormValues,
+  accountProfileFormValuesSchema,
+  Profile,
+} from "./account-profile-types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Profile } from "../profile-types"
 import { Button } from "@/components/ui/button"
 import {
   Popover,
@@ -27,18 +27,16 @@ import { cn } from "@/lib/utils"
 import { formatDate } from "@/date/format-date"
 import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
-import { updateProfileAccountDetails } from "./profile-account-details-actions"
+import { updateAccountProfile } from "./account-profile-actions"
 import { toast } from "sonner"
 
-type ProfileAccountDetailsFormProps = {
+type AccountProfileFormProps = {
   profile: Profile
 }
 
-export const ProfileAccountDetailsForm = ({
-  profile,
-}: ProfileAccountDetailsFormProps) => {
-  const form = useForm<ProfileAccountDetailsFormValues>({
-    resolver: zodResolver(profileAccountDetailsFormValuesSchema),
+export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
+  const form = useForm<AccountProfileFormValues>({
+    resolver: zodResolver(accountProfileFormValuesSchema),
     defaultValues: {
       email: profile.email ?? "",
       firstName: profile.first_name ?? "",
@@ -50,9 +48,9 @@ export const ProfileAccountDetailsForm = ({
   const [isSubmitting, startTransition] = useTransition()
 
   const onSubmit = useCallback(
-    (formValues: ProfileAccountDetailsFormValues) => {
+    (formValues: AccountProfileFormValues) => {
       startTransition(async () => {
-        const response = await updateProfileAccountDetails(formValues)
+        const response = await updateAccountProfile(formValues)
 
         if (response.type === "success") {
           toast.success("Your account details have been updated")
@@ -66,12 +64,9 @@ export const ProfileAccountDetailsForm = ({
         }
 
         response.fields.forEach((field) => {
-          form.setError(
-            field.path as FieldPath<ProfileAccountDetailsFormValues>,
-            {
-              message: field.message,
-            },
-          )
+          form.setError(field.path as FieldPath<AccountProfileFormValues>, {
+            message: field.message,
+          })
         })
       })
     },

@@ -20,10 +20,10 @@ import { MinusIcon, PlusIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useCallback, useMemo } from "react"
 import { getCurrencySymbol } from "@/currency/get-currency-symbol"
-import { Profile } from "../../profile/profile-types"
 import { getGroupSeparator } from "@/currency/get-group-separator"
 import { getDecimalSeparator } from "@/currency/get-decimal-separator"
 import { FormMessage } from "@/components/form-message"
+import { Profile } from "../../account/profile/account-profile-types"
 
 type TransactionFormAmountFieldProps = {
   isSubmitting: boolean

@@ -1,8 +1,8 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { fetchOverviewBalances } from "./fetch-overview-balances"
 import { formatCents } from "@/currency/format-cents"
-import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
 import { OverviewBalancesTooltip } from "./overview-balances-tooltip"
+import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-user-profile"
 
 export const OverviewBalances = async () => {
   const balancesPromises = fetchOverviewBalances()

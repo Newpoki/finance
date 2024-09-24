@@ -8,7 +8,7 @@ import {
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
 import { getPaginationRange } from "@/utils/pagination/get-pagination-range"
 import { getTotalPaginationPages } from "@/utils/pagination/get-total-pagination-pages"
-import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
+import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-user-profile"
 
 type FetchTransactionsParams = {
   searchParams: ParsedTransactionsSearchParams

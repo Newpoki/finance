@@ -1,6 +1,6 @@
 import { Paper } from "@/components/ui/paper"
 import { TransactionForm } from "../../transaction/form/transaction-form"
-import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
+import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-user-profile"
 import { TransactionNewGoBackButton } from "./transaction-new-go-back-button"
 
 export default async function TransactionsAddNewPage() {

@@ -88,10 +88,10 @@ export const Navigation = () => {
             <NavigationLink
               icon={<UserIcon className="h-6 w-6" />}
               isExpanded={isExpanded}
-              isActive={pathname.startsWith("/app/profile")}
-              href="/app/profile"
+              isActive={pathname.startsWith("/app/account")}
+              href="/app/account"
             >
-              Profile
+              Account
             </NavigationLink>
           </ul>
         </nav>

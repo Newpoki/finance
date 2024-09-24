@@ -1,5 +1,5 @@
 import { Paper } from "@/components/ui/paper"
-import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
+import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-user-profile"
 import { TransactionForm } from "../../transaction/form/transaction-form"
 import { fetchTransactionById } from "../../transaction/fetch-transaction-by-id"
 import { TransactionEditGoBackButton } from "./transaction-edit-go-back-button"

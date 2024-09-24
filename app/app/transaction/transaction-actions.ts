@@ -4,7 +4,7 @@ import { transformZodErrors } from "@/utils/transform-zod-errors"
 import { Transaction, transactionFormValuesSchema } from "./transaction-types"
 import { createClient } from "@/utils/supabase/server"
 import { ServerResponse } from "@/app/server-response"
-import { fetchCurrentUserProfile } from "../profile/fetch-current-user-profile"
+import { fetchCurrentUserProfile } from "../account/profile/fetch-current-user-profile"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 

@@ -39,13 +39,13 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { formatDate } from "@/date/format-date"
-import { Profile } from "../../profile/profile-types"
 import { upsertTransactionAction } from "../transaction-actions"
 import { toast } from "sonner"
 import { TransactionDeleteAlertDialog } from "../transaction-delete-alert-dialog"
 import { useRouter } from "next/navigation"
 import { formatToCents } from "@/currency/format-to-cents"
 import { TransactionFormAmountField } from "./transaction-form-amount-field"
+import { Profile } from "../../account/profile/account-profile-types"
 
 type TransactionFormProps = {
   transaction?: Transaction

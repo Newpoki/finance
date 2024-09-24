@@ -2,7 +2,7 @@ import { formatCents } from "@/currency/format-cents"
 import { TransactionListItem } from "../transactions-types"
 import { formatDate } from "@/date/format-date"
 import { cn } from "@/lib/utils"
-import { fetchCurrentUserProfile } from "../../profile/fetch-current-user-profile"
+import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-user-profile"
 import { TRANSACTION_CATEGORY_LABEL_MAPPING } from "../transactions-constants"
 
 type TransactionsListItemProps = {

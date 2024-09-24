@@ -26,7 +26,6 @@ export const updateAccountProfile = async (
     birthdate: parsed.data.birthdate?.toISOString(),
     first_name: parsed.data.firstName,
     last_name: parsed.data.lastName,
-    email: parsed.data.email,
   }
 
   const { error } = await supabase

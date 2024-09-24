@@ -83,7 +83,9 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
       >
         <FormField
           control={form.control}
-          disabled={isSubmitting}
+          // As we don't have enough supabase credit to send verification link
+          // We better disable it for now
+          disabled
           name="email"
           render={({ field, fieldState }) => (
             <FormItem>

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { LogOutIcon } from "lucide-react"
-import Link from "next/link"
 import { AccountProfile } from "./profile/account-profile"
+import { signOutAction } from "@/app/(auth-pages)/sign-out/sign-out-actions"
 
 export default function AccountPage() {
   return (
@@ -9,16 +9,21 @@ export default function AccountPage() {
       <div className="flex items-center justify-between gap-4">
         <h1>Account</h1>
 
-        {/* TODO: Remove Sign Out from home page and wire it here */}
-        <Link href="/app/transactions/new">
-          <Button className="flex md:hidden" size="icon" variant="ghost">
+        {/* TODO: Create a route /sign-out that display a See you soon message, then trigger the signout */}
+        <form>
+          <Button
+            formAction={signOutAction}
+            className="flex md:hidden"
+            size="icon"
+            variant="ghost"
+          >
             <LogOutIcon />
           </Button>
-          <Button className="hidden gap-2 md:flex">
+          <Button formAction={signOutAction} className="hidden gap-2 md:flex">
             <LogOutIcon />
             <span>Sign Out</span>
           </Button>
-        </Link>
+        </form>
       </div>
 
       <AccountProfile />

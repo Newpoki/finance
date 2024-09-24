@@ -154,7 +154,11 @@ export const ProfileAccountDetailsForm = ({
                     >
                       {/* TODO: FOR EACH FORMAT DATE INSTANCE Use real profile locale instead of fr-FR */}
                       {field.value != null
-                        ? formatDate({ date: field.value, locale: "fr-FR" })
+                        ? formatDate({
+                            date: field.value,
+                            locale: profile.locale,
+                            timeZone: profile.timezone,
+                          })
                         : "Select a birthdate"}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>

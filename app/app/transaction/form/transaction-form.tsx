@@ -165,7 +165,11 @@ export const TransactionForm = ({
                         className={cn("h-11 w-full text-left font-normal")}
                         disabled={field.disabled}
                       >
-                        {formatDate({ date: field.value, locale: "fr-FR" })}
+                        {formatDate({
+                          date: field.value,
+                          locale: profile.locale,
+                          timeZone: profile.timezone,
+                        })}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>

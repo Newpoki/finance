@@ -1,6 +1,9 @@
+import { Timezones } from "./date-types"
+
 type FormatDateParams = Intl.DateTimeFormatOptions & {
   date: string | number | Date
   locale: string
+  timeZone: Timezones
 }
 
 export const formatDate = ({

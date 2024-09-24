@@ -31,6 +31,7 @@ export const transactionFormValuesSchema = z.object({
     .refine((value) => {
       return !!value
     }, "Value is required"),
+  isExpense: z.boolean(),
 })
 
 export type TransactionFormValues = z.infer<typeof transactionFormValuesSchema>

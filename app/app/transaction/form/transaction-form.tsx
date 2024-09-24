@@ -5,13 +5,13 @@ import {
   Transaction,
   TransactionFormValues,
   transactionFormValuesSchema,
-} from "./transaction-types"
+} from "../transaction-types"
 import {
   TRANSACTION_CATEGORIES,
   TRANSACTION_CATEGORIES_OPTIONS,
-} from "./transaction-constants"
+} from "../transaction-constants"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Fragment, useCallback, useMemo, useTransition } from "react"
+import { Fragment, useCallback, useTransition } from "react"
 import {
   Form,
   FormControl,
@@ -39,16 +39,13 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { formatDate } from "@/date/format-date"
-import { Profile } from "../profile/profile-types"
-import { getCurrencySymbol } from "@/currency/get-currency-symbol"
-import { NumericFormat } from "react-number-format"
-import { upsertTransactionAction } from "./transaction-actions"
+import { Profile } from "../../profile/profile-types"
+import { upsertTransactionAction } from "../transaction-actions"
 import { toast } from "sonner"
-import { getGroupSeparator } from "@/currency/get-group-separator"
-import { getDecimalSeparator } from "@/currency/get-decimal-separator"
-import { TransactionDeleteAlertDialog } from "./transaction-delete-alert-dialog"
+import { TransactionDeleteAlertDialog } from "../transaction-delete-alert-dialog"
 import { useRouter } from "next/navigation"
 import { formatToCents } from "@/currency/format-to-cents"
+import { TransactionFormAmountField } from "./transaction-form-amount-field"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -72,29 +69,13 @@ export const TransactionForm = ({
       date: transaction?.date != null ? new Date(transaction.date) : new Date(),
       id: transaction?.id ?? null,
       name: transaction?.name ?? "",
+      isExpense: transaction?.amount_cents
+        ? transaction.amount_cents < 0
+        : true,
     },
   })
 
   const [isSubmitting, startTransition] = useTransition()
-
-  const displayedCurrencySymbol = useMemo(
-    () =>
-      getCurrencySymbol(
-        profile.locale,
-        transaction?.currency_code ?? profile.currency_code,
-      ),
-    [profile.currency_code, profile.locale, transaction?.currency_code],
-  )
-
-  const displayedGroupSeparator = useMemo(
-    () => getGroupSeparator(profile.locale),
-    [profile.locale],
-  )
-
-  const displayedDecimalSeparator = useMemo(
-    () => getDecimalSeparator(profile.locale),
-    [profile.locale],
-  )
 
   const onSubmit = useCallback(
     (formValues: TransactionFormValues) => {
@@ -102,7 +83,13 @@ export const TransactionForm = ({
         const response = await upsertTransactionAction({
           ...formValues,
           amount:
-            formValues.amount != null ? formatToCents(formValues.amount) : null,
+            formValues.amount != null
+              ? formatToCents(
+                  formValues.isExpense
+                    ? -formValues.amount
+                    : Math.abs(formValues.amount),
+                )
+              : null,
         })
 
         if (response.type === "success") {
@@ -155,36 +142,10 @@ export const TransactionForm = ({
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            disabled={isSubmitting}
-            name="amount"
-            render={({ field, fieldState }) => (
-              <FormItem>
-                <FormLabel>Amount</FormLabel>
-                <FormControl>
-                  <NumericFormat
-                    customInput={Input}
-                    suffix={` ${displayedCurrencySymbol}`}
-                    placeholder={`20${displayedDecimalSeparator}42 ${displayedCurrencySymbol}`}
-                    name={field.name}
-                    thousandSeparator={displayedGroupSeparator}
-                    decimalSeparator={displayedDecimalSeparator}
-                    required
-                    defaultValue={field.value}
-                    onValueChange={(values) => {
-                      field.onChange(values.floatValue)
-                    }}
-                    allowLeadingZeros={false}
-                    disabled={field.disabled}
-                  />
-                </FormControl>
-                {fieldState.error?.message && (
-                  <FormMessage message={{ error: fieldState.error.message }} />
-                )}
-              </FormItem>
-            )}
+          <TransactionFormAmountField
+            isSubmitting={isSubmitting}
+            profile={profile}
+            transaction={transaction}
           />
         </div>
 

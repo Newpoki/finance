@@ -6,13 +6,13 @@ import { NavigationItem } from "./navigation-item"
 import Home from "@/icons/home.svg"
 import ArrowsDownUp from "@/icons/arrows-down-up.svg"
 import ChartDonut from "@/icons/chart-donut.svg"
-import JarFill from "@/icons/jar-fill.svg"
 import Receipt from "@/icons/receipt.svg"
 import ArrowFatLinesLeft from "@/icons/arrow-fat-lines-left.svg"
 import { useCallback, useMemo, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 import { NavigationLink } from "./navigation-link"
+import { UserIcon } from "lucide-react"
 
 const DEFAULT_IS_EXPANDED = true
 
@@ -77,21 +77,21 @@ export const Navigation = () => {
             </NavigationLink>
 
             <NavigationLink
-              icon={<JarFill className="h-6 w-6" />}
-              isExpanded={isExpanded}
-              isActive={pathname.startsWith("/app/pots")}
-              href="/app/pots"
-            >
-              Pots
-            </NavigationLink>
-
-            <NavigationLink
               icon={<Receipt className="h-6 w-6" />}
               isExpanded={isExpanded}
               isActive={pathname.startsWith("/app/recurring-bills")}
               href="/app/recurring-bills"
             >
               Recurring bills
+            </NavigationLink>
+
+            <NavigationLink
+              icon={<UserIcon className="h-6 w-6" />}
+              isExpanded={isExpanded}
+              isActive={pathname.startsWith("/app/profile")}
+              href="/app/profile"
+            >
+              Profile
             </NavigationLink>
           </ul>
         </nav>

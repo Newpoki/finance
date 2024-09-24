@@ -11,29 +11,38 @@ export type Database = {
     Tables: {
       profile: {
         Row: {
+          birthdate: string | null
           created_at: string
           currency_code: Database["public"]["Enums"]["currency_codes"]
           display_name: string | null
           email: string | null
+          first_name: string | null
           id: string
+          last_name: string | null
           locale: Database["public"]["Enums"]["locales"]
           timezone: Database["public"]["Enums"]["timezones"]
         }
         Insert: {
+          birthdate?: string | null
           created_at?: string
           currency_code: Database["public"]["Enums"]["currency_codes"]
           display_name?: string | null
           email?: string | null
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           locale: Database["public"]["Enums"]["locales"]
           timezone: Database["public"]["Enums"]["timezones"]
         }
         Update: {
+          birthdate?: string | null
           created_at?: string
           currency_code?: Database["public"]["Enums"]["currency_codes"]
           display_name?: string | null
           email?: string | null
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           locale?: Database["public"]["Enums"]["locales"]
           timezone?: Database["public"]["Enums"]["timezones"]
         }

@@ -12,4 +12,17 @@ function Skeleton({
   )
 }
 
+type SkeletonInputProps = {
+  noLabel?: boolean
+}
+
+export const SkeletonInput = ({ noLabel = false }: SkeletonInputProps) => {
+  return (
+    <div className="flex flex-col gap-2">
+      {!noLabel && <Skeleton className="h-4 w-10" />}
+      <Skeleton className="h-11 w-full" />
+    </div>
+  )
+}
+
 export { Skeleton }

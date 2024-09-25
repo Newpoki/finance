@@ -3,7 +3,7 @@ import { LogOutIcon } from "lucide-react"
 import { AccountProfile } from "./profile/account-profile"
 import { signOutAction } from "@/app/(auth-pages)/sign-out/sign-out-actions"
 
-// TODO: Create loading and error pages
+// TODO: error pages
 export default function AccountPage() {
   return (
     <div className="flex w-full flex-1 flex-col gap-8">

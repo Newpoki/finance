@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation"
 import { useCallback } from "react"
 import CarretLeft from "@/icons/carret-left.svg"
 
-export const TransactionNewGoBackButton = () => {
+type TransactionNewGoBackButtonProps = {
+  disabled?: boolean
+}
+
+export const TransactionNewGoBackButton = ({
+  disabled = false,
+}: TransactionNewGoBackButtonProps) => {
   const router = useRouter()
 
   const handleClick = useCallback(() => {
@@ -16,6 +22,7 @@ export const TransactionNewGoBackButton = () => {
     <>
       <Button
         className="flex md:hidden"
+        disabled={disabled}
         size="icon"
         variant="ghost"
         type="button"
@@ -26,6 +33,7 @@ export const TransactionNewGoBackButton = () => {
 
       <Button
         className="hidden gap-2 md:flex"
+        disabled={disabled}
         type="button"
         onClick={handleClick}
       >

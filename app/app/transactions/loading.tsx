@@ -1,6 +1,7 @@
 import { Paper } from "@/components/ui/paper"
 import { Skeleton } from "@/components/ui/skeleton"
 import range from "lodash.range"
+import { TransactionsAddNewButton } from "./transactions-add-new-button"
 
 /**
  * This is the displayed component the first time the `/transactions` page is fetched
@@ -8,7 +9,10 @@ import range from "lodash.range"
 export default function TransactionsLoading() {
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
-      <h1>Transactions</h1>
+      <div className="flex items-center justify-between gap-4">
+        <h1>Transactions</h1>
+        <TransactionsAddNewButton disabled />
+      </div>
 
       <Paper className="flex flex-1 flex-col gap-6">
         <div className="mb-4 flex items-center justify-between gap-6">

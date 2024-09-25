@@ -25,6 +25,7 @@ import { ControlledSelect } from "@/components/rhk/controlled-select"
 import { getCurrencySymbol } from "@/currency/get-currency-symbol"
 import { getCurrencyName } from "@/currency/get-currency-name"
 import capitalize from "lodash.capitalize"
+import { SaveIcon } from "lucide-react"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -96,74 +97,76 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
   )
 
   return (
-    /* TODO: Layout for tablet and desktop */
     <Form {...form}>
       <form
         className="flex flex-1 flex-col gap-4"
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <ControlledInput
-          name="email"
-          control={form.control}
-          label="Email"
-          type="email"
-          disabled={isSubmitting}
-          required
-        />
+        <section className="grid flex-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <ControlledInput
+            name="email"
+            control={form.control}
+            label="Email"
+            type="email"
+            disabled={isSubmitting}
+            required
+          />
 
-        <ControlledInput
-          name="firstName"
-          control={form.control}
-          label="First Name"
-          placeholder="John"
-          disabled={isSubmitting}
-          required
-        />
+          <ControlledInput
+            name="firstName"
+            control={form.control}
+            label="First Name"
+            placeholder="John"
+            disabled={isSubmitting}
+            required
+          />
 
-        <ControlledInput
-          name="lastName"
-          control={form.control}
-          label="Last Name"
-          placeholder="doe"
-          disabled={isSubmitting}
-          required
-        />
+          <ControlledInput
+            name="lastName"
+            control={form.control}
+            label="Last Name"
+            placeholder="doe"
+            disabled={isSubmitting}
+            required
+          />
 
-        <ControlledDayPicker
-          name="birthdate"
-          control={form.control}
-          label="Birthdate"
-          disabled={isSubmitting}
-          mode="single"
-        />
+          <ControlledDayPicker
+            name="birthdate"
+            control={form.control}
+            label="Birthdate"
+            disabled={isSubmitting}
+            mode="single"
+          />
 
-        <ControlledSelect
-          control={form.control}
-          disabled={isSubmitting}
-          name="locale"
-          label="Language"
-          options={ACCOUNT_PROFILE_LANGUAGES_OPTIONS}
-        />
+          <ControlledSelect
+            control={form.control}
+            disabled={isSubmitting}
+            name="locale"
+            label="Language"
+            options={ACCOUNT_PROFILE_LANGUAGES_OPTIONS}
+          />
 
-        <ControlledSelect
-          control={form.control}
-          disabled={isSubmitting}
-          name="currencyCode"
-          label="Currency"
-          options={accountProfileCurrenciesOptions}
-        />
+          <ControlledSelect
+            control={form.control}
+            disabled={isSubmitting}
+            name="currencyCode"
+            label="Currency"
+            options={accountProfileCurrenciesOptions}
+          />
 
-        <ControlledSelect
-          control={form.control}
-          disabled={isSubmitting}
-          name="timezone"
-          label="Timezone"
-          options={ACCOUNT_PROFILE_TIMEZONES_OPTIONS}
-        />
+          <ControlledSelect
+            control={form.control}
+            disabled={isSubmitting}
+            name="timezone"
+            label="Timezone"
+            options={ACCOUNT_PROFILE_TIMEZONES_OPTIONS}
+          />
+        </section>
 
-        <Button className="w-full" disabled={isSubmitting}>
-          Save
+        <Button className="w-full gap-2 md:w-fit" disabled={isSubmitting}>
+          <SaveIcon />
+          <span>Save</span>
         </Button>
       </form>
     </Form>

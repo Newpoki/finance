@@ -62,13 +62,13 @@ export function ControlledMoneyInput<
   )
 
   const displayedGroupSeparator = useMemo(
-    () => getGroupSeparator(locale),
-    [locale],
+    () => getGroupSeparator(locale, currencyCode),
+    [currencyCode, locale],
   )
 
   const displayedDecimalSeparator = useMemo(
-    () => getDecimalSeparator(locale),
-    [locale],
+    () => getDecimalSeparator(locale, currencyCode),
+    [currencyCode, locale],
   )
 
   const handleValueChange = useCallback(

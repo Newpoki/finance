@@ -3,7 +3,7 @@ import { Timezone } from "@/app/app/account/profile/account-profile-types"
 type FormatDateParams = Intl.DateTimeFormatOptions & {
   date: string | number | Date
   locale: string
-  timeZone: Timezone
+  timeZone?: Timezone
 }
 
 export const formatDate = ({

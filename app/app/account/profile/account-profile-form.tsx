@@ -162,12 +162,12 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                       className={cn("h-11 w-full text-left font-normal")}
                       disabled={field.disabled}
                     >
-                      {/* TODO: Find why this doesnt show the correct day when specified TZ is different than browser TZ*/}
                       {field.value != null
                         ? formatDate({
                             date: field.value,
                             locale: profile.locale,
-                            timeZone: profile.timezone,
+                            // Not specifying a TZ because if it's different from user browser
+                            // The selected date might be different than the one he clicked on
                           })
                         : "Select a birthdate"}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -179,7 +179,6 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                     mode="single"
                     selected={field.value ?? undefined}
                     onSelect={field.onChange}
-                    // TODO: Add Locale prop on calendar
                   />
                 </PopoverContent>
               </Popover>

@@ -24,9 +24,7 @@ export const updateAccountProfile = async (
   const currentUserProfile = await fetchCurrentUserProfile()
 
   const payload = {
-    birthdate: parsed.data.birthdate?.toLocaleString(parsed.data.locale, {
-      timeZone: parsed.data.timezone,
-    }),
+    birthdate: parsed.data.birthdate?.toLocaleString(),
     first_name: parsed.data.firstName,
     last_name: parsed.data.lastName,
     locale: parsed.data.locale,

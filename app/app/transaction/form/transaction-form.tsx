@@ -11,23 +11,8 @@ import {
   TRANSACTION_CATEGORIES_OPTIONS,
 } from "../transaction-constants"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Fragment, useCallback, useTransition } from "react"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
-import { FormMessage } from "@/components/form-message"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { useCallback, useTransition } from "react"
+import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { upsertTransactionAction } from "../transaction-actions"
 import { toast } from "sonner"
@@ -38,6 +23,7 @@ import { TransactionFormAmountField } from "./transaction-form-amount-field"
 import { Profile } from "../../account/profile/account-profile-types"
 import { ControlledInput } from "@/components/rhk/controlled-input"
 import { ControlledDayPicker } from "@/components/rhk/controlled-day-picker"
+import { ControlledSelect } from "@/components/rhk/controlled-select"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -143,54 +129,12 @@ export const TransactionForm = ({
             mode="single"
           />
 
-          <FormField
+          <ControlledSelect
             control={form.control}
             disabled={isSubmitting}
             name="category"
-            render={({ field, fieldState }) => {
-              const selectedOption = TRANSACTION_CATEGORIES_OPTIONS.find(
-                (option) => option.value === field.value,
-              )
-
-              if (selectedOption == null) {
-                throw new Error("Selected transaction option not found")
-              }
-
-              return (
-                <FormItem>
-                  <FormLabel>Budget Category</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a transaction category">
-                          {selectedOption.label}
-                        </SelectValue>
-                      </SelectTrigger>
-
-                      <SelectContent sideOffset={8}>
-                        {TRANSACTION_CATEGORIES_OPTIONS.map((option) => (
-                          <Fragment key={option.value}>
-                            <SelectItem value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                            <SelectSeparator className="last:hidden" />
-                          </Fragment>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  {fieldState.error?.message && (
-                    <FormMessage
-                      type="error"
-                      content={fieldState.error.message}
-                    />
-                  )}
-                </FormItem>
-              )
-            }}
+            label="Budget Category"
+            options={TRANSACTION_CATEGORIES_OPTIONS}
           />
         </div>
 

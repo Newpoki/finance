@@ -1,14 +1,7 @@
 "use client"
 
-import { FormMessage } from "@/components/form-message"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
-import { Fragment, useCallback, useTransition } from "react"
+import { Form } from "@/components/ui/form"
+import { useCallback, useTransition } from "react"
 import { FieldPath, useForm } from "react-hook-form"
 import {
   AccountProfileFormValues,
@@ -20,20 +13,13 @@ import { Button } from "@/components/ui/button"
 import { updateAccountProfile } from "./account-profile-actions"
 import { toast } from "sonner"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
   ACCOUNT_PROFILE_CURRENCIES_OPTIONS,
   ACCOUNT_PROFILE_LANGUAGES_OPTIONS,
   ACCOUNT_PROFILE_TIMEZONES_OPTIONS,
 } from "./account-profile-constants"
 import { ControlledInput } from "@/components/rhk/controlled-input"
 import { ControlledDayPicker } from "@/components/rhk/controlled-day-picker"
+import { ControlledSelect } from "@/components/rhk/controlled-select"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -124,148 +110,28 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
           mode="single"
         />
 
-        <FormField
+        <ControlledSelect
           control={form.control}
           disabled={isSubmitting}
           name="locale"
-          render={({ field, fieldState }) => {
-            const selectedOption = ACCOUNT_PROFILE_LANGUAGES_OPTIONS.find(
-              (option) => option.value === field.value,
-            )
-
-            if (selectedOption == null) {
-              throw new Error("Selected locale option not found")
-            }
-
-            return (
-              <FormItem>
-                <FormLabel>Language</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue>{selectedOption.label}</SelectValue>
-                    </SelectTrigger>
-
-                    <SelectContent sideOffset={8}>
-                      {ACCOUNT_PROFILE_LANGUAGES_OPTIONS.map((option) => (
-                        <Fragment key={option.value}>
-                          <SelectItem value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                          <SelectSeparator className="last:hidden" />
-                        </Fragment>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                {fieldState.error?.message && (
-                  <FormMessage
-                    type="error"
-                    content={fieldState.error.message}
-                  />
-                )}
-              </FormItem>
-            )
-          }}
+          label="Language"
+          options={ACCOUNT_PROFILE_LANGUAGES_OPTIONS}
         />
 
-        <FormField
+        <ControlledSelect
           control={form.control}
           disabled={isSubmitting}
           name="currencyCode"
-          render={({ field, fieldState }) => {
-            const selectedOption = ACCOUNT_PROFILE_CURRENCIES_OPTIONS.find(
-              (option) => option.value === field.value,
-            )
-
-            if (selectedOption == null) {
-              throw new Error("Selected currency option not found")
-            }
-
-            return (
-              <FormItem>
-                <FormLabel>Currency</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue>{selectedOption.label}</SelectValue>
-                    </SelectTrigger>
-
-                    <SelectContent sideOffset={8}>
-                      {ACCOUNT_PROFILE_CURRENCIES_OPTIONS.map((option) => (
-                        <Fragment key={option.value}>
-                          <SelectItem value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                          <SelectSeparator className="last:hidden" />
-                        </Fragment>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                {fieldState.error?.message && (
-                  <FormMessage
-                    type="error"
-                    content={fieldState.error.message}
-                  />
-                )}
-              </FormItem>
-            )
-          }}
+          label="Currency"
+          options={ACCOUNT_PROFILE_CURRENCIES_OPTIONS}
         />
 
-        <FormField
+        <ControlledSelect
           control={form.control}
           disabled={isSubmitting}
           name="timezone"
-          render={({ field, fieldState }) => {
-            const selectedOption = ACCOUNT_PROFILE_TIMEZONES_OPTIONS.find(
-              (option) => option.value === field.value,
-            )
-
-            if (selectedOption == null) {
-              throw new Error("Selected timezone option not found")
-            }
-
-            return (
-              <FormItem>
-                <FormLabel>Timezone</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue>{selectedOption.label}</SelectValue>
-                    </SelectTrigger>
-
-                    <SelectContent sideOffset={8}>
-                      {ACCOUNT_PROFILE_TIMEZONES_OPTIONS.map((option) => (
-                        <Fragment key={option.value}>
-                          <SelectItem value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                          <SelectSeparator className="last:hidden" />
-                        </Fragment>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                {fieldState.error?.message && (
-                  <FormMessage
-                    type="error"
-                    content={fieldState.error.message}
-                  />
-                )}
-              </FormItem>
-            )
-          }}
+          label="Timezone"
+          options={ACCOUNT_PROFILE_TIMEZONES_OPTIONS}
         />
 
         <Button className="w-full" disabled={isSubmitting}>

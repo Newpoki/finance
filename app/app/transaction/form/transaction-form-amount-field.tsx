@@ -67,7 +67,6 @@ export const TransactionFormAmountField = ({
   }, [isExpense, setValue])
 
   return (
-    // TODO: Create controlled field for currency fields
     <FormField
       control={control}
       disabled={isSubmitting}

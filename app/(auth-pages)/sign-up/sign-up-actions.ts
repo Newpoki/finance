@@ -6,7 +6,6 @@ import { transformZodErrors } from "@/utils/transform-zod-errors"
 import { createClient } from "@/utils/supabase/server"
 import { headers } from "next/headers"
 
-// TODO: Check to see why sign-up is not working anymore
 export const signUpAction = async (data: unknown): Promise<ServerResponse> => {
   const parsed = signupFormValuesSchema.safeParse(data)
 

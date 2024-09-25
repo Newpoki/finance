@@ -1,11 +1,13 @@
 "use client"
 
 import { Form } from "@/components/ui/form"
-import { useCallback, useTransition } from "react"
+import { useCallback, useMemo, useTransition } from "react"
 import { FieldPath, useForm } from "react-hook-form"
 import {
   AccountProfileFormValues,
   accountProfileFormValuesSchema,
+  CurrencyCode,
+  Locale,
   Profile,
 } from "./account-profile-types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -13,16 +15,29 @@ import { Button } from "@/components/ui/button"
 import { updateAccountProfile } from "./account-profile-actions"
 import { toast } from "sonner"
 import {
-  ACCOUNT_PROFILE_CURRENCIES_OPTIONS,
+  ACCOUNT_PROFILE_CURRENCY_CODES,
   ACCOUNT_PROFILE_LANGUAGES_OPTIONS,
   ACCOUNT_PROFILE_TIMEZONES_OPTIONS,
 } from "./account-profile-constants"
 import { ControlledInput } from "@/components/rhk/controlled-input"
 import { ControlledDayPicker } from "@/components/rhk/controlled-day-picker"
 import { ControlledSelect } from "@/components/rhk/controlled-select"
+import { getCurrencySymbol } from "@/currency/get-currency-symbol"
+import { getCurrencyName } from "@/currency/get-currency-name"
+import capitalize from "lodash.capitalize"
 
 type AccountProfileFormProps = {
   profile: Profile
+}
+
+const generateCurrenciesOptions = (
+  locale: Locale,
+  currencyCode: CurrencyCode,
+) => {
+  return {
+    value: currencyCode,
+    label: `${capitalize(getCurrencyName(locale, currencyCode))} (${getCurrencySymbol(locale, currencyCode)})`,
+  }
 }
 
 export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
@@ -40,6 +55,19 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
   })
 
   const [isSubmitting, startTransition] = useTransition()
+
+  const accountProfileCurrenciesOptions = useMemo(() => {
+    return [
+      generateCurrenciesOptions(
+        profile.locale,
+        ACCOUNT_PROFILE_CURRENCY_CODES.EUR,
+      ),
+      generateCurrenciesOptions(
+        profile.locale,
+        ACCOUNT_PROFILE_CURRENCY_CODES.USD,
+      ),
+    ]
+  }, [profile.locale])
 
   const onSubmit = useCallback(
     (formValues: AccountProfileFormValues) => {
@@ -123,7 +151,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
           disabled={isSubmitting}
           name="currencyCode"
           label="Currency"
-          options={ACCOUNT_PROFILE_CURRENCIES_OPTIONS}
+          options={accountProfileCurrenciesOptions}
         />
 
         <ControlledSelect

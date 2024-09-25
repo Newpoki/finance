@@ -19,18 +19,6 @@ export const ACCOUNT_PROFILE_CURRENCY_CODES = {
   USD: "USD",
 } as const
 
-export const ACCOUNT_PROFILE_CURRENCIES_OPTIONS = [
-  {
-    value: ACCOUNT_PROFILE_CURRENCY_CODES.EUR,
-    // TODO: Use utils to get currency symbol
-    label: "Euro (€)",
-  },
-  {
-    value: ACCOUNT_PROFILE_CURRENCY_CODES.USD,
-    label: "US Dollar ($)",
-  },
-]
-
 export const ACCOUNT_PROFILE_TIMEZONES = {
   "Europe/Paris": "Europe/Paris",
   "America/Santiago": "America/Santiago",

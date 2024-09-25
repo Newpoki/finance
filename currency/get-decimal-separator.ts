@@ -4,7 +4,9 @@ export const getDecimalSeparator = (locale: Locale) => {
   // Could use any number as long as it trigger group separator
   const numberWithDecimalSeparator = 1000.1
 
-  const parts = Intl.NumberFormat(locale)
+  const parts = Intl.NumberFormat(locale, {
+    style: "currency",
+  })
     .formatToParts(numberWithDecimalSeparator)
     .find((part) => part.type === "decimal")
 

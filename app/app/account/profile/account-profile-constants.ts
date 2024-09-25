@@ -3,6 +3,8 @@ export const ACCOUNT_PROFILE_LOCALES = {
   "en-US": "en-US",
 } as const
 
+// TODO: Create endpoint to fetch available languages from DB
+// Then display it with locale as done for currency
 export const ACCOUNT_PROFILE_LANGUAGES_OPTIONS = [
   {
     value: ACCOUNT_PROFILE_LOCALES["fr-FR"],
@@ -19,6 +21,8 @@ export const ACCOUNT_PROFILE_CURRENCY_CODES = {
   USD: "USD",
 } as const
 
+// TODO: Create endpoint to fetch available timezones from DB
+// Then display it with locale as done for currency
 export const ACCOUNT_PROFILE_TIMEZONES = {
   "Europe/Paris": "Europe/Paris",
   "America/Santiago": "America/Santiago",

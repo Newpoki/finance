@@ -73,11 +73,11 @@ export function ControlledSelect<
   }
 
   return (
-    <FormItem>
-      {label != null && <FormLabel>{label}</FormLabel>}
+    <FormItem aria-disabled={disabled}>
+      {label != null && <FormLabel aria-disabled={disabled}>{label}</FormLabel>}
       <FormControl>
         <Select onValueChange={field.onChange} defaultValue={field.value}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger disabled={disabled} className="w-full">
             <SelectValue>{selectedOption?.label}</SelectValue>
           </SelectTrigger>
 

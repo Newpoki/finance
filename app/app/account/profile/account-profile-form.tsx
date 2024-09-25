@@ -9,7 +9,7 @@ import {
   FormLabel,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useCallback, useTransition } from "react"
+import { Fragment, useCallback, useTransition } from "react"
 import { FieldPath, useForm } from "react-hook-form"
 import {
   AccountProfileFormValues,
@@ -29,6 +29,19 @@ import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { updateAccountProfile } from "./account-profile-actions"
 import { toast } from "sonner"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  ACCOUNT_PROFILE_CURRENCIES_OPTIONS,
+  ACCOUNT_PROFILE_LANGUAGES_OPTIONS,
+  ACCOUNT_PROFILE_TIMEZONES_OPTIONS,
+} from "./account-profile-constants"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -42,6 +55,9 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
       firstName: profile.first_name ?? "",
       lastName: profile.last_name ?? "",
       birthdate: profile.birthdate != null ? new Date(profile.birthdate) : null,
+      locale: profile.locale,
+      currencyCode: profile.currency_code,
+      timezone: profile.timezone,
     },
   })
 
@@ -83,9 +99,6 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
       >
         <FormField
           control={form.control}
-          // As we don't have enough supabase credit to send verification link
-          // We better disable it for now
-          disabled
           name="email"
           render={({ field, fieldState }) => (
             <FormItem>
@@ -149,6 +162,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                       className={cn("h-11 w-full text-left font-normal")}
                       disabled={field.disabled}
                     >
+                      {/* TODO: Find why this doesnt show the correct day when specified TZ is different than browser TZ*/}
                       {field.value != null
                         ? formatDate({
                             date: field.value,
@@ -165,6 +179,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                     mode="single"
                     selected={field.value ?? undefined}
                     onSelect={field.onChange}
+                    // TODO: Add Locale prop on calendar
                   />
                 </PopoverContent>
               </Popover>
@@ -172,7 +187,140 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
           )}
         />
 
-        {/* TODO: add Language, currency fields and timezone field */}
+        <FormField
+          control={form.control}
+          disabled={isSubmitting}
+          name="locale"
+          render={({ field, fieldState }) => {
+            const selectedOption = ACCOUNT_PROFILE_LANGUAGES_OPTIONS.find(
+              (option) => option.value === field.value,
+            )
+
+            if (selectedOption == null) {
+              throw new Error("Selected locale option not found")
+            }
+
+            return (
+              <FormItem>
+                <FormLabel>Language</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue>{selectedOption.label}</SelectValue>
+                    </SelectTrigger>
+
+                    <SelectContent sideOffset={8}>
+                      {ACCOUNT_PROFILE_LANGUAGES_OPTIONS.map((option) => (
+                        <Fragment key={option.value}>
+                          <SelectItem value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                          <SelectSeparator className="last:hidden" />
+                        </Fragment>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                {fieldState.error?.message && (
+                  <FormMessage message={{ error: fieldState.error.message }} />
+                )}
+              </FormItem>
+            )
+          }}
+        />
+
+        <FormField
+          control={form.control}
+          disabled={isSubmitting}
+          name="currencyCode"
+          render={({ field, fieldState }) => {
+            const selectedOption = ACCOUNT_PROFILE_CURRENCIES_OPTIONS.find(
+              (option) => option.value === field.value,
+            )
+
+            if (selectedOption == null) {
+              throw new Error("Selected currency option not found")
+            }
+
+            return (
+              <FormItem>
+                <FormLabel>Currency</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue>{selectedOption.label}</SelectValue>
+                    </SelectTrigger>
+
+                    <SelectContent sideOffset={8}>
+                      {ACCOUNT_PROFILE_CURRENCIES_OPTIONS.map((option) => (
+                        <Fragment key={option.value}>
+                          <SelectItem value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                          <SelectSeparator className="last:hidden" />
+                        </Fragment>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                {fieldState.error?.message && (
+                  <FormMessage message={{ error: fieldState.error.message }} />
+                )}
+              </FormItem>
+            )
+          }}
+        />
+
+        <FormField
+          control={form.control}
+          disabled={isSubmitting}
+          name="timezone"
+          render={({ field, fieldState }) => {
+            const selectedOption = ACCOUNT_PROFILE_TIMEZONES_OPTIONS.find(
+              (option) => option.value === field.value,
+            )
+
+            if (selectedOption == null) {
+              throw new Error("Selected timezone option not found")
+            }
+
+            return (
+              <FormItem>
+                <FormLabel>Timezone</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue>{selectedOption.label}</SelectValue>
+                    </SelectTrigger>
+
+                    <SelectContent sideOffset={8}>
+                      {ACCOUNT_PROFILE_TIMEZONES_OPTIONS.map((option) => (
+                        <Fragment key={option.value}>
+                          <SelectItem value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                          <SelectSeparator className="last:hidden" />
+                        </Fragment>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                {fieldState.error?.message && (
+                  <FormMessage message={{ error: fieldState.error.message }} />
+                )}
+              </FormItem>
+            )
+          }}
+        />
 
         <Button className="w-full" disabled={isSubmitting}>
           Save

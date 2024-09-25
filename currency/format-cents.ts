@@ -1,4 +1,4 @@
-import { CurrencyCode } from "./currency-types"
+import { CurrencyCode } from "@/app/app/account/profile/account-profile-types"
 
 type FormatsCentsParamsAllowedOptions = Partial<
   Omit<

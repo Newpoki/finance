@@ -1,5 +1,7 @@
-import { Locale } from "@/app/app/account/profile/account-profile-types"
-import { CurrencyCode } from "./currency-types"
+import {
+  CurrencyCode,
+  Locale,
+} from "@/app/app/account/profile/account-profile-types"
 
 export const getCurrencySymbol = (locale: Locale, currency: CurrencyCode) =>
   (0)

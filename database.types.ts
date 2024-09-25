@@ -116,7 +116,7 @@ export type Database = {
     Enums: {
       currency_codes: "EUR" | "USD"
       locales: "fr-FR" | "en-US"
-      timezones: "Europe/Paris"
+      timezones: "Europe/Paris" | "America/Santiago"
       transaction_categories:
         | "general"
         | "dining_out"

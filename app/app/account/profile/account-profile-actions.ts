@@ -5,6 +5,7 @@ import { accountProfileFormValuesSchema } from "./account-profile-types"
 import { transformZodErrors } from "@/utils/transform-zod-errors"
 import { createClient } from "@/utils/supabase/server"
 import { fetchCurrentUserProfile } from "./fetch-current-user-profile"
+import { revalidatePath } from "next/cache"
 
 export const updateAccountProfile = async (
   data: unknown,
@@ -23,9 +24,14 @@ export const updateAccountProfile = async (
   const currentUserProfile = await fetchCurrentUserProfile()
 
   const payload = {
-    birthdate: parsed.data.birthdate?.toISOString(),
+    birthdate: parsed.data.birthdate?.toLocaleString(parsed.data.locale, {
+      timeZone: parsed.data.timezone,
+    }),
     first_name: parsed.data.firstName,
     last_name: parsed.data.lastName,
+    locale: parsed.data.locale,
+    currency_code: parsed.data.currencyCode,
+    timezone: parsed.data.timezone,
   }
 
   const { error } = await supabase
@@ -37,5 +43,6 @@ export const updateAccountProfile = async (
     return { type: "generic", message: error.message }
   }
 
+  revalidatePath("/app")
   return { type: "success", data: null }
 }

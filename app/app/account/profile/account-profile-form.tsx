@@ -17,15 +17,6 @@ import {
 } from "./account-profile-types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
-import { formatDate } from "@/date/format-date"
-import { CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
 import { updateAccountProfile } from "./account-profile-actions"
 import { toast } from "sonner"
 import {
@@ -42,6 +33,7 @@ import {
   ACCOUNT_PROFILE_TIMEZONES_OPTIONS,
 } from "./account-profile-constants"
 import { ControlledInput } from "@/components/rhk/controlled-input"
+import { ControlledDayPicker } from "@/components/rhk/controlled-day-picker"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -124,45 +116,13 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
           required
         />
 
-        <FormField
-          control={form.control}
+        <ControlledDayPicker
           name="birthdate"
+          control={form.control}
+          label="Birthdate"
           disabled={isSubmitting}
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel className="w-fit">Birthdate</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outlined"
-                      className={cn("h-11 w-full text-left font-normal")}
-                      disabled={field.disabled}
-                    >
-                      {field.value != null
-                        ? formatDate({
-                            date: field.value,
-                            locale: profile.locale,
-                            // Not specifying a TZ because if it's different from user browser
-                            // The selected date might be different than the one he clicked on
-                          })
-                        : "Select a birthdate"}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value ?? undefined}
-                    onSelect={field.onChange}
-                  />
-                </PopoverContent>
-              </Popover>
-            </FormItem>
-          )}
+          mode="single"
         />
-        {/* <RHKDayPicker name="birthdate" control={form.control} getDisplayedLabel={(val) => val} /> */}
 
         <FormField
           control={form.control}

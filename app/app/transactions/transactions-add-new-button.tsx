@@ -10,7 +10,7 @@ export const TransactionsAddNewButton = ({
   disabled = false,
 }: TransactionsAddNewButtonProps) => {
   return (
-    <Link href="/app/transactions/new" aria-disabled={disabled}>
+    <Link href="/app/transactions/new">
       <Button
         className="flex md:hidden"
         size="icon"

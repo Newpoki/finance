@@ -62,7 +62,13 @@ export function ControlledSelect<
   const {
     field,
     fieldState: { error },
-  } = useController({ name, control, disabled })
+  } = useController({
+    name,
+    control,
+    // Using disabled here create an error in chrome console
+    // https://github.com/orgs/react-hook-form/discussions/10964#discussioncomment-10094733
+    disabled: undefined,
+  })
 
   const selectedOption = useMemo(() => {
     return options.find((option) => option.value === field.value)
@@ -73,8 +79,8 @@ export function ControlledSelect<
   }
 
   return (
-    <FormItem aria-disabled={disabled}>
-      {label != null && <FormLabel aria-disabled={disabled}>{label}</FormLabel>}
+    <FormItem>
+      {label != null && <FormLabel>{label}</FormLabel>}
       <FormControl>
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <SelectTrigger disabled={disabled} className="w-full">

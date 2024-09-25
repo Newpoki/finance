@@ -54,7 +54,13 @@ export function ControlledMoneyInput<
   const {
     field,
     fieldState: { error },
-  } = useController({ name, control, disabled })
+  } = useController({
+    name,
+    control,
+    // Using disabled here create an error in chrome console
+    // https://github.com/orgs/react-hook-form/discussions/10964#discussioncomment-10094733
+    disabled: undefined,
+  })
 
   const displayedCurrencySymbol = useMemo(
     () => getCurrencySymbol(locale, currencyCode),
@@ -91,6 +97,7 @@ export function ControlledMoneyInput<
             placeholder ??
             `20${displayedDecimalSeparator}42 ${displayedCurrencySymbol}`
           }
+          disabled={disabled}
           name={field.name}
           thousandSeparator={thousandSeparator ?? displayedGroupSeparator}
           decimalSeparator={decimalSeparator ?? displayedDecimalSeparator}

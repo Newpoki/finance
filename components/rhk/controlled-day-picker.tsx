@@ -39,7 +39,13 @@ export function ControlledDayPicker<
   const {
     field,
     fieldState: { error },
-  } = useController({ name, control, disabled })
+  } = useController({
+    name,
+    control,
+    // Using disabled here create an error in chrome console
+    // https://github.com/orgs/react-hook-form/discussions/10964#discussioncomment-10094733
+    disabled: undefined,
+  })
 
   return (
     <FormItem className={className}>
@@ -50,7 +56,7 @@ export function ControlledDayPicker<
             <Button
               variant="outlined"
               className={cn("h-11 w-full text-left font-normal")}
-              disabled={field.disabled}
+              disabled={disabled}
             >
               {field.value != null
                 ? formatDate({

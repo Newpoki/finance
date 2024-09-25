@@ -1,15 +1,7 @@
 "use client"
 
 import { FieldPath, useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { FormMessage } from "@/components/form-message"
+import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import EyeSlash from "@/icons/eye-slash.svg"
 import Eye from "@/icons/eye.svg"
@@ -18,6 +10,7 @@ import { signInAction } from "./sign-in-actions"
 import { SigninFormValues, signinFormValuesSchema } from "./sign-in-schemas"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ControlledInput } from "@/components/rhk/controlled-input"
 
 export const SigninForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -73,59 +66,40 @@ export const SigninForm = () => {
         </Alert>
       )}
 
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
+      <form
+        className="flex flex-col gap-8"
+        onSubmit={form.handleSubmit(onSubmit)}
+        noValidate
+      >
+        <ControlledInput
           name="email"
-          render={({ field, fieldState }) => (
-            <FormItem className="mb-4">
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="you@example.com" required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          control={form.control}
+          label="Email"
+          type="email"
+          disabled={isSubmitting}
+          placeholder="you@example.com"
+          required
         />
 
-        <FormField
-          control={form.control}
+        <ControlledInput
           name="password"
+          control={form.control}
+          label="Password"
+          type={isPasswordVisible ? "text" : "password"}
           disabled={isSubmitting}
-          render={({ field, fieldState }) => (
-            <FormItem className="mb-8">
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type={isPasswordVisible ? "text" : "password"}
-                  required
-                  endAdornment={
-                    <Button
-                      variant="ghost"
-                      disabled={isSubmitting}
-                      className="-m-4 font-bold"
-                      type="button"
-                      onClick={handleTogglePasswordVisibility}
-                    >
-                      {isPasswordVisible ? <Eye /> : <EyeSlash />}
-                    </Button>
-                  }
-                />
-              </FormControl>
-
-              <FormMessage
-                message={
-                  fieldState.error?.message
-                    ? { error: fieldState.error.message }
-                    : { message: "Password must be at least 8 characters" }
-                }
-              />
-            </FormItem>
-          )}
+          placeholder="you@example.com"
+          required
+          endAdornment={
+            <Button
+              variant="ghost"
+              disabled={isSubmitting}
+              className="-m-4 font-bold"
+              type="button"
+              onClick={handleTogglePasswordVisibility}
+            >
+              {isPasswordVisible ? <Eye /> : <EyeSlash />}
+            </Button>
+          }
         />
 
         <Button className="w-full" disabled={isSubmitting}>

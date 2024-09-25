@@ -1,15 +1,7 @@
 "use client"
 
 import { FieldPath, useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { FormMessage } from "@/components/form-message"
+import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import EyeSlash from "@/icons/eye-slash.svg"
 import Eye from "@/icons/eye.svg"
@@ -19,6 +11,7 @@ import { SignupFormValues, signupFormValuesSchema } from "./sign-up-schemas"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
+import { ControlledInput } from "@/components/rhk/controlled-input"
 
 export const SignupForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -85,76 +78,45 @@ export const SignupForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
+        <ControlledInput
           name="email"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="you@example.com" required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          control={form.control}
+          label="Email"
+          type="email"
+          disabled={isSubmitting}
+          placeholder="you@example.com"
+          required
         />
 
-        <FormField
-          control={form.control}
+        <ControlledInput
           name="password"
+          control={form.control}
+          label="Password"
+          type="password"
           disabled={isSubmitting}
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type={isPasswordVisible ? "text" : "password"}
-                  required
-                  endAdornment={
-                    <Button
-                      variant="ghost"
-                      disabled={isSubmitting}
-                      className="-m-4 font-bold"
-                      type="button"
-                      onClick={handleTogglePasswordVisibility}
-                    >
-                      {isPasswordVisible ? <Eye /> : <EyeSlash />}
-                    </Button>
-                  }
-                />
-              </FormControl>
-
-              <FormMessage
-                message={
-                  fieldState.error?.message
-                    ? { error: fieldState.error.message }
-                    : { message: "Password must be at least 8 characters" }
-                }
-              />
-            </FormItem>
-          )}
+          placeholder="you@example.com"
+          required
+          helperText="Password must be at least 8 characters"
+          endAdornment={
+            <Button
+              variant="ghost"
+              disabled={isSubmitting}
+              className="-m-4 font-bold"
+              type="button"
+              onClick={handleTogglePasswordVisibility}
+            >
+              {isPasswordVisible ? <Eye /> : <EyeSlash />}
+            </Button>
+          }
         />
 
-        <FormField
-          control={form.control}
+        <ControlledInput
           name="passwordConfirmation"
+          control={form.control}
+          label="Confirm Password"
+          type="password"
           disabled={isSubmitting}
-          render={({ field, fieldState }) => (
-            <FormItem className="mb-4">
-              <FormLabel>Confirm password</FormLabel>
-              <FormControl>
-                <Input {...field} type="password" required />
-              </FormControl>
-
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          required
         />
 
         <Button className="w-full" disabled={isSubmitting}>

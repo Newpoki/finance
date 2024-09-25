@@ -1,15 +1,7 @@
 "use client"
 
 import { FieldPath, useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { FormMessage } from "@/components/form-message"
+import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import EyeSlash from "@/icons/eye-slash.svg"
 import Eye from "@/icons/eye.svg"
@@ -23,6 +15,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { ControlledInput } from "@/components/rhk/controlled-input"
 
 export const ResetPasswordForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -83,64 +76,39 @@ export const ResetPasswordForm = () => {
         </Alert>
       )}
 
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FormField
-          control={form.control}
+      <form
+        className="flex flex-col gap-8"
+        onSubmit={form.handleSubmit(onSubmit)}
+        noValidate
+      >
+        <ControlledInput
           name="password"
+          control={form.control}
+          label="Password"
+          type={isPasswordVisible ? "text" : "password"}
           disabled={isSubmitting}
-          render={({ field, fieldState }) => (
-            <FormItem className="mb-8">
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type={isPasswordVisible ? "text" : "password"}
-                  required
-                  endAdornment={
-                    <Button
-                      variant="ghost"
-                      disabled={isSubmitting}
-                      className="-m-4 font-bold"
-                      type="button"
-                      onClick={handleTogglePasswordVisibility}
-                    >
-                      {isPasswordVisible ? <Eye /> : <EyeSlash />}
-                    </Button>
-                  }
-                />
-              </FormControl>
-
-              <FormMessage
-                message={
-                  fieldState.error?.message
-                    ? { error: fieldState.error.message }
-                    : { message: "Password must be at least 8 characters" }
-                }
-              />
-            </FormItem>
-          )}
+          required
+          helperText="Password must be at least 8 characters"
+          endAdornment={
+            <Button
+              variant="ghost"
+              disabled={isSubmitting}
+              className="-m-4 font-bold"
+              type="button"
+              onClick={handleTogglePasswordVisibility}
+            >
+              {isPasswordVisible ? <Eye /> : <EyeSlash />}
+            </Button>
+          }
         />
 
-        <FormField
-          control={form.control}
+        <ControlledInput
           name="passwordConfirmation"
+          control={form.control}
+          label="Confirm your password"
+          type={isPasswordVisible ? "text" : "password"}
           disabled={isSubmitting}
-          render={({ field, fieldState }) => (
-            <FormItem className="mb-8">
-              <FormLabel>Confirm your password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type={isPasswordVisible ? "text" : "password"}
-                  required
-                />
-              </FormControl>
-
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          required
         />
 
         <Button className="w-full" disabled={isSubmitting}>

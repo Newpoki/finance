@@ -8,7 +8,6 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import { Fragment, useCallback, useTransition } from "react"
 import { FieldPath, useForm } from "react-hook-form"
 import {
@@ -42,6 +41,7 @@ import {
   ACCOUNT_PROFILE_LANGUAGES_OPTIONS,
   ACCOUNT_PROFILE_TIMEZONES_OPTIONS,
 } from "./account-profile-constants"
+import { ControlledInput } from "@/components/rhk/controlled-input"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -97,54 +97,31 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <FormField
-          control={form.control}
+        <ControlledInput
           name="email"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          control={form.control}
+          label="Email"
+          type="email"
+          disabled={isSubmitting}
+          required
         />
 
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
+        <ControlledInput
           name="firstName"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="John" required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          control={form.control}
+          label="First Name"
+          placeholder="John"
+          disabled={isSubmitting}
+          required
         />
 
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
+        <ControlledInput
           name="lastName"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="doe" required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          control={form.control}
+          label="Last Name"
+          placeholder="doe"
+          disabled={isSubmitting}
+          required
         />
 
         <FormField
@@ -185,6 +162,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
             </FormItem>
           )}
         />
+        {/* <RHKDayPicker name="birthdate" control={form.control} getDisplayedLabel={(val) => val} /> */}
 
         <FormField
           control={form.control}
@@ -224,7 +202,10 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                   </Select>
                 </FormControl>
                 {fieldState.error?.message && (
-                  <FormMessage message={{ error: fieldState.error.message }} />
+                  <FormMessage
+                    type="error"
+                    content={fieldState.error.message}
+                  />
                 )}
               </FormItem>
             )
@@ -269,7 +250,10 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                   </Select>
                 </FormControl>
                 {fieldState.error?.message && (
-                  <FormMessage message={{ error: fieldState.error.message }} />
+                  <FormMessage
+                    type="error"
+                    content={fieldState.error.message}
+                  />
                 )}
               </FormItem>
             )
@@ -314,7 +298,10 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
                   </Select>
                 </FormControl>
                 {fieldState.error?.message && (
-                  <FormMessage message={{ error: fieldState.error.message }} />
+                  <FormMessage
+                    type="error"
+                    content={fieldState.error.message}
+                  />
                 )}
               </FormItem>
             )

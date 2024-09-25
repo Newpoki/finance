@@ -1,15 +1,7 @@
 "use client"
 
 import { FieldPath, useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { FormMessage } from "@/components/form-message"
+import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { useCallback, useTransition } from "react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -20,6 +12,7 @@ import {
 } from "./forgot-password-schemas"
 import { forgotPasswordAction } from "./forgot-password-actions"
 import { toast } from "sonner"
+import { ControlledInput } from "@/components/rhk/controlled-input"
 
 export const ForgotPasswordForm = () => {
   const form = useForm<ForgotPasswordFormValues>({
@@ -72,21 +65,13 @@ export const ForgotPasswordForm = () => {
       )}
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FormField
-          control={form.control}
-          disabled={isSubmitting}
+        <ControlledInput
           name="email"
-          render={({ field, fieldState }) => (
-            <FormItem className="mb-4">
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="you@example.com" required />
-              </FormControl>
-              {fieldState.error?.message && (
-                <FormMessage message={{ error: fieldState.error.message }} />
-              )}
-            </FormItem>
-          )}
+          control={form.control}
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+          disabled={isSubmitting}
         />
 
         <Button className="w-full" disabled={isSubmitting}>

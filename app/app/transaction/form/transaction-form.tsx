@@ -19,7 +19,6 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import { FormMessage } from "@/components/form-message"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -46,6 +45,7 @@ import { useRouter } from "next/navigation"
 import { formatToCents } from "@/currency/format-to-cents"
 import { TransactionFormAmountField } from "./transaction-form-amount-field"
 import { Profile } from "../../account/profile/account-profile-types"
+import { ControlledInput } from "@/components/rhk/controlled-input"
 
 type TransactionFormProps = {
   transaction?: Transaction
@@ -126,22 +126,15 @@ export const TransactionForm = ({
         className="flex flex-1 flex-col gap-4"
       >
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1fr]">
-          <FormField
-            control={form.control}
-            disabled={isSubmitting}
+          <ControlledInput
             name="name"
-            render={({ field, fieldState }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Carrefour" required />
-                </FormControl>
-                {fieldState.error?.message && (
-                  <FormMessage message={{ error: fieldState.error.message }} />
-                )}
-              </FormItem>
-            )}
+            control={form.control}
+            label="Name"
+            disabled={isSubmitting}
+            placeholder="Carrefour"
+            required
           />
+
           <TransactionFormAmountField
             isSubmitting={isSubmitting}
             profile={profile}
@@ -227,7 +220,8 @@ export const TransactionForm = ({
                   </FormControl>
                   {fieldState.error?.message && (
                     <FormMessage
-                      message={{ error: fieldState.error.message }}
+                      type="error"
+                      content={fieldState.error.message}
                     />
                   )}
                 </FormItem>

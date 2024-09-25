@@ -1,18 +1,21 @@
-export type Message =
-  | { success: string }
-  | { error: string }
-  | { message: string }
+import { cn } from "@/lib/utils"
 
-export function FormMessage({ message }: { message: Message }) {
+export type FormMessageProps = {
+  type?: "error" | "default"
+  content?: string
+}
+
+export function FormMessage({ type = "default", content }: FormMessageProps) {
   return (
     <div className="body2 flex w-full flex-col gap-2 text-right">
-      {"error" in message && (
-        <div className="border-destructive text-destructive">
-          {message.error}
+      {content != null && (
+        <div
+          className={cn("text-foreground text-grey-500", {
+            "border-destructive text-destructive": type === "error",
+          })}
+        >
+          {content}
         </div>
-      )}
-      {"message" in message && (
-        <div className="text-foreground text-grey-500">{message.message}</div>
       )}
     </div>
   )

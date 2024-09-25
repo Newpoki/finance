@@ -67,6 +67,7 @@ export const TransactionFormAmountField = ({
   }, [isExpense, setValue])
 
   return (
+    // TODO: Create controlled field for currency fields
     <FormField
       control={control}
       disabled={isSubmitting}
@@ -116,7 +117,7 @@ export const TransactionFormAmountField = ({
             />
           </FormControl>
           {fieldState.error?.message && (
-            <FormMessage message={{ error: fieldState.error.message }} />
+            <FormMessage type="error" content={fieldState.error.message} />
           )}
         </FormItem>
       )}

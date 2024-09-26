@@ -5,6 +5,11 @@ import { signupFormValuesSchema } from "./sign-up-schemas"
 import { transformZodErrors } from "@/utils/transform-zod-errors"
 import { createClient } from "@/utils/supabase/server"
 import { headers } from "next/headers"
+import {
+  CurrencyCode,
+  Locale,
+  Timezone,
+} from "@/app/app/account/profile/account-profile-types"
 
 export const signUpAction = async (data: unknown): Promise<ServerResponse> => {
   const parsed = signupFormValuesSchema.safeParse(data)
@@ -28,11 +33,9 @@ export const signUpAction = async (data: unknown): Promise<ServerResponse> => {
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
       data: {
-        // TODO: Find a way to determine locale and currencyCode from user request
-        // Default to Europe/Paris, but might be better to set it according to the user browser
-        timezone: "Europe/Paris",
-        locale: "en-US",
-        currency_code: "EUR",
+        timezone: "Europe/Paris" satisfies Timezone,
+        locale: "en-US" satisfies Locale,
+        currency_code: "EUR" satisfies CurrencyCode,
       },
     },
   })

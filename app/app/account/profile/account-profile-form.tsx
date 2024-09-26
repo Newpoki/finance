@@ -109,7 +109,9 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
             control={form.control}
             label="Email"
             type="email"
-            disabled={isSubmitting}
+            // TODO: Create credentials update form with email and password fields
+            // Disabled with alert message saying why
+            disabled
             required
           />
 

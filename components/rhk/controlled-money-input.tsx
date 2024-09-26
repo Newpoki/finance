@@ -52,7 +52,7 @@ export function ControlledMoneyInput<
   ...others
 }: ControlledMoneyInputProps<TFieldValues, TName>) {
   const {
-    field,
+    field: { onChange, value, ...othersField },
     fieldState: { error },
   } = useController({
     name,
@@ -79,9 +79,9 @@ export function ControlledMoneyInput<
 
   const handleValueChange = useCallback(
     (values: NumberFormatValues) => {
-      field.onChange(values.floatValue)
+      onChange(values.floatValue)
     },
-    [field],
+    [onChange],
   )
 
   return (
@@ -89,7 +89,7 @@ export function ControlledMoneyInput<
       {label != null && <FormLabel>{label}</FormLabel>}
       <FormControl>
         <NumericFormat
-          {...field}
+          {...othersField}
           {...others}
           customInput={Input}
           suffix={suffix ?? ` ${displayedCurrencySymbol}`}
@@ -98,10 +98,9 @@ export function ControlledMoneyInput<
             `20${displayedDecimalSeparator}42 ${displayedCurrencySymbol}`
           }
           disabled={disabled}
-          name={field.name}
           thousandSeparator={thousandSeparator ?? displayedGroupSeparator}
           decimalSeparator={decimalSeparator ?? displayedDecimalSeparator}
-          defaultValue={field.value}
+          defaultValue={value}
           allowNegative={allowNegative}
           onValueChange={handleValueChange}
           allowLeadingZeros={allowLeadingZeros}

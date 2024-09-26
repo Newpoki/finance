@@ -143,7 +143,7 @@ export const TransactionForm = ({
             <TransactionDeleteAlertDialog transactionId={transaction.id} />
           )}
 
-          <Button className="w-full">
+          <Button className="w-full" disabled={isSubmitting}>
             {transaction == null ? "Add transaction" : "Edit transaction"}
           </Button>
         </div>

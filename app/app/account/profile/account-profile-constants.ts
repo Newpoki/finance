@@ -1,10 +1,10 @@
-export const ACCOUNT_PROFILE_LOCALES = {
+import { CurrencyCode, Locale, Timezone } from "./account-profile-types"
+
+export const ACCOUNT_PROFILE_LOCALES: Record<Locale, Locale> = {
   "fr-FR": "fr-FR",
   "en-US": "en-US",
-} as const
+}
 
-// TODO: Create endpoint to fetch available languages from DB
-// Then display it with locale as done for currency
 export const ACCOUNT_PROFILE_LANGUAGES_OPTIONS = [
   {
     value: ACCOUNT_PROFILE_LOCALES["fr-FR"],
@@ -16,17 +16,18 @@ export const ACCOUNT_PROFILE_LANGUAGES_OPTIONS = [
   },
 ] as const
 
-export const ACCOUNT_PROFILE_CURRENCY_CODES = {
+export const ACCOUNT_PROFILE_CURRENCY_CODES: Record<
+  CurrencyCode,
+  CurrencyCode
+> = {
   EUR: "EUR",
   USD: "USD",
-} as const
+}
 
-// TODO: Create endpoint to fetch available timezones from DB
-// Then display it with locale as done for currency
-export const ACCOUNT_PROFILE_TIMEZONES = {
+export const ACCOUNT_PROFILE_TIMEZONES: Record<Timezone, Timezone> = {
   "Europe/Paris": "Europe/Paris",
   "America/Santiago": "America/Santiago",
-} as const
+}
 
 export const ACCOUNT_PROFILE_TIMEZONES_OPTIONS = [
   {

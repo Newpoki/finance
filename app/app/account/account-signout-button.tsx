@@ -9,7 +9,6 @@ export const AccountSignoutButton = ({
   disabled = false,
 }: AccountSignoutButtonProps) => {
   return (
-    /* TODO: Create a route /sign-out that display a See you soon message, then trigger the signout */
     <form>
       <Button
         formAction={signOutAction}

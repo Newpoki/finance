@@ -158,6 +158,8 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
           <SaveIcon />
           <span>Save</span>
         </Button>
+
+        {/* TODO: Add Delete account profile */}
       </form>
     </Form>
   )

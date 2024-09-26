@@ -3,9 +3,7 @@
 import { FieldPath, useForm } from "react-hook-form"
 import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
-import EyeSlash from "@/icons/eye-slash.svg"
-import Eye from "@/icons/eye.svg"
-import { useCallback, useState, useTransition } from "react"
+import { useCallback, useTransition } from "react"
 import { resetPasswordAction } from "./reset-password-actions"
 import {
   ResetPasswordFormValues,
@@ -15,10 +13,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { ControlledInput } from "@/components/rhk/controlled-input"
+import { ControlledPasswordInput } from "@/components/rhk/controlled-password-input"
 
 export const ResetPasswordForm = () => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const router = useRouter()
 
   const form = useForm<ResetPasswordFormValues>({
@@ -33,10 +30,6 @@ export const ResetPasswordForm = () => {
   const [isSubmitting, startTransition] = useTransition()
 
   const rootErrorMessage = form.formState.errors.root?.message
-
-  const handleTogglePasswordVisibility = useCallback(() => {
-    setIsPasswordVisible((current) => !current)
-  }, [])
 
   const onSubmit = useCallback(
     (data: ResetPasswordFormValues) => {
@@ -81,32 +74,19 @@ export const ResetPasswordForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
-        <ControlledInput
+        <ControlledPasswordInput
           name="password"
           control={form.control}
           label="Password"
-          type={isPasswordVisible ? "text" : "password"}
           disabled={isSubmitting}
           required
           helperText="Password must be at least 8 characters"
-          endAdornment={
-            <Button
-              variant="ghost"
-              disabled={isSubmitting}
-              className="-m-4 font-bold"
-              type="button"
-              onClick={handleTogglePasswordVisibility}
-            >
-              {isPasswordVisible ? <Eye /> : <EyeSlash />}
-            </Button>
-          }
         />
 
-        <ControlledInput
+        <ControlledPasswordInput
           name="passwordConfirmation"
           control={form.control}
           label="Confirm your password"
-          type={isPasswordVisible ? "text" : "password"}
           disabled={isSubmitting}
           required
         />

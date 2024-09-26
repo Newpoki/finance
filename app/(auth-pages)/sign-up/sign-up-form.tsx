@@ -3,19 +3,16 @@
 import { FieldPath, useForm } from "react-hook-form"
 import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
-import EyeSlash from "@/icons/eye-slash.svg"
-import Eye from "@/icons/eye.svg"
-import { useCallback, useState, useTransition } from "react"
+import { useCallback, useTransition } from "react"
 import { signUpAction } from "./sign-up-actions"
 import { SignupFormValues, signupFormValuesSchema } from "./sign-up-schemas"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { ControlledInput } from "@/components/rhk/controlled-input"
+import { ControlledPasswordInput } from "@/components/rhk/controlled-password-input"
 
 export const SignupForm = () => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupFormValuesSchema),
     defaultValues: {
@@ -29,10 +26,6 @@ export const SignupForm = () => {
   const [isSubmitting, startTransition] = useTransition()
 
   const rootErrorMessage = form.formState.errors.root?.message
-
-  const handleTogglePasswordVisibility = useCallback(() => {
-    setIsPasswordVisible((current) => !current)
-  }, [])
 
   const onSubmit = useCallback(
     (data: SignupFormValues) => {
@@ -88,33 +81,20 @@ export const SignupForm = () => {
           required
         />
 
-        <ControlledInput
+        <ControlledPasswordInput
           name="password"
           control={form.control}
           label="Password"
-          type="password"
           disabled={isSubmitting}
           placeholder="you@example.com"
           required
           helperText="Password must be at least 8 characters"
-          endAdornment={
-            <Button
-              variant="ghost"
-              disabled={isSubmitting}
-              className="-m-4 font-bold"
-              type="button"
-              onClick={handleTogglePasswordVisibility}
-            >
-              {isPasswordVisible ? <Eye /> : <EyeSlash />}
-            </Button>
-          }
         />
 
-        <ControlledInput
+        <ControlledPasswordInput
           name="passwordConfirmation"
           control={form.control}
           label="Confirm Password"
-          type="password"
           disabled={isSubmitting}
           required
         />

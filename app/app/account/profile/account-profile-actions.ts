@@ -7,7 +7,7 @@ import { createClient } from "@/utils/supabase/server"
 import { fetchCurrentUserProfile } from "./fetch-current-user-profile"
 import { revalidatePath } from "next/cache"
 
-export const updateAccountProfile = async (
+export const updateAccountProfileAction = async (
   data: unknown,
 ): Promise<ServerResponse> => {
   const parsed = accountProfileFormValuesSchema.safeParse(data)

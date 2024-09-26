@@ -12,7 +12,7 @@ import {
 } from "./account-profile-types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
-import { updateAccountProfile } from "./account-profile-actions"
+import { updateAccountProfileAction } from "./account-profile-actions"
 import { toast } from "sonner"
 import {
   ACCOUNT_PROFILE_CURRENCY_CODES,
@@ -73,7 +73,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
   const onSubmit = useCallback(
     (formValues: AccountProfileFormValues) => {
       startTransition(async () => {
-        const response = await updateAccountProfile(formValues)
+        const response = await updateAccountProfileAction(formValues)
 
         if (response.type === "success") {
           toast.success("Your account details have been updated")

@@ -9,7 +9,7 @@ import { Input, InputProps } from "../ui/input"
 import { FormMessage } from "../form-message"
 import { useCallback } from "react"
 
-type ControlledInputProps<
+export type ControlledInputProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > = UseControllerProps<TFieldValues, TName> &

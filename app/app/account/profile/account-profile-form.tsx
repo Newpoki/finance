@@ -45,7 +45,6 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
   const form = useForm<AccountProfileFormValues>({
     resolver: zodResolver(accountProfileFormValuesSchema),
     defaultValues: {
-      email: profile.email ?? "",
       firstName: profile.first_name ?? "",
       lastName: profile.last_name ?? "",
       birthdate: profile.birthdate != null ? new Date(profile.birthdate) : null,
@@ -104,17 +103,6 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <section className="grid flex-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <ControlledInput
-            name="email"
-            control={form.control}
-            label="Email"
-            type="email"
-            // TODO: Create credentials update form with email and password fields
-            // Disabled with alert message saying why
-            disabled
-            required
-          />
-
           <ControlledInput
             name="firstName"
             control={form.control}

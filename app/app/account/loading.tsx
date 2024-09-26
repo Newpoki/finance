@@ -31,7 +31,6 @@ export default function AccountLoadingPage() {
               <SkeletonInput />
               <SkeletonInput />
               <SkeletonInput />
-              <SkeletonInput />
             </section>
 
             <Button className="w-full gap-2 md:w-fit" disabled>

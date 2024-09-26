@@ -3,7 +3,6 @@ import { AccountSignoutButton } from "./account-signout-button"
 import { AccountCredentials } from "./credentials/account-credentials"
 import { fetchCurrentUserProfile } from "./profile/fetch-current-user-profile"
 
-// TODO: error pages
 export default async function AccountPage() {
   const currentUserProfile = await fetchCurrentUserProfile()
 

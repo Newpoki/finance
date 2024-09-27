@@ -15,7 +15,7 @@ export type Database = {
           created_at: string
           currency_code: Database["public"]["Enums"]["currency_codes"]
           display_name: string | null
-          email: string | null
+          email: string
           first_name: string | null
           id: string
           last_name: string | null
@@ -27,7 +27,7 @@ export type Database = {
           created_at?: string
           currency_code: Database["public"]["Enums"]["currency_codes"]
           display_name?: string | null
-          email?: string | null
+          email: string
           first_name?: string | null
           id?: string
           last_name?: string | null
@@ -39,7 +39,7 @@ export type Database = {
           created_at?: string
           currency_code?: Database["public"]["Enums"]["currency_codes"]
           display_name?: string | null
-          email?: string | null
+          email?: string
           first_name?: string | null
           id?: string
           last_name?: string | null
@@ -111,6 +111,10 @@ export type Database = {
           expenses: number
           incomes: number
         }[]
+      }
+      delete_user: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
     }
     Enums: {

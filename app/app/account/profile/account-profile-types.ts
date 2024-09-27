@@ -42,3 +42,18 @@ export const accountProfileFormValuesSchema = z.object({
 export type AccountProfileFormValues = z.infer<
   typeof accountProfileFormValuesSchema
 >
+
+export const getAccountProfileDeleteFormValuesSchema = (email: string) => {
+  return z.object({
+    confirmEmail: z
+      .string()
+      .email()
+      .refine((value) => value === email, {
+        message: "Email must be the same",
+      }),
+  })
+}
+
+export type AccountProfileDeleteFormValues = z.infer<
+  ReturnType<typeof getAccountProfileDeleteFormValuesSchema>
+>

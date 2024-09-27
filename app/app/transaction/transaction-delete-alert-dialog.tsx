@@ -52,10 +52,10 @@ export const TransactionDeleteAlertDialog = ({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Delete Transaction?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            transaction from our server.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

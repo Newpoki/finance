@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Paper } from "@/components/ui/paper"
 import { SkeletonInput } from "@/components/ui/skeleton"
-import { SaveIcon } from "lucide-react"
+import { DeleteIcon, SaveIcon } from "lucide-react"
 import { AccountSignoutButton } from "./account-signout-button"
 import { AccountCredentialsComingSoonAlert } from "./credentials/account-credentials-coming-soon-alert"
 
@@ -33,10 +33,21 @@ export default function AccountLoadingPage() {
               <SkeletonInput />
             </section>
 
-            <Button className="w-full gap-2 md:w-fit" disabled>
-              <SaveIcon />
-              <span>Save</span>
-            </Button>
+            <div className="flex flex-col gap-3 md:flex-row">
+              <Button className="w-full gap-2 md:w-fit" disabled>
+                <SaveIcon />
+                <span>Save</span>
+              </Button>
+
+              <Button
+                variant="error"
+                className="w-full gap-2 md:w-fit"
+                disabled
+              >
+                <DeleteIcon />
+                <span>Delete Account</span>
+              </Button>
+            </div>
           </div>
         </Paper>
 

@@ -1,7 +1,14 @@
 "use client"
 
 import { Form } from "@/components/ui/form"
-import { useCallback, useMemo, useTransition } from "react"
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react"
 import { FieldPath, useForm } from "react-hook-form"
 import {
   AccountProfileFormValues,
@@ -26,6 +33,8 @@ import { getCurrencySymbol } from "@/currency/get-currency-symbol"
 import { getCurrencyName } from "@/currency/get-currency-name"
 import capitalize from "lodash.capitalize"
 import { SaveIcon } from "lucide-react"
+import { AccountProfileDeleteDialog } from "./delete/account-profile-delete-dialog"
+import { createPortal } from "react-dom"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -42,6 +51,12 @@ const generateCurrenciesOptions = (
 }
 
 export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
+  const accountProfileDeleteDialogContainerRef = useRef<HTMLDivElement>(null)
+  const [
+    accountProfileDeleteDialogContainer,
+    setAccountProfileDeleteDialogContainer,
+  ] = useState<HTMLDivElement | null>(null)
+
   const form = useForm<AccountProfileFormValues>({
     resolver: zodResolver(accountProfileFormValuesSchema),
     defaultValues: {
@@ -95,72 +110,100 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
     [form],
   )
 
+  useEffect(() => {
+    if (
+      accountProfileDeleteDialogContainer != null ||
+      accountProfileDeleteDialogContainerRef.current == null
+    ) {
+      return
+    }
+
+    setAccountProfileDeleteDialogContainer(
+      accountProfileDeleteDialogContainerRef.current,
+    )
+  }, [accountProfileDeleteDialogContainer])
+
   return (
-    <Form {...form}>
-      <form
-        className="flex flex-1 flex-col gap-4"
-        noValidate
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <section className="grid flex-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <ControlledInput
-            name="firstName"
-            control={form.control}
-            label="First Name"
-            placeholder="John"
+    <>
+      <Form {...form}>
+        <form
+          className="flex flex-1 flex-col gap-4"
+          noValidate
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <section className="grid flex-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <ControlledInput
+              name="firstName"
+              control={form.control}
+              label="First Name"
+              placeholder="John"
+              disabled={isSubmitting}
+              required
+            />
+
+            <ControlledInput
+              name="lastName"
+              control={form.control}
+              label="Last Name"
+              placeholder="doe"
+              disabled={isSubmitting}
+              required
+            />
+
+            <ControlledDayPicker
+              name="birthdate"
+              control={form.control}
+              label="Birthdate"
+              disabled={isSubmitting}
+              mode="single"
+            />
+
+            <ControlledSelect
+              control={form.control}
+              disabled={isSubmitting}
+              name="locale"
+              label="Language"
+              options={ACCOUNT_PROFILE_LANGUAGES_OPTIONS}
+            />
+
+            <ControlledSelect
+              control={form.control}
+              disabled={isSubmitting}
+              name="currencyCode"
+              label="Currency"
+              options={accountProfileCurrenciesOptions}
+            />
+
+            <ControlledSelect
+              control={form.control}
+              disabled={isSubmitting}
+              name="timezone"
+              label="Timezone"
+              options={ACCOUNT_PROFILE_TIMEZONES_OPTIONS}
+            />
+          </section>
+
+          <div className="flex flex-col gap-3 md:flex-row">
+            <Button className="w-full gap-2 md:w-fit" disabled={isSubmitting}>
+              <SaveIcon />
+              <span>Save</span>
+            </Button>
+
+            <div ref={accountProfileDeleteDialogContainerRef} />
+          </div>
+        </form>
+      </Form>
+
+      {/* We must insisert it with a portal, otherwise there the two Form provider conflict
+        and submiting delete account also submit the profile edition */}
+      {accountProfileDeleteDialogContainer != null &&
+        createPortal(
+          <AccountProfileDeleteDialog
             disabled={isSubmitting}
-            required
-          />
-
-          <ControlledInput
-            name="lastName"
-            control={form.control}
-            label="Last Name"
-            placeholder="doe"
-            disabled={isSubmitting}
-            required
-          />
-
-          <ControlledDayPicker
-            name="birthdate"
-            control={form.control}
-            label="Birthdate"
-            disabled={isSubmitting}
-            mode="single"
-          />
-
-          <ControlledSelect
-            control={form.control}
-            disabled={isSubmitting}
-            name="locale"
-            label="Language"
-            options={ACCOUNT_PROFILE_LANGUAGES_OPTIONS}
-          />
-
-          <ControlledSelect
-            control={form.control}
-            disabled={isSubmitting}
-            name="currencyCode"
-            label="Currency"
-            options={accountProfileCurrenciesOptions}
-          />
-
-          <ControlledSelect
-            control={form.control}
-            disabled={isSubmitting}
-            name="timezone"
-            label="Timezone"
-            options={ACCOUNT_PROFILE_TIMEZONES_OPTIONS}
-          />
-        </section>
-
-        <Button className="w-full gap-2 md:w-fit" disabled={isSubmitting}>
-          <SaveIcon />
-          <span>Save</span>
-        </Button>
-
-        {/* TODO: Add Delete account profile */}
-      </form>
-    </Form>
+            profile={profile}
+          />,
+          accountProfileDeleteDialogContainer,
+        )}
+    </>
   )
 }

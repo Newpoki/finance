@@ -6,13 +6,16 @@ import { ParsedTransactionsSearchParams } from "../parse-transactions-search-par
 import { TransactionsFiltersSearch } from "./transactions-filters-search"
 import { usePathname, useRouter } from "next/navigation"
 import { useCallback } from "react"
+import { TransactionCategory } from "../../account/categories/account-transactions-categories-types"
 
 type TransactionsFiltersProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
+  transactionCategories: TransactionCategory[]
 }
 
 export const TransactionsFilters = ({
   parsedSearchParams,
+  transactionCategories,
 }: TransactionsFiltersProps) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -51,6 +54,7 @@ export const TransactionsFilters = ({
         <TransactionsFiltersCategory
           parsedSearchParams={parsedSearchParams}
           onFiltersChange={handleFiltersChange}
+          transactionCategories={transactionCategories}
         />
       </div>
     </div>

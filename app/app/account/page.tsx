@@ -2,6 +2,7 @@ import { AccountProfile } from "./profile/account-profile"
 import { AccountSignoutButton } from "./account-signout-button"
 import { AccountCredentials } from "./credentials/account-credentials"
 import { fetchCurrentUserProfile } from "./profile/fetch-current-user-profile"
+import { AccountTransactionsCategories } from "./categories/account-transactions-categories"
 
 export default async function AccountPage() {
   const currentUserProfile = await fetchCurrentUserProfile()
@@ -17,6 +18,10 @@ export default async function AccountPage() {
         <AccountProfile profile={currentUserProfile} />
 
         <AccountCredentials profile={currentUserProfile} />
+      </div>
+
+      <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_1fr]">
+        <AccountTransactionsCategories />
       </div>
     </div>
   )

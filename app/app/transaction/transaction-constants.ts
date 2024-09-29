@@ -1,25 +1,18 @@
-export const TRANSACTION_CATEGORIES = {
-  GENERAL: "general",
-  ENTERTAINMENT: "entertainment",
+export const TRANSACTION_CATEGORIES_ICONS = {
+  APPLE: "apple",
   BILLS: "bills",
-  GROCERIES: "groceries",
-  DINING_OUT: "dining_out",
-  TRANSPORTATION: "transportation",
-  PERSONAL_CARE: "personal_care",
-  LIFESTYLE: "lifestyle",
-  EDUCATION: "education",
+  CARROT: "carrot",
+  COOKING_POT: "cooking_pot",
+  HAND_PLATER: "hand_plater",
+  BIKE: "bike",
+  BUS: "bus",
+  CAR: "car",
+  TRAIN: "train_front",
+  FUEL: "fuel",
+  FILM: "film",
+  RSS: "rss",
+  CIGARETTE: "cigarette",
+  SMARTPHONE: "smartphone",
+  TRAM_FRONT: "tram_front",
+  USER: "user",
 } as const
-
-export const TRANSACTION_CATEGORIES_OPTIONS = [
-  { label: "General", value: TRANSACTION_CATEGORIES.GENERAL },
-  { label: "Groceries", value: TRANSACTION_CATEGORIES.GROCERIES },
-  { label: "Bills", value: TRANSACTION_CATEGORIES.BILLS },
-  {
-    label: "Transportations",
-    value: TRANSACTION_CATEGORIES.TRANSPORTATION,
-  },
-  { label: "Entertainment", value: TRANSACTION_CATEGORIES.ENTERTAINMENT },
-  { label: "Dining out", value: TRANSACTION_CATEGORIES.DINING_OUT },
-  { label: "Personal Care", value: TRANSACTION_CATEGORIES.PERSONAL_CARE },
-  { label: "Lifestyle", value: TRANSACTION_CATEGORIES.LIFESTYLE },
-] as const

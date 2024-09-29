@@ -36,12 +36,18 @@ type ControlledSelectProps<
     TFieldValues,
     TName
   >,
+  TOption extends Option<TFieldValues, TName, TOptionValue> = Option<
+    TFieldValues,
+    TName,
+    TOptionValue
+  >,
 > = UseControllerProps<TFieldValues, TName> & {
   label?: string
   helperText?: string
   options: // So it can accept "as const" option
-  | ReadonlyArray<Option<TFieldValues, TName, TOptionValue>>
-    | Option<TFieldValues, TName, TOptionValue>[]
+  ReadonlyArray<TOption> | TOption[]
+  renderOption?: (option: TOption) => void
+  renderValue?: (option: TOption | undefined) => void
 }
 
 export function ControlledSelect<
@@ -51,6 +57,11 @@ export function ControlledSelect<
     TFieldValues,
     TName
   >,
+  TOption extends Option<TFieldValues, TName, TOptionValue> = Option<
+    TFieldValues,
+    TName,
+    TOptionValue
+  >,
 >({
   name,
   control,
@@ -58,7 +69,9 @@ export function ControlledSelect<
   label,
   helperText,
   options,
-}: ControlledSelectProps<TFieldValues, TName, TOptionValue>) {
+  renderOption,
+  renderValue,
+}: ControlledSelectProps<TFieldValues, TName, TOptionValue, TOption>) {
   const {
     field,
     fieldState: { error },
@@ -84,13 +97,17 @@ export function ControlledSelect<
       <FormControl>
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <SelectTrigger disabled={disabled} className="w-full">
-            <SelectValue>{selectedOption?.label}</SelectValue>
+            <SelectValue>
+              {renderValue?.(selectedOption) ?? selectedOption?.label}
+            </SelectValue>
           </SelectTrigger>
 
           <SelectContent sideOffset={8}>
             {options.map((option) => (
               <Fragment key={option.value}>
-                <SelectItem value={option.value}>{option.label}</SelectItem>
+                <SelectItem value={option.value}>
+                  {renderOption?.(option) ?? option.label}
+                </SelectItem>
                 <SelectSeparator className="last:hidden" />
               </Fragment>
             ))}

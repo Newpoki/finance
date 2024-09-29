@@ -6,12 +6,8 @@ import {
   TransactionFormValues,
   transactionFormValuesSchema,
 } from "../transaction-types"
-import {
-  TRANSACTION_CATEGORIES,
-  TRANSACTION_CATEGORIES_OPTIONS,
-} from "../transaction-constants"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useTransition } from "react"
+import { useCallback, useMemo, useTransition } from "react"
 import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { upsertTransactionAction } from "../transaction-actions"
@@ -24,15 +20,19 @@ import { Profile } from "../../account/profile/account-profile-types"
 import { ControlledInput } from "@/components/rhk/controlled-input"
 import { ControlledDayPicker } from "@/components/rhk/controlled-day-picker"
 import { ControlledSelect } from "@/components/rhk/controlled-select"
+import { TransactionCategoryIcon } from "../transaction-category-icon"
+import { TransactionCategory } from "../../account/categories/account-transactions-categories-types"
 
 type TransactionFormProps = {
   transaction?: Transaction
   profile: Profile
+  transactionCategories: TransactionCategory[]
 }
 
 export const TransactionForm = ({
   transaction,
   profile,
+  transactionCategories,
 }: TransactionFormProps) => {
   const router = useRouter()
 
@@ -43,7 +43,9 @@ export const TransactionForm = ({
         transaction?.amount_cents != null
           ? transaction.amount_cents / 100
           : null,
-      category: transaction?.category ?? TRANSACTION_CATEGORIES.GENERAL,
+      //  Safe to cast as there can't be less than one element here
+      category:
+        transaction?.category ?? (transactionCategories[0]?.id as string),
       date: transaction?.date != null ? new Date(transaction.date) : new Date(),
       id: transaction?.id ?? null,
       name: transaction?.name ?? "",
@@ -54,6 +56,18 @@ export const TransactionForm = ({
   })
 
   const [isSubmitting, startTransition] = useTransition()
+
+  const transactionCategoriesOption = useMemo(
+    () =>
+      transactionCategories.map((category) => {
+        return {
+          label: category.name,
+          value: category.id,
+          icon: category.icon_name,
+        }
+      }),
+    [transactionCategories],
+  )
 
   const onSubmit = useCallback(
     (formValues: TransactionFormValues) => {
@@ -134,7 +148,25 @@ export const TransactionForm = ({
             disabled={isSubmitting}
             name="category"
             label="Budget Category"
-            options={TRANSACTION_CATEGORIES_OPTIONS}
+            options={transactionCategoriesOption}
+            renderOption={(option) => {
+              return (
+                <div className="flex items-center gap-2">
+                  <TransactionCategoryIcon name={option.icon} />
+                  <span>{option.label}</span>
+                </div>
+              )
+            }}
+            renderValue={(option) => {
+              return option != null ? (
+                <div className="flex items-center gap-2">
+                  <TransactionCategoryIcon name={option.icon} />
+                  <span>{option.label}</span>
+                </div>
+              ) : (
+                "Please select a category"
+              )
+            }}
           />
         </div>
 

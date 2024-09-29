@@ -3,7 +3,9 @@ import { TransactionListItem } from "../transactions-types"
 import { formatDate } from "@/date/format-date"
 import { cn } from "@/lib/utils"
 import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-user-profile"
-import { TRANSACTION_CATEGORY_LABEL_MAPPING } from "../transactions-constants"
+import { fetchTransactionCategoryById } from "../../account/categories/fetch-transaction-category-by-id"
+import { TransactionCategoryIcon } from "../../transaction/transaction-category-icon"
+import { Badge } from "@/components/ui/badge"
 
 type TransactionsListItemProps = {
   isCompact?: boolean
@@ -14,12 +16,20 @@ export const TransactionsListItem = async ({
   isCompact = false,
   transaction,
 }: TransactionsListItemProps) => {
-  const profile = await fetchCurrentUserProfile()
+  const fetchCurrentUserProfilePromise = fetchCurrentUserProfile()
+  const fetchTransactionCategoryByIdPromise = fetchTransactionCategoryById(
+    transaction.category,
+  )
+
+  const [currentUserProfile, transactionCategory] = await Promise.all([
+    fetchCurrentUserProfilePromise,
+    fetchTransactionCategoryByIdPromise,
+  ])
 
   const displayedDate = formatDate({
     date: transaction.date,
-    locale: profile.locale,
-    timeZone: profile.timezone,
+    locale: currentUserProfile.locale,
+    timeZone: currentUserProfile.timezone,
   })
 
   return (
@@ -27,18 +37,16 @@ export const TransactionsListItem = async ({
     // for a smooth hover effect while not adding extra space at the bottom of the page
     <div
       className={cn(
-        "flex items-center justify-between gap-4 py-4 transition-colors hover:bg-background group-last-of-type:-mb-4 xl:px-4",
+        "flex items-center justify-between gap-4 px-4 py-4 transition-colors hover:bg-background group-last-of-type:-mb-4",
         {
-          "md:grid md:grid-cols-[7fr_5fr] md:gap-8 md:px-4": !isCompact,
+          "md:grid md:grid-cols-[7fr_5fr] md:gap-8": !isCompact,
         },
       )}
     >
       <div className="flex items-center gap-3 overflow-x-hidden">
-        <div className="h-8 w-8 flex-shrink-0 rounded-full bg-destructive" />
-
-        <p
+        <div
           className={cn("flex w-full flex-col gap-1 overflow-hidden", {
-            "md:flex-row md:items-center md:justify-between": !isCompact,
+            "md:flex-row-reverse md:items-center md:justify-end": !isCompact,
           })}
         >
           <span className="body1 truncate font-bold">{transaction.name}</span>
@@ -47,9 +55,18 @@ export const TransactionsListItem = async ({
               "md:w-[90px] xl:w-[120px]": !isCompact,
             })}
           >
-            {TRANSACTION_CATEGORY_LABEL_MAPPING[transaction.category]}
+            <Badge
+              style={{ backgroundColor: transactionCategory.color }}
+              className="gap-2"
+            >
+              <TransactionCategoryIcon
+                className="h-4 w-4 shrink-0"
+                name={transactionCategory.icon_name}
+              />
+              <span className="truncate">{transactionCategory.name}</span>
+            </Badge>
           </span>
-        </p>
+        </div>
       </div>
 
       <p
@@ -66,7 +83,7 @@ export const TransactionsListItem = async ({
         >
           {formatCents({
             cents: transaction.amount_cents,
-            locale: profile.locale,
+            locale: currentUserProfile.locale,
             currencyCode: transaction.currency_code,
           })}
         </span>

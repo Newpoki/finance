@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server"
 import {
-  TRANSACTIONS_FILTERS_CATEGORIES_KEYS,
+  TRANSACTIONS_FILTERS_CATEGORIES_ALL_OPTION,
   TRANSACTIONS_FILTERS_SORT_DIRECTIONS,
 } from "../transactions-constants"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
@@ -45,7 +45,7 @@ export const fetchTransactions = async ({
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else
-  if (category !== TRANSACTIONS_FILTERS_CATEGORIES_KEYS.ALL) {
+  if (category !== TRANSACTIONS_FILTERS_CATEGORIES_ALL_OPTION.value) {
     query = query.eq("category", category)
   }
 

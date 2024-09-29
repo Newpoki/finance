@@ -52,7 +52,7 @@ export function ControlledMoneyInput<
   ...others
 }: ControlledMoneyInputProps<TFieldValues, TName>) {
   const {
-    field: { onChange, value, ...othersField },
+    field: { onChange, value, ref: _ref, ...othersField },
     fieldState: { error },
   } = useController({
     name,

@@ -3,6 +3,7 @@ import { fetchCurrentUserProfile } from "../../account/profile/fetch-current-use
 import { TransactionForm } from "../../transaction/form/transaction-form"
 import { fetchTransactionById } from "../../transaction/fetch-transaction-by-id"
 import { TransactionEditGoBackButton } from "./transaction-edit-go-back-button"
+import { fetchCurrentUserTransactionCategories } from "../../account/categories/fetch-current-user-transaction-categories"
 
 type TransactionPageProps = {
   params: {
@@ -15,11 +16,15 @@ export default async function TransactionPage({
 }: TransactionPageProps) {
   const fetchCurrentUserProfilePromise = fetchCurrentUserProfile()
   const fetchTransactionPromise = fetchTransactionById(params.transactionId)
+  const fetchCurrentUserTransactionCategoriesPromise =
+    fetchCurrentUserTransactionCategories()
 
-  const [currentUserProfile, transaction] = await Promise.all([
-    fetchCurrentUserProfilePromise,
-    fetchTransactionPromise,
-  ])
+  const [currentUserProfile, transaction, transactionCategories] =
+    await Promise.all([
+      fetchCurrentUserProfilePromise,
+      fetchTransactionPromise,
+      fetchCurrentUserTransactionCategoriesPromise,
+    ])
 
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
@@ -32,6 +37,7 @@ export default async function TransactionPage({
         <TransactionForm
           profile={currentUserProfile}
           transaction={transaction}
+          transactionCategories={transactionCategories}
         />
       </Paper>
     </div>

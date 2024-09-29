@@ -20,41 +20,62 @@ import {
 import Filter from "@/icons/filter.svg"
 import { Fragment, useCallback, useMemo } from "react"
 import { ParsedTransactionsSearchParams } from "../parse-transactions-search-params"
-import { TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS } from "../transactions-constants"
+import { TransactionCategory } from "../../account/categories/account-transactions-categories-types"
+import { TransactionCategoryIcon } from "../../transaction/transaction-category-icon"
+import { TRANSACTIONS_FILTERS_CATEGORIES_ALL_OPTION } from "../transactions-constants"
 
 type TransactionsFiltersCategoryProps = {
   parsedSearchParams: ParsedTransactionsSearchParams
   onFiltersChange: (newFilters: Partial<ParsedTransactionsSearchParams>) => void
+  transactionCategories: TransactionCategory[]
 }
 
 export const TransactionsFiltersCategory = ({
   parsedSearchParams,
   onFiltersChange,
+  transactionCategories,
 }: TransactionsFiltersCategoryProps) => {
+  const options = useMemo(() => {
+    const allOption = TRANSACTIONS_FILTERS_CATEGORIES_ALL_OPTION
+
+    const transactionCategoriesOption = transactionCategories.map(
+      (category) => ({
+        value: category.id,
+        label: category.name,
+        icon_name: category.icon_name,
+        color: category.color,
+      }),
+    )
+
+    return [allOption, ...transactionCategoriesOption]
+  }, [transactionCategories])
+
   const selectedOption = useMemo(() => {
-    return TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.find(
+    const transaction = options.find(
       (option) => option.value === parsedSearchParams.category,
     )
-  }, [parsedSearchParams.category])
+
+    if (transaction == null) {
+      throw new Error(
+        `No transaction category found with id ${parsedSearchParams.category}`,
+      )
+    }
+
+    return transaction
+  }, [parsedSearchParams.category, options])
 
   const handleChangeCategory = useCallback(
     (value: string) => {
-      const option = TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.find(
-        (option) => option.value === value,
-      )
+      const option = options.find((option) => option.value === value)
 
       if (option == null) {
-        throw new Error(`No option was found with the value ${value}`)
+        throw new Error(`No option was found with the id ${value}`)
       }
 
       onFiltersChange({ category: option.value })
     },
-    [onFiltersChange],
+    [onFiltersChange, options],
   )
-
-  if (selectedOption == null) {
-    throw new Error(`No option found with ${parsedSearchParams.category}`)
-  }
 
   return (
     <div className="flex items-center gap-2 whitespace-nowrap">
@@ -71,10 +92,15 @@ export const TransactionsFiltersCategory = ({
             value={selectedOption.value}
             onValueChange={handleChangeCategory}
           >
-            {TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.map((option) => (
+            {options.map((option) => (
               <Fragment key={option.value}>
                 <DropdownMenuRadioItem value={option.value}>
-                  {option.label}
+                  <div className="flex max-w-52 items-center gap-2 overflow-hidden">
+                    {option.icon_name != null && (
+                      <TransactionCategoryIcon name={option.icon_name} />
+                    )}
+                    <span className="truncate">{option.label}</span>
+                  </div>
                 </DropdownMenuRadioItem>
                 <DropdownMenuSeparator className="last:hidden" />
               </Fragment>
@@ -87,13 +113,27 @@ export const TransactionsFiltersCategory = ({
 
       <Select onValueChange={handleChangeCategory} value={selectedOption.value}>
         <SelectTrigger className="hidden w-[180px] md:flex">
-          <SelectValue placeholder="Latest">{selectedOption.label}</SelectValue>
+          <SelectValue placeholder="Latest">
+            <div className="flex items-center gap-2">
+              {selectedOption.icon_name != null && (
+                <TransactionCategoryIcon name={selectedOption.icon_name} />
+              )}
+              <span>{selectedOption.label}</span>
+            </div>
+          </SelectValue>
         </SelectTrigger>
 
         <SelectContent sideOffset={8}>
-          {TRANSACTIONS_FILTERS_CATEGORIES_OPTIONS.map((option) => (
+          {options.map((option) => (
             <Fragment key={option.value}>
-              <SelectItem value={option.value}>{option.label}</SelectItem>
+              <SelectItem value={option.value}>
+                <div className="flex items-center gap-2">
+                  {option.icon_name != null && (
+                    <TransactionCategoryIcon name={option.icon_name} />
+                  )}
+                  <span>{option.label}</span>
+                </div>
+              </SelectItem>
               <SelectSeparator className="last:hidden" />
             </Fragment>
           ))}

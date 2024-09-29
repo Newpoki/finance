@@ -1,9 +1,7 @@
 import { cn } from "@/lib/utils"
 
-function Skeleton({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+type SkeletonProps = React.HTMLAttributes<HTMLDivElement>
+export const Skeleton = ({ className, ...props }: SkeletonProps) => {
   return (
     <div
       className={cn("animate-pulse rounded-md bg-primary/10", className)}
@@ -12,17 +10,23 @@ function Skeleton({
   )
 }
 
-type SkeletonInputProps = {
+type SkeletonInputProps = SkeletonProps & {
   noLabel?: boolean
 }
 
-export const SkeletonInput = ({ noLabel = false }: SkeletonInputProps) => {
+export const SkeletonInput = ({
+  noLabel = false,
+  className,
+  ...others
+}: SkeletonInputProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className={cn("flex flex-col gap-2", className)}>
       {!noLabel && <Skeleton className="h-4 w-10" />}
-      <Skeleton className="h-11 w-full" />
+      <Skeleton {...others} className="h-11 w-full" />
     </div>
   )
 }
 
-export { Skeleton }
+export const SkeletonBadge = ({ className, ...others }: SkeletonProps) => {
+  return <Skeleton {...others} className={cn("h-[22px] w-6", className)} />
+}

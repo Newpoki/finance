@@ -56,10 +56,45 @@ export type Database = {
           },
         ]
       }
+      transaction_category: {
+        Row: {
+          color: string
+          created_at: string
+          icon_name: Database["public"]["Enums"]["transaction_categories_icons"]
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon_name: Database["public"]["Enums"]["transaction_categories_icons"]
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon_name?: Database["public"]["Enums"]["transaction_categories_icons"]
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transaction_category_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transactions: {
         Row: {
           amount_cents: number
-          category: Database["public"]["Enums"]["transaction_categories"]
+          category: string
           created_at: string
           currency_code: Database["public"]["Enums"]["currency_codes"]
           date: string
@@ -69,7 +104,7 @@ export type Database = {
         }
         Insert: {
           amount_cents: number
-          category: Database["public"]["Enums"]["transaction_categories"]
+          category: string
           created_at?: string
           currency_code: Database["public"]["Enums"]["currency_codes"]
           date: string
@@ -79,7 +114,7 @@ export type Database = {
         }
         Update: {
           amount_cents?: number
-          category?: Database["public"]["Enums"]["transaction_categories"]
+          category?: string
           created_at?: string
           currency_code?: Database["public"]["Enums"]["currency_codes"]
           date?: string
@@ -88,6 +123,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "transactions_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "transaction_category"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "transactions_user_id_fkey"
             columns: ["user_id"]
@@ -131,6 +173,23 @@ export type Database = {
         | "personal_care"
         | "education"
         | "bills"
+      transaction_categories_icons:
+        | "apple"
+        | "bills"
+        | "carrot"
+        | "cooking_pot"
+        | "hand_plater"
+        | "bike"
+        | "bus"
+        | "car"
+        | "train_front"
+        | "fuel"
+        | "film"
+        | "rss"
+        | "cigarette"
+        | "smartphone"
+        | "tram_front"
+        | "user"
     }
     CompositeTypes: {
       [_ in never]: never

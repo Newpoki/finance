@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Paper } from "@/components/ui/paper"
-import { SkeletonInput } from "@/components/ui/skeleton"
+import { SkeletonBadge, SkeletonInput } from "@/components/ui/skeleton"
 import { DeleteIcon, SaveIcon } from "lucide-react"
 import { AccountSignoutButton } from "./account-signout-button"
 import { AccountCredentialsComingSoonAlert } from "./credentials/account-credentials-coming-soon-alert"
@@ -70,6 +70,40 @@ export default function AccountLoadingPage() {
               <span>Save</span>
             </Button>
           </div>
+        </Paper>
+      </div>
+
+      <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_1fr]">
+        <Paper className="flex flex-col gap-4">
+          <h2>Transactions Categories</h2>
+
+          <p className="text-grey-500">
+            Here you can edit your available categories to fit your needs. Click
+            on a category to edit or delete it.
+          </p>
+
+          <ul className="flex flex-wrap gap-2">
+            <SkeletonBadge className="w-24" />
+            <SkeletonBadge className="w-20" />
+            <SkeletonBadge className="w-28" />
+            <SkeletonBadge className="w-22" />
+            <SkeletonBadge className="w-20" />
+            <SkeletonBadge className="w-28" />
+            <SkeletonBadge className="w-24" />
+            <SkeletonBadge className="w-28" />
+            <SkeletonBadge className="w-24" />
+            <SkeletonBadge className="w-20" />
+            <SkeletonBadge className="w-28" />
+            <SkeletonBadge className="w-22" />
+            <SkeletonBadge className="w-20" />
+            <SkeletonBadge className="w-28" />
+            <SkeletonBadge className="w-24" />
+            <SkeletonBadge className="w-28" />
+          </ul>
+
+          <Button disabled type="button">
+            Add New Transaction Category
+          </Button>
         </Paper>
       </div>
     </div>

@@ -158,6 +158,20 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      sum_amounts_per_category: {
+        Args: {
+          _category_ids: string[]
+          _user_id: string
+          _start_date: string
+          _end_date: string
+        }
+        Returns: {
+          category_id: string
+          category_label: string
+          category_color: string
+          total_amount: number
+        }[]
+      }
     }
     Enums: {
       currency_codes: "EUR" | "USD"

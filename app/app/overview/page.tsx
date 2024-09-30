@@ -1,4 +1,5 @@
 import { OverviewBalances } from "./balances/overview-balances"
+import { OverviewInsight } from "./insight/overview-insight"
 import { OverviewTransactions } from "./transactions/overview-transactions"
 
 export default async function OverviewPage() {
@@ -11,6 +12,8 @@ export default async function OverviewPage() {
       <section className="flex flex-1 flex-col gap-4 md:gap-6">
         <OverviewTransactions />
       </section>
+
+      <OverviewInsight />
     </div>
   )
 }

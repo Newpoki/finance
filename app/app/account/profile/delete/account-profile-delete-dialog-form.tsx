@@ -98,6 +98,7 @@ export const AccountProfileDeleteDialogForm = ({
         />
 
         <DialogFooter>
+          {/* TODO: Add and use destructive variant */}
           <Button disabled={isSubmitting} type="button" onClick={closeDialog}>
             Cancel
           </Button>

@@ -17,7 +17,7 @@ export const OverviewBalances = async () => {
     cents: balances.current_balance,
     locale: profile.locale,
     currencyCode: profile.currency_code,
-    signDisplay: "never",
+    signDisplay: "negative",
   })
 
   const currentMonthIncome = formatCents({

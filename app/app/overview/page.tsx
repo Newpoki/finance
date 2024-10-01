@@ -9,11 +9,11 @@ export default async function OverviewPage() {
 
       <OverviewBalances />
 
-      <section className="flex flex-1 flex-col gap-4 md:gap-6">
+      <section className="grid grid-cols-1 gap-6 xl:grid-cols-[3fr_2fr]">
         <OverviewTransactions />
-      </section>
 
-      <OverviewInsight />
+        <OverviewInsight />
+      </section>
     </div>
   )
 }

@@ -167,9 +167,11 @@ export type Database = {
         }
         Returns: {
           category_id: string
-          category_label: string
+          category_name: string
+          category_icon_name: Database["public"]["Enums"]["transaction_categories_icons"]
           category_color: string
-          total_amount: number
+          incomes_sum: number
+          expenses_sum: number
         }[]
       }
     }

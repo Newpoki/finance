@@ -16,6 +16,7 @@
     "react-hooks/exhaustive-deps": "error",
     // This rules is not compatible yet with server actions
     "@typescript-eslint/no-misused-promises": "off",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

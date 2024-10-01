@@ -41,7 +41,11 @@ export const AccountTransactionsCategoriesList = ({
         })}
       </ul>
 
-      <Button onClick={handleOpenCreateDialog} type="button">
+      <Button
+        className="w-full gap-2 md:w-fit"
+        onClick={handleOpenCreateDialog}
+        type="button"
+      >
         Add New Transaction Category
       </Button>
 

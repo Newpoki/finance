@@ -17,6 +17,7 @@ export const OverviewBalances = async () => {
     cents: balances.current_balance,
     locale: profile.locale,
     currencyCode: profile.currency_code,
+    // @ts-expect-error This is due to old version of Typescript in next TODO: Remove me
     signDisplay: "negative",
   })
 

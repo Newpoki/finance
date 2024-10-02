@@ -1,6 +1,6 @@
 "use client"
 
-import { useFormContext, useWatch } from "react-hook-form"
+import { useController, useFormContext } from "react-hook-form"
 import { Transaction, TransactionFormValues } from "../transaction-types"
 import {
   Tooltip,
@@ -25,16 +25,15 @@ export const TransactionFormAmountField = ({
   profile,
   transaction,
 }: TransactionFormAmountFieldProps) => {
-  const { control, setValue } = useFormContext<TransactionFormValues>()
-
-  const isExpense = useWatch({ control, name: "isExpense" })
+  const { control } = useFormContext<TransactionFormValues>()
+  const { field: isExpenseField } = useController({
+    name: "isExpense",
+    control,
+  })
 
   const handleToggleIsExpense = useCallback(() => {
-    setValue("isExpense", !isExpense, {
-      shouldDirty: true,
-      shouldValidate: true,
-    })
-  }, [isExpense, setValue])
+    isExpenseField.onChange(!isExpenseField.value)
+  }, [isExpenseField])
 
   return (
     <ControlledMoneyInput
@@ -57,11 +56,11 @@ export const TransactionFormAmountField = ({
                 className="-ml-4"
                 onClick={handleToggleIsExpense}
               >
-                {isExpense ? <MinusIcon /> : <PlusIcon />}
+                {isExpenseField.value ? <MinusIcon /> : <PlusIcon />}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {isExpense
+              {isExpenseField.value
                 ? "This will count as an expense"
                 : "This will count as an income"}
             </TooltipContent>

@@ -41,7 +41,9 @@ export const TransactionForm = ({
     defaultValues: {
       amount:
         transaction?.amount_cents != null
-          ? transaction.amount_cents / 100
+          ? // Inside of the form with working with an absolute value
+            // Being a negative amount or not is handlded by a boolean field
+            Math.abs(transaction.amount_cents) / 100
           : null,
       //  Safe to cast as there can't be less than one element here
       category:
@@ -72,16 +74,19 @@ export const TransactionForm = ({
   const onSubmit = useCallback(
     (formValues: TransactionFormValues) => {
       startTransition(async () => {
+        if (formValues.amount == null) {
+          throw new Error(
+            "Specified amount is null, this shouldn't be possible at this point",
+          )
+        }
+
         const response = await upsertTransactionAction({
           ...formValues,
-          amount:
-            formValues.amount != null
-              ? formatToCents(
-                  formValues.isExpense
-                    ? -formValues.amount
-                    : Math.abs(formValues.amount),
-                )
-              : null,
+          amount: formatToCents(
+            // As we're working with an absolute amount inside of form
+            // We must convert it back when sending to the API
+            formValues.isExpense ? -formValues.amount : formValues.amount,
+          ),
         })
 
         if (response.type === "success") {

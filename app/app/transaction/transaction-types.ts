@@ -13,6 +13,7 @@ export const transactionFormValuesSchema = z.object({
   date: z.date(),
   amount: z
     .number()
+    .gt(0)
     .nullable()
     .refine((value) => {
       return !!value

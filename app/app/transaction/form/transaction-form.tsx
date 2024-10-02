@@ -76,7 +76,7 @@ export const TransactionForm = ({
       startTransition(async () => {
         if (formValues.amount == null) {
           throw new Error(
-            "Specified amount is null, this shouldn't be possible at this point",
+            "Specified amount is null, this shouldn't be possible at this point as it should have been parsed by zod",
           )
         }
 

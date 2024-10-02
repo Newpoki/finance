@@ -17,11 +17,9 @@ type ControlledDayPickerProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > = UseControllerProps<TFieldValues, TName> &
-  CalendarProps & {
+  Omit<CalendarProps, "mode"> & {
     label?: string
     helperText?: string
-    // Must specify mode, otherwise component is totaly broken
-    mode: Required<CalendarProps["mode"]>
   }
 
 export function ControlledDayPicker<
@@ -34,7 +32,6 @@ export function ControlledDayPicker<
   disabled,
   label,
   helperText,
-  mode,
 }: ControlledDayPickerProps<TFieldValues, TName>) {
   const {
     field,
@@ -73,9 +70,9 @@ export function ControlledDayPicker<
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
-            mode={mode}
             selected={field.value ?? undefined}
             onSelect={field.onChange}
+            mode="single"
           />
         </PopoverContent>
       </Popover>

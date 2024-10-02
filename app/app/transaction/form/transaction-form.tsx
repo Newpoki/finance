@@ -145,7 +145,6 @@ export const TransactionForm = ({
             control={form.control}
             label="Date"
             disabled={isSubmitting}
-            mode="single"
           />
 
           <ControlledSelect

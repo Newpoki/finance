@@ -155,7 +155,6 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
               control={form.control}
               label="Birthdate"
               disabled={isSubmitting}
-              mode="single"
             />
 
             <ControlledSelect

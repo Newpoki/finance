@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
+import { cn } from "@/lib/utils"
 
 type Option<
   TFieldValues extends FieldValues,
@@ -43,6 +44,7 @@ type ControlledSelectProps<
   >,
 > = UseControllerProps<TFieldValues, TName> & {
   className?: string
+  contentClassName?: string
   viewportClassName?: string
   label?: string
   helperText?: string
@@ -67,6 +69,7 @@ export function ControlledSelect<
   >,
 >({
   className,
+  contentClassName,
   viewportClassName,
   name,
   control,
@@ -109,7 +112,11 @@ export function ControlledSelect<
           </SelectTrigger>
 
           <SelectContent
-            className="max-w-[--radix-popper-anchor-width]"
+            className={cn(
+              "max-w-[--radix-popper-anchor-width]",
+              contentClassName,
+            )}
+            align="start"
             viewportClassName={viewportClassName}
           >
             {options.map((option) => (

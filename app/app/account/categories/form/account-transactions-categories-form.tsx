@@ -88,39 +88,43 @@ export const AccountTransactionsCategoriesForm = ({
   return (
     <Form {...form}>
       <form
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-6"
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
         <AccountTransactionsCategoriesColorPicker disabled={isSubmitting} />
 
-        <ControlledInput
-          name="name"
-          control={form.control}
-          placeholder="Groceries"
-          label="Name"
-          disabled={isSubmitting}
-        />
+        <div className="flex items-center gap-4">
+          <ControlledSelect
+            name="icon_name"
+            contentClassName="max-w-full"
+            control={form.control}
+            label="Icon"
+            options={categoryIconsOptions}
+            disabled={isSubmitting}
+            hideSeparator
+            viewportClassName="grid grid-cols-[repeat(7,1fr)]"
+            renderOption={(option) => {
+              return <TransactionCategoryIcon name={option.value} />
+            }}
+            renderValue={(option) => {
+              return option != null ? (
+                <TransactionCategoryIcon name={option.value} />
+              ) : (
+                "Please select an icon"
+              )
+            }}
+          />
 
-        <ControlledSelect
-          name="icon_name"
-          control={form.control}
-          label="Icon"
-          options={categoryIconsOptions}
-          disabled={isSubmitting}
-          hideSeparator
-          viewportClassName="grid grid-cols-[repeat(7,1fr)]"
-          renderOption={(option) => {
-            return <TransactionCategoryIcon name={option.value} />
-          }}
-          renderValue={(option) => {
-            return option != null ? (
-              <TransactionCategoryIcon name={option.value} />
-            ) : (
-              "Please select an icon"
-            )
-          }}
-        />
+          <ControlledInput
+            name="name"
+            control={form.control}
+            placeholder="Groceries"
+            label="Name"
+            disabled={isSubmitting}
+            className="w-full"
+          />
+        </div>
 
         <Button className="w-full" disabled={isSubmitting}>
           {category == null

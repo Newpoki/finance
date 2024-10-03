@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Paper } from "@/components/ui/paper"
 import { SkeletonBadge, SkeletonInput } from "@/components/ui/skeleton"
-import { DeleteIcon, SaveIcon } from "lucide-react"
+import { DeleteIcon, PlusIcon, SaveIcon } from "lucide-react"
 import { AccountSignoutButton } from "./account-signout-button"
 import { AccountCredentialsComingSoonAlert } from "./credentials/account-credentials-coming-soon-alert"
 
@@ -101,8 +101,9 @@ export default function AccountLoadingPage() {
             <SkeletonBadge className="w-28" />
           </ul>
 
-          <Button disabled type="button">
-            Add New Transaction Category
+          <Button disabled type="button" className="w-fit">
+            <PlusIcon />
+            <span>Add New Transaction Category</span>
           </Button>
         </Paper>
       </div>

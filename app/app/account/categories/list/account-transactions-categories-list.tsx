@@ -6,6 +6,7 @@ import { AccountTransactionsCategoriesListItem } from "./account-transactions-ca
 import { Fragment, useCallback, useState } from "react"
 import { AccountTransactionsCategoriesListItemUpsertDialog } from "../account-transactions-categories-upsert-dialog"
 import { AccountTransactionsCategoriesDeleteAlertDialog } from "./account-transactions-categories-delete-alert-dialog"
+import { PlusIcon } from "lucide-react"
 
 type AccountTransactionsCategoriesListProps = {
   categories: TransactionCategory[]
@@ -46,7 +47,8 @@ export const AccountTransactionsCategoriesList = ({
         onClick={handleOpenCreateDialog}
         type="button"
       >
-        Add New Transaction Category
+        <PlusIcon />
+        <span>Add New Transaction Category</span>
       </Button>
 
       <AccountTransactionsCategoriesListItemUpsertDialog

@@ -31,7 +31,7 @@ export const AccountTransactionsCategoriesListItem = ({
         onClick={handleOpenEditDialog}
       >
         <TransactionCategoryIcon
-          className="h-4 w-4 shrink-0"
+          className="h-4 w-4"
           name={category.icon_name}
         />
         <span className="truncate">{category.name}</span>

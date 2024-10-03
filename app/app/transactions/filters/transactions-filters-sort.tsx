@@ -97,7 +97,7 @@ export const TransactionsFiltersSort = ({
           <SelectValue placeholder="Latest">{selectedOption.label}</SelectValue>
         </SelectTrigger>
 
-        <SelectContent sideOffset={8}>
+        <SelectContent>
           {TRANSACTIONS_SORT_OPTIONS.map((option) => (
             <Fragment key={option.id}>
               <SelectItem value={option.id}>{option.label}</SelectItem>

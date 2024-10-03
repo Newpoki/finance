@@ -45,19 +45,23 @@ export const TransactionsListItem = async ({
     >
       <div className="flex items-center gap-3 overflow-x-hidden">
         <div
-          className={cn("flex w-full flex-col gap-1 overflow-hidden", {
-            "md:flex-row-reverse md:items-center md:justify-end": !isCompact,
-          })}
+          className={cn(
+            "flex w-full flex-col gap-x-4 gap-y-2 overflow-hidden",
+            {
+              "md:flex-row-reverse md:items-center md:justify-end": !isCompact,
+            },
+          )}
         >
           <span className="body1 truncate font-bold">{transaction.name}</span>
           <span
-            className={cn("body2 flex-shrink-0 text-grey-500", {
+            className={cn("body2 text-grey-500", {
               "md:w-[90px] xl:w-[120px]": !isCompact,
             })}
           >
             <Badge
               style={{ backgroundColor: transactionCategory.color }}
-              className="gap-2"
+              // w-full so it the content text-ellipsis can work
+              className="w-full gap-2"
             >
               <TransactionCategoryIcon
                 className="h-4 w-4 shrink-0"

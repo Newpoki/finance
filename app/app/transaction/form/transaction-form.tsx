@@ -148,6 +148,9 @@ export const TransactionForm = ({
           />
 
           <ControlledSelect
+            // The min-w-0 seems useless but it's an hack so the column respect the grid-tempalte-cols
+            // https://stackoverflow.com/questions/43311943/prevent-content-from-expanding-grid-items
+            className="min-w-0"
             control={form.control}
             disabled={isSubmitting}
             name="category"
@@ -157,7 +160,7 @@ export const TransactionForm = ({
               return (
                 <div className="flex items-center gap-2">
                   <TransactionCategoryIcon name={option.icon} />
-                  <span>{option.label}</span>
+                  <span className="truncate">{option.label}</span>
                 </div>
               )
             }}
@@ -165,7 +168,7 @@ export const TransactionForm = ({
               return option != null ? (
                 <div className="flex items-center gap-2">
                   <TransactionCategoryIcon name={option.icon} />
-                  <span>{option.label}</span>
+                  <span className="truncate">{option.label}</span>
                 </div>
               ) : (
                 "Please select a category"

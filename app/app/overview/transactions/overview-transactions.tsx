@@ -12,7 +12,9 @@ export const OverviewTransactions = async () => {
   const areTransactionsEmpty = transactions.length === 0
 
   return (
-    <Paper className="flex flex-col gap-4">
+    // The min-w-0 seems useless but it's an hack so the column respect the grid-tempalte-cols
+    // https://stackoverflow.com/questions/43311943/prevent-content-from-expanding-grid-items
+    <Paper className="flex min-w-0 flex-col gap-4">
       <div className="-mr-4 -mt-4 flex items-center justify-between gap-2">
         <h2>Transactions</h2>
 

@@ -108,6 +108,8 @@ export const AccountTransactionsCategoriesForm = ({
           label="Icon"
           options={categoryIconsOptions}
           disabled={isSubmitting}
+          hideSeparator
+          viewportClassName="grid grid-cols-[repeat(7,1fr)]"
           renderOption={(option) => {
             return <TransactionCategoryIcon name={option.value} />
           }}

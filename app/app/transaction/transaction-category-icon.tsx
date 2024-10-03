@@ -21,6 +21,7 @@ import {
   TramFrontIcon,
   UserIcon,
 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 type TransactionCategoryIconProps = LucideProps & {
   name: TransactionCategoryIcons
@@ -52,11 +53,12 @@ const iconMapping: Record<
 
 export const TransactionCategoryIcon = ({
   name,
+  className,
   ...others
 }: TransactionCategoryIconProps): JSX.Element => {
   const Component = useMemo(() => {
     return iconMapping[name]
   }, [name])
 
-  return <Component {...others} />
+  return <Component {...others} className={cn("shrink-0", className)} />
 }

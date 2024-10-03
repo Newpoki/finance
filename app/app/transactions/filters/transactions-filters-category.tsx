@@ -118,12 +118,12 @@ export const TransactionsFiltersCategory = ({
               {selectedOption.icon_name != null && (
                 <TransactionCategoryIcon name={selectedOption.icon_name} />
               )}
-              <span>{selectedOption.label}</span>
+              <span className="truncate">{selectedOption.label}</span>
             </div>
           </SelectValue>
         </SelectTrigger>
 
-        <SelectContent sideOffset={8}>
+        <SelectContent className="max-w-80">
           {options.map((option) => (
             <Fragment key={option.value}>
               <SelectItem value={option.value}>
@@ -131,7 +131,7 @@ export const TransactionsFiltersCategory = ({
                   {option.icon_name != null && (
                     <TransactionCategoryIcon name={option.icon_name} />
                   )}
-                  <span>{option.label}</span>
+                  <span className="truncate">{option.label}</span>
                 </div>
               </SelectItem>
               <SelectSeparator className="last:hidden" />

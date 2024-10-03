@@ -23,14 +23,14 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "body1 flex h-11 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-5 py-2 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "body1 flex h-11 w-full items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-transparent px-5 py-2 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className,
     )}
     {...props}
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <CaretSortIcon className="h-4 w-4 opacity-50" />
+      <CaretSortIcon className="h-4 w-4 shrink-0 opacity-50" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ))
@@ -71,36 +71,56 @@ const SelectScrollDownButton = React.forwardRef<
 SelectScrollDownButton.displayName =
   SelectPrimitive.ScrollDownButton.displayName
 
+type SelectContentProps = React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Content
+> & {
+  viewportClassName?: string
+}
+
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
-  <SelectPrimitive.Portal>
-    <SelectPrimitive.Content
-      ref={ref}
-      className={cn(
-        "menu-content relative data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        position === "popper" &&
-          "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-        className,
-      )}
-      position={position}
-      {...props}
-    >
-      {/* <SelectScrollUpButton /> */}
-      <SelectPrimitive.Viewport
+  SelectContentProps
+>(
+  (
+    {
+      className,
+      children,
+      position = "popper",
+      viewportClassName,
+      sideOffset = 8,
+      align = "end",
+      ...props
+    },
+    ref,
+  ) => (
+    <SelectPrimitive.Portal>
+      <SelectPrimitive.Content
+        ref={ref}
         className={cn(
-          "p-1",
+          "menu-content relative data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
           position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+          className,
         )}
+        align={align}
+        position={position}
+        sideOffset={sideOffset}
+        {...props}
       >
-        {children}
-      </SelectPrimitive.Viewport>
-      {/* <SelectScrollDownButton /> */}
-    </SelectPrimitive.Content>
-  </SelectPrimitive.Portal>
-))
+        <SelectPrimitive.Viewport
+          className={cn(
+            "p-1",
+            position === "popper" &&
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+            viewportClassName,
+          )}
+        >
+          {children}
+        </SelectPrimitive.Viewport>
+      </SelectPrimitive.Content>
+    </SelectPrimitive.Portal>
+  ),
+)
 SelectContent.displayName = SelectPrimitive.Content.displayName
 
 const SelectLabel = React.forwardRef<
@@ -123,7 +143,9 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "menu-item group relative data-[disabled]:pointer-events-none data-[state=checked]:font-bold data-[disabled]:opacity-50",
+      // [&_>_span] targets the internal item injected by SelectPrimitive.Item component. No other way to target it
+      // It force the element to not override the parent, usefull when text inside uses truncate class
+      "menu-item group relative data-[disabled]:pointer-events-none data-[state=checked]:font-bold data-[disabled]:opacity-50 [&_>_span]:max-w-full",
       className,
     )}
     {...props}

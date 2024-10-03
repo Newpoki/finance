@@ -150,6 +150,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
               required
             />
 
+            {/* TODO: Try to use a mask instead of day picker */}
             <ControlledDayPicker
               name="birthdate"
               control={form.control}

@@ -42,12 +42,15 @@ type ControlledSelectProps<
     TOptionValue
   >,
 > = UseControllerProps<TFieldValues, TName> & {
+  className?: string
+  viewportClassName?: string
   label?: string
   helperText?: string
   options: // So it can accept "as const" option
   ReadonlyArray<TOption> | TOption[]
   renderOption?: (option: TOption) => void
   renderValue?: (option: TOption | undefined) => void
+  hideSeparator?: boolean
 }
 
 export function ControlledSelect<
@@ -63,12 +66,15 @@ export function ControlledSelect<
     TOptionValue
   >,
 >({
+  className,
+  viewportClassName,
   name,
   control,
   disabled,
   label,
   helperText,
   options,
+  hideSeparator = false,
   renderOption,
   renderValue,
 }: ControlledSelectProps<TFieldValues, TName, TOptionValue, TOption>) {
@@ -92,7 +98,7 @@ export function ControlledSelect<
   }
 
   return (
-    <FormItem>
+    <FormItem className={className}>
       {label != null && <FormLabel>{label}</FormLabel>}
       <FormControl>
         <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -102,13 +108,16 @@ export function ControlledSelect<
             </SelectValue>
           </SelectTrigger>
 
-          <SelectContent sideOffset={8}>
+          <SelectContent
+            className="max-w-[--radix-popper-anchor-width]"
+            viewportClassName={viewportClassName}
+          >
             {options.map((option) => (
               <Fragment key={option.value}>
                 <SelectItem value={option.value}>
                   {renderOption?.(option) ?? option.label}
                 </SelectItem>
-                <SelectSeparator className="last:hidden" />
+                {!hideSeparator && <SelectSeparator className="last:hidden" />}
               </Fragment>
             ))}
           </SelectContent>

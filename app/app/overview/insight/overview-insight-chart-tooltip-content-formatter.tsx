@@ -19,13 +19,13 @@ export const OverviewInsightChartTooltipContentFormatter = ({
   const parsed = overviewInsightChartEntrySchema.parse(item.payload)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-80 flex-col gap-2">
       <div className="flex items-center gap-2">
         <div
           className="h-3 w-3 shrink-0 rounded-[2px]"
           style={{ backgroundColor: parsed.fill }}
         />
-        <p className="header3 font-normal">{parsed.category_name}</p>
+        <p className="header3 truncate font-normal">{parsed.category_name}</p>
       </div>
 
       <ul className="body1">

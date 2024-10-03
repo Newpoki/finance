@@ -37,6 +37,7 @@ function Calendar({
   yearRange = 12,
   showYearSwitcher = false,
   numberOfMonths,
+
   ...props
 }: CalendarProps) {
   const [navView, setNavView] = React.useState<"days" | "years">("days")

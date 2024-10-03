@@ -12,14 +12,22 @@ import { cn } from "@/lib/utils"
 import { formatDate } from "@/date/format-date"
 import { CalendarIcon } from "lucide-react"
 import { Calendar, CalendarProps } from "../ui/calendar"
+import {
+  Locale,
+  Timezone,
+} from "@/app/app/account/profile/account-profile-types"
+import { fr, enUS } from "date-fns/locale"
+import { useMemo } from "react"
 
 type ControlledDayPickerProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > = UseControllerProps<TFieldValues, TName> &
-  Omit<CalendarProps, "mode"> & {
+  Omit<CalendarProps, "locale" | "timeZone"> & {
     label?: string
     helperText?: string
+    locale: Locale
+    timezone: Timezone
   }
 
 export function ControlledDayPicker<
@@ -32,6 +40,8 @@ export function ControlledDayPicker<
   disabled,
   label,
   helperText,
+  locale,
+  timezone,
 }: ControlledDayPickerProps<TFieldValues, TName>) {
   const {
     field,
@@ -43,6 +53,17 @@ export function ControlledDayPicker<
     // https://github.com/orgs/react-hook-form/discussions/10964#discussioncomment-10094733
     disabled: undefined,
   })
+
+  const dateFnsLocale = useMemo(() => {
+    switch (locale) {
+      case "fr-FR":
+        return fr
+
+      default:
+      case "en-US":
+        return enUS
+    }
+  }, [locale])
 
   return (
     <FormItem className={className}>
@@ -58,12 +79,10 @@ export function ControlledDayPicker<
               {field.value != null
                 ? formatDate({
                     date: field.value,
-                    // locale: profile.locale,
-                    locale: "fr-FR",
-                    // Not specifying a TZ because if it's different from user browser
-                    // The selected date might be different than the one he clicked on
+                    locale: locale,
+                    timeZone: timezone,
                   })
-                : "Select a birthdate"}
+                : "Select a day"}
               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
             </Button>
           </FormControl>
@@ -73,6 +92,8 @@ export function ControlledDayPicker<
             selected={field.value ?? undefined}
             onSelect={field.onChange}
             mode="single"
+            timeZone={timezone}
+            locale={dateFnsLocale}
           />
         </PopoverContent>
       </Popover>

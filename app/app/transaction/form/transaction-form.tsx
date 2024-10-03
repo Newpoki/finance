@@ -145,6 +145,8 @@ export const TransactionForm = ({
             control={form.control}
             label="Date"
             disabled={isSubmitting}
+            locale={profile.locale}
+            timezone={profile.timezone}
           />
 
           <ControlledSelect

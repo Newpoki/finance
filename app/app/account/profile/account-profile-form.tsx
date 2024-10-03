@@ -27,7 +27,6 @@ import {
   ACCOUNT_PROFILE_TIMEZONES_OPTIONS,
 } from "./account-profile-constants"
 import { ControlledInput } from "@/components/rhk/controlled-input"
-import { ControlledDayPicker } from "@/components/rhk/controlled-day-picker"
 import { ControlledSelect } from "@/components/rhk/controlled-select"
 import { getCurrencySymbol } from "@/currency/get-currency-symbol"
 import { getCurrencyName } from "@/currency/get-currency-name"
@@ -35,6 +34,7 @@ import capitalize from "lodash.capitalize"
 import { SaveIcon } from "lucide-react"
 import { AccountProfileDeleteDialog } from "./delete/account-profile-delete-dialog"
 import { createPortal } from "react-dom"
+import { ControlledDateInput } from "@/components/rhk/controlled-date-input"
 
 type AccountProfileFormProps = {
   profile: Profile
@@ -62,7 +62,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
     defaultValues: {
       firstName: profile.first_name ?? "",
       lastName: profile.last_name ?? "",
-      birthdate: profile.birthdate != null ? new Date(profile.birthdate) : null,
+      birthdate: profile.birthdate ?? null,
       locale: profile.locale,
       currencyCode: profile.currency_code,
       timezone: profile.timezone,
@@ -150,8 +150,7 @@ export const AccountProfileForm = ({ profile }: AccountProfileFormProps) => {
               required
             />
 
-            {/* TODO: Try to use a mask instead of day picker */}
-            <ControlledDayPicker
+            <ControlledDateInput
               name="birthdate"
               control={form.control}
               label="Birthdate"

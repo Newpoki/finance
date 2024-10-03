@@ -24,7 +24,7 @@ export const AccountCredentialsForm = ({
   const form = useForm<AccountCredentialsFormValues>({
     resolver: zodResolver(accountCredentialsFormValuesSchema),
     defaultValues: {
-      email: profile.email ?? "",
+      email: profile.email,
       newPassword: "",
       newPasswordConfirmation: "",
     },

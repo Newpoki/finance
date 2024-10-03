@@ -24,12 +24,12 @@ export const updateAccountProfileAction = async (
   const currentUserProfile = await fetchCurrentUserProfile()
 
   const payload = {
-    birthdate: parsed.data.birthdate?.toLocaleString(),
     first_name: parsed.data.firstName,
     last_name: parsed.data.lastName,
     locale: parsed.data.locale,
     currency_code: parsed.data.currencyCode,
     timezone: parsed.data.timezone,
+    birthdate: parsed.data.birthdate,
   }
 
   const { error } = await supabase

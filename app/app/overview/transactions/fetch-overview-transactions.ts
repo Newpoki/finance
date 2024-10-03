@@ -17,7 +17,5 @@ export const fetchOverviewTransactions = async () => {
     )
   }
 
-  console.log({ data })
-
   return data
 }

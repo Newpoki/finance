@@ -33,7 +33,7 @@ const availableTimezones = [
 export const accountProfileFormValuesSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
-  birthdate: z.date().nullable(),
+  birthdate: z.string().date().nullable(),
   locale: z.enum(availableLocales),
   currencyCode: z.enum(availableCurrencyCodes),
   timezone: z.enum(availableTimezones),

@@ -5,6 +5,7 @@ import { Paper } from "@/components/ui/paper"
 import { Skeleton } from "@/components/ui/skeleton"
 import range from "lodash.range"
 import CarretLeft from "@/icons/carret-left.svg"
+import Link from "next/link"
 
 export default function OverviewLoading() {
   return (
@@ -20,16 +21,19 @@ export default function OverviewLoading() {
         ))}
       </section>
 
-      <div className="flex flex-1 flex-col gap-4 md:gap-6">
+      <section className="grid grid-cols-1 gap-6 xl:grid-cols-[3fr_2fr]">
         <Paper className="flex flex-col gap-4">
           <div className="-mr-4 -mt-4 flex items-center justify-between gap-2">
             <h2>Transactions</h2>
 
             <Button variant="ghost" asChild disabled>
-              <div>
+              <Link
+                href="/app/transactions"
+                className="flex items-center gap-3"
+              >
                 <span>View All</span>
                 <CarretLeft className="rotate-180" />
-              </div>
+              </Link>
             </Button>
           </div>
 
@@ -37,7 +41,27 @@ export default function OverviewLoading() {
             <Skeleton key={item} className="h-16 w-full" />
           ))}
         </Paper>
-      </div>
+
+        <Paper className="flex flex-col gap-4">
+          <div className="-mr-4 -mt-4 flex items-center justify-between gap-2">
+            <h2>Insight</h2>
+
+            <Button variant="ghost" disabled asChild>
+              <Link href="/app/reports" className="flex items-center gap-3">
+                <span>See details</span>
+
+                <CarretLeft className="rotate-180" />
+              </Link>
+            </Button>
+          </div>
+
+          {/* Can't really have a PieChart skeleton, only displaying Skeleton for the text */}
+          <div className="flex flex-1 flex-col items-center justify-center gap-2">
+            <Skeleton className="h-8 w-36" />
+            <Skeleton className="h-3 w-28" />
+          </div>
+        </Paper>
+      </section>
     </div>
   )
 }

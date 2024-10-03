@@ -4,6 +4,9 @@ import {
   TRANSACTIONS_FILTERS_SORT_DIRECTIONS,
   TRANSACTIONS_FILTERS_SORT_KEYS,
 } from "./transactions-constants"
+import { addDays, format, lastDayOfMonth, set } from "date-fns"
+import { Timezone } from "../account/profile/account-profile-types"
+import { TZDate } from "@date-fns/tz"
 
 const allowedValues = {
   columns: [
@@ -17,20 +20,56 @@ const allowedValues = {
   ],
 } as const
 
-const transactionsSearchParamsSchema = z.object({
-  column: z
-    .enum(allowedValues.columns)
-    .catch(TRANSACTIONS_FILTERS_SORT_KEYS.DATE),
-  direction: z
-    .enum(allowedValues.direction)
-    .catch(TRANSACTIONS_FILTERS_SORT_DIRECTIONS.DESC),
-  category: z.string().catch(TRANSACTIONS_FILTERS_CATEGORIES_ALL_OPTION.value),
-  search: z.string().optional(),
-  page: z.coerce.number().catch(0),
-})
+const getTransactionsSearchParamsSchema = (date: TZDate) => {
+  const firstDayOfMonthDate = set(date, {
+    date: 1,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  })
 
-export const parseTransactionsSearchParams = (searchParams: unknown) => {
-  const result = transactionsSearchParamsSchema.parse(searchParams)
+  return z.object({
+    column: z
+      .enum(allowedValues.columns)
+      .catch(TRANSACTIONS_FILTERS_SORT_KEYS.DATE),
+    direction: z
+      .enum(allowedValues.direction)
+      .catch(TRANSACTIONS_FILTERS_SORT_DIRECTIONS.DESC),
+    category: z
+      .string()
+      .catch(TRANSACTIONS_FILTERS_CATEGORIES_ALL_OPTION.value),
+    search: z.string().optional(),
+    page: z.coerce.number().catch(0),
+    start_at: z
+      .string()
+      .date()
+      .catch(() => {
+        return format(firstDayOfMonthDate, "yyyy-MM-dd")
+      }),
+    end_at: z
+      .string()
+      .date()
+      .catch(() => {
+        // PostgreSQL query will take transaction interval exclude end date -> [startDate, endDate[
+        const lastDayOfMonthDate = addDays(
+          lastDayOfMonth(firstDayOfMonthDate),
+          1,
+        )
+
+        return format(lastDayOfMonthDate, "yyyy-MM-dd")
+      }),
+  })
+}
+
+export const parseTransactionsSearchParams = (
+  searchParams: unknown,
+  timezone: Timezone,
+) => {
+  const currentDateInUserTZ = new TZDate(new Date(), timezone)
+
+  const result =
+    getTransactionsSearchParamsSchema(currentDateInUserTZ).parse(searchParams)
 
   return result
 }

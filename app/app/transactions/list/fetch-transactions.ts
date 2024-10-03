@@ -42,6 +42,8 @@ export const fetchTransactions = async ({
       count: "exact",
     })
     .filter("user_id", "eq", currentUserProfile.id)
+    .gte("date", searchParams.start_at)
+    .lte("date", searchParams.end_at)
 
   // As there is no ALL category in DB, we only filter by category
   // if the category is something else

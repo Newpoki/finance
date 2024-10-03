@@ -4,6 +4,7 @@ import { TransactionsList } from "./list/transactions-list"
 import { parseTransactionsSearchParams } from "./parse-transactions-search-params"
 import { TransactionsAddNewButton } from "./transactions-add-new-button"
 import { fetchCurrentUserTransactionCategories } from "../account/categories/fetch-current-user-transaction-categories"
+import { fetchCurrentUserProfile } from "../account/profile/fetch-current-user-profile"
 
 type TransactionPageProps = {
   searchParams: unknown
@@ -12,9 +13,20 @@ type TransactionPageProps = {
 export default async function TransactionsPage({
   searchParams,
 }: TransactionPageProps) {
-  const parsedSearchParams = parseTransactionsSearchParams(searchParams)
-  const currentUserTransactionCategories =
-    await fetchCurrentUserTransactionCategories()
+  const currentUserTransactionCategoriesPromise =
+    fetchCurrentUserTransactionCategories()
+  const currentUserProfilePromise = fetchCurrentUserProfile()
+
+  const [currentUserTransactionCategories, currentUserProfile] =
+    await Promise.all([
+      currentUserTransactionCategoriesPromise,
+      currentUserProfilePromise,
+    ])
+
+  const parsedSearchParams = parseTransactionsSearchParams(
+    searchParams,
+    currentUserProfile.timezone,
+  )
 
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
@@ -27,6 +39,7 @@ export default async function TransactionsPage({
         <TransactionsFilters
           parsedSearchParams={parsedSearchParams}
           transactionCategories={currentUserTransactionCategories}
+          profile={currentUserProfile}
         />
 
         <TransactionsList parsedSearchParams={parsedSearchParams} />
